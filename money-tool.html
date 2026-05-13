@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>副业收入计算器</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #f0c040;
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(240,192,64,0.4);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #8899aa;
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      color: #f0c040;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(240,192,64,0.2);
+    }
+
+    .income-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .income-item {
+      display: grid;
+      grid-template-columns: 1fr 160px 120px 40px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .income-item input[type="text"],
+    .income-item input[type="number"] {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .income-item input:focus {
+      outline: none;
+      border-color: #f0c040;
+    }
+
+    .income-item select {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: #e0e0e0;
+      font-size: 0.9rem;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .income-item select option {
+      background: #1a1a2e;
+    }
+
+    .btn-remove {
+      background: rgba(255,80,80,0.2);
+      border: 1px solid rgba(255,80,80,0.4);
+      color: #ff8888;
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .btn-remove:hover { background: rgba(255,80,80,0.4); }
+
+    .btn-add {
+      background: rgba(240,192,64,0.15);
+      border: 1px dashed rgba(240,192,64,0.5);
+      color: #f0c040;
+      border-radius: 8px;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .btn-add:hover { background: rgba(240,192,64,0.25); }
+
+    .expense-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .expense-field label {
+      display: block;
+      font-size: 0.85rem;
+      color: #8899aa;
+      margin-bottom: 6px;
+    }
+
+    .expense-field input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .expense-field input:focus {
+      outline: none;
+      border-color: #f0c040;
+    }
+
+    .tax-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tax-row label { color: #8899aa; font-size: 0.9rem; }
+
+    .tax-row input[type="range"] {
+      flex: 1;
+      min-width: 120px;
+      accent-color: #f0c040;
+    }
+
+    .tax-value {
+      color: #f0c040;
+      font-weight: bold;
+      min-width: 40px;
+    }
+
+    .btn-calc {
+      background: linear-gradient(135deg, #f0c040, #e0a020);
+      border: none;
+      color: #1a1a2e;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 14px 40px;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(240,192,64,0.3);
+    }
+
+    .btn-calc:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 25px rgba(240,192,64,0.5);
+    }
+
+    .btn-calc:active { transform: translateY(0); }
+
+    .results {
+      display: none;
+    }
+
+    .results.visible { display: block; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .summary-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .summary-box.highlight {
+      background: rgba(240,192,64,0.1);
+      border-color: rgba(240,192,64,0.4);
+    }
+
+    .summary-box .label {
+      font-size: 0.8rem;
+      color: #8899aa;
+      margin-bottom: 8px;
+    }
+
+    .summary-box .value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e0e0e0;
+    }
+
+    .summary-box.highlight .value { color: #f0c040; }
+
+    .summary-box .sub {
+      font-size: 0.75rem;
+      color: #667788;
+      margin-top: 4px;
+    }
+
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .breakdown-table th {
+      background: rgba(240,192,64,0.1);
+      color: #f0c040;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .breakdown-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: #c0c0c0;
+    }
+
+    .breakdown-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+    .progress-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.6s ease;
+    }
+
+    .advice-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .advice-list li {
+      background: rgba(255,255,255,0.04);
+      border-left: 3px solid #f0c040;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      color: #c0d0e0;
+    }
+
+    .advice-list li.warn { border-left-color: #ff8040; }
+    .advice-list li.good { border-left-color: #40e080; }
+
+    .col-header {
+      font-size: 0.75rem;
+      color: #667788;
+      display: grid;
+      grid-template-columns: 1fr 160px 120px 40px;
+      gap: 10px;
+      padding: 0 0 4px 0;
+    }
+
+    @media (max-width: 600px) {
+      .income-item { grid-template-columns: 1fr 1fr; }
+      .income-item .btn-remove { grid-column: 2; justify-self: end; }
+      .col-header { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>💰 副业收入计算器</h1>
+  <p class="subtitle">计算你的副业利润、税后收入与月均收益</p>
+
+  <!-- 收入来源 -->
+  <div class="card">
+    <h2>收入来源</h2>
+    <div class="col-header">
+      <span>项目名称</span>
+      <span>金额 (¥)</span>
+      <span>周期</span>
+      <span></span>
+    </div>
+    <div class="income-items" id="incomeList">
+      <!-- 默认一行 -->
+    </div>
+    <button class="btn-add" onclick="addIncome()">+ 添加收入来源</button>
+  </div>
+
+  <!-- 支出成本 -->
+  <div class="card">
+    <h2>支出 / 成本</h2>
+    <div class="expense-grid">
+      <div class="expense-field">
+        <label>设备/工具 (¥/年)</label>
+        <input type="number" id="expEquip" placeholder="0" min="0" oninput="liveCalc()">
+      </div>
+      <div class="expense-field">
+        <label>平台/软件订阅 (¥/年)</label>
+        <input type="number" id="expSub" placeholder="0" min="0" oninput="liveCalc()">
+      </div>
+      <div class="expense-field">
+        <label>材料/原料 (¥/年)</label>
+        <input type="number" id="expMat" placeholder="0" min="0" oninput="liveCalc()">
+      </div>
+      <div class="expense-field">
+        <label>交通/差旅 (¥/年)</label>
+        <input type="number" id="expTravel" placeholder="0" min="0" oninput="liveCalc()">
+      </div>
+      <div class="expense-field">
+        <label>推广/广告 (¥/年)</label>
+        <input type="number" id="expAds" placeholder="0" min="0" oninput="liveCalc()">
+      </div>
+      <div class="expense-field">
+        <label>其他支出 (¥/年)</label>
+        <input type="number" id="expOther" placeholder="0" min="0" oninput="liveCalc()">
+      </div>
+    </div>
+  </div>
+
+  <!-- 税率设置 -->
+  <div class="card">
+    <h2>税率设置</h2>
+    <div class="tax-row">
+      <label>个税综合税率：</label>
+      <input type="range" id="taxRate" min="0" max="45" value="10" step="1" oninput="updateTax()">
+      <span class="tax-value" id="taxDisplay">10%</span>
+      <span style="color:#8899aa;font-size:0.85rem">（副业兼职参考 3%~20%）</span>
+    </div>
+    <div class="tax-row" style="margin-top:14px">
+      <label>工时投入 (小时/月)：</label>
+      <input type="number" id="hoursPerMonth" placeholder="20" min="1" max="744" style="width:100px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:9px 12px;color:#e0e0e0;" oninput="liveCalc()">
+    </div>
+  </div>
+
+  <!-- 计算按钮 -->
+  <button class="btn-calc" onclick="calculate()">计算收益</button>
+
+  <!-- 结果区 -->
+  <div class="results" id="results">
+    <div class="card" style="margin-top:20px">
+      <h2>汇总结果</h2>
+      <div class="summary-grid">
+        <div class="summary-box">
+          <div class="label">年毛收入</div>
+          <div class="value" id="rGross">—</div>
+          <div class="sub">税前、扣成本前</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">年总支出</div>
+          <div class="value" id="rExpense">—</div>
+          <div class="sub">各项成本合计</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">年税额</div>
+          <div class="value" id="rTax">—</div>
+          <div class="sub">按设定税率估算</div>
+        </div>
+        <div class="summary-box highlight">
+          <div class="label">年净利润</div>
+          <div class="value" id="rNet">—</div>
+          <div class="sub">到手收入</div>
+        </div>
+        <div class="summary-box highlight">
+          <div class="label">月均净收入</div>
+          <div class="value" id="rMonthly">—</div>
+          <div class="sub">平均每月</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">时薪</div>
+          <div class="value" id="rHourly">—</div>
+          <div class="sub">净利/投入工时</div>
+        </div>
+      </div>
+
+      <!-- 利润率进度条 -->
+      <div style="margin-bottom:6px;font-size:0.85rem;color:#8899aa">利润率</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="profitBar" style="width:0%;background:linear-gradient(90deg,#f0c040,#40e080)"></div>
+      </div>
+      <div style="font-size:0.85rem;color:#c0c0c0;margin-top:6px" id="profitPct">—</div>
+    </div>
+
+    <!-- 收入明细 -->
+    <div class="card">
+      <h2>收入来源明细（年化）</h2>
+      <table class="breakdown-table">
+        <thead>
+          <tr><th>来源</th><th>年毛收入</th><th>占比</th></tr>
+        </thead>
+        <tbody id="incomeBreakdown"></tbody>
+      </table>
+    </div>
+
+    <!-- 理财建议 -->
+    <div class="card">
+      <h2>智能建议</h2>
+      <ul class="advice-list" id="adviceList"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  const PERIODS = { daily: 365, weekly: 52, monthly: 12, quarterly: 4, yearly: 1 };
+  const PERIOD_NAMES = { daily: '每天', weekly: '每周', monthly: '每月', quarterly: '每季', yearly: '每年' };
+
+  let incomeCount = 0;
+
+  function addIncome(name='', amount='', period='monthly') {
+    incomeCount++;
+    const id = incomeCount;
+    const div = document.createElement('div');
+    div.className = 'income-item';
+    div.id = 'income-' + id;
+    div.innerHTML = `
+      <input type="text" placeholder="例：接单设计、直播打赏" value="${name}" oninput="liveCalc()">
+      <input type="number" placeholder="金额" min="0" step="0.01" value="${amount}" oninput="liveCalc()">
+      <select onchange="liveCalc()">
+        ${Object.entries(PERIOD_NAMES).map(([v,l]) =>
+          `<option value="${v}"${v===period?' selected':''}>${l}</option>`
+        ).join('')}
+      </select>
+      <button class="btn-remove" onclick="removeIncome(${id})" title="删除">✕</button>
+    `;
+    document.getElementById('incomeList').appendChild(div);
+    liveCalc();
+  }
+
+  function removeIncome(id) {
+    const el = document.getElementById('income-' + id);
+    if (el) { el.remove(); liveCalc(); }
+  }
+
+  function updateTax() {
+    document.getElementById('taxDisplay').textContent = document.getElementById('taxRate').value + '%';
+    liveCalc();
+  }
+
+  function getIncomes() {
+    const items = document.querySelectorAll('.income-item');
+    return Array.from(items).map(item => {
+      const inputs = item.querySelectorAll('input');
+      const select = item.querySelector('select');
+      const name = inputs[0].value.trim() || '未命名';
+      const amount = parseFloat(inputs[1].value) || 0;
+      const period = select.value;
+      return { name, amount, yearlyAmount: amount * PERIODS[period], period };
+    });
+  }
+
+  function getExpenses() {
+    return ['expEquip','expSub','expMat','expTravel','expAds','expOther']
+      .reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
+  }
+
+  function fmt(n) {
+    if (n >= 10000) return '¥' + (n/10000).toFixed(2) + '万';
+    return '¥' + n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function liveCalc() {
+    // silent live update trigger — only show results if already visible
+    if (document.getElementById('results').classList.contains('visible')) calculate(true);
+  }
+
+  function calculate(silent=false) {
+    const incomes = getIncomes();
+    const totalGross = incomes.reduce((s, i) => s + i.yearlyAmount, 0);
+    const totalExpense = getExpenses();
+    const taxRate = parseFloat(document.getElementById('taxRate').value) / 100;
+    const hours = parseFloat(document.getElementById('hoursPerMonth').value) || 0;
+
+    const taxable = Math.max(0, totalGross - totalExpense);
+    const tax = taxable * taxRate;
+    const net = taxable - tax;
+    const monthly = net / 12;
+    const hourly = (hours > 0) ? net / (hours * 12) : 0;
+    const profitPct = totalGross > 0 ? (net / totalGross * 100) : 0;
+
+    document.getElementById('rGross').textContent = fmt(totalGross);
+    document.getElementById('rExpense').textContent = fmt(totalExpense);
+    document.getElementById('rTax').textContent = fmt(tax);
+    document.getElementById('rNet').textContent = fmt(net);
+    document.getElementById('rMonthly').textContent = fmt(monthly);
+    document.getElementById('rHourly').textContent = hours > 0 ? fmt(hourly) + '/h' : '—';
+    document.getElementById('profitBar').style.width = Math.min(100, profitPct).toFixed(1) + '%';
+    document.getElementById('profitPct').textContent = `利润率 ${profitPct.toFixed(1)}%（净利 / 毛收入）`;
+
+    // 收入明细
+    const tbody = document.getElementById('incomeBreakdown');
+    tbody.innerHTML = '';
+    incomes.forEach(i => {
+      const pct = totalGross > 0 ? (i.yearlyAmount / totalGross * 100).toFixed(1) : '0.0';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${i.name}</td><td>${fmt(i.yearlyAmount)}</td><td>${pct}%</td>`;
+      tbody.appendChild(tr);
+    });
+
+    // 建议
+    const advice = [];
+    if (totalGross === 0) {
+      advice.push({ cls: 'warn', text: '请先填写至少一项收入来源。' });
+    } else {
+      if (profitPct < 30) advice.push({ cls: 'warn', text: `当前利润率仅 ${profitPct.toFixed(1)}%，建议审查成本支出，寻找降低开销的空间。` });
+      if (profitPct >= 60) advice.push({ cls: 'good', text: `利润率 ${profitPct.toFixed(1)}% 表现优秀！可考虑扩大规模或增加投入。` });
+      if (monthly >= 3000) advice.push({ cls: 'good', text: `月均净收入 ${fmt(monthly)}，建议将 20%~30% 存入应急基金或投资理财。` });
+      if (monthly < 500 && totalGross > 0) advice.push({ cls: 'warn', text: `月均净收入偏低，评估是否值得继续投入时间或调整定价策略。` });
+      if (hours > 0 && hourly < 30) advice.push({ cls: '', text: `时薪 ${fmt(hourly)}/h，低于 ¥30 时建议优化工作流程或提高单价。` });
+      if (hours > 80) advice.push({ cls: 'warn', text: `每月投入超过 80 小时，注意主业与副业的时间平衡，避免过度疲劳。` });
+      if (totalExpense > totalGross * 0.5) advice.push({ cls: 'warn', text: `支出占毛收入超过 50%，请重点核查各项成本的必要性。` });
+      if (taxRate < 0.03 && totalGross > 30000) advice.push({ cls: '', text: `年收入较高，建议咨询税务顾问，合规申报，避免税务风险。` });
+    }
+    const ul = document.getElementById('adviceList');
+    ul.innerHTML = advice.map(a => `<li class="${a.cls}">${a.text}</li>`).join('');
+
+    document.getElementById('results').classList.add('visible');
+    if (!silent) document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // 初始化两行
+  addIncome('接单/自由职业', '', 'monthly');
+  addIncome('', '', 'monthly');
+</script>
+</body>
+</html>
