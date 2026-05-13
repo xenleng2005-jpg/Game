@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>手机存储空间分析</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #050510;
+  min-height: 100vh;
+  font-family: 'Orbitron', 'PingFang SC', 'Microsoft YaHei', monospace;
+  overflow-x: hidden;
+  padding: 20px 0 40px;
+  color: #fff;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes gridMove {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+h1 {
+  text-align: center;
+  font-size: clamp(18px, 6vw, 28px);
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow: 0 0 10px #0ff, 0 0 30px #0ff;
+  margin-bottom: 6px;
+  animation: titlePulse 3s ease-in-out infinite;
+}
+@keyframes titlePulse {
+  0%,100% { text-shadow: 0 0 10px #0ff, 0 0 30px #0ff; }
+  50%      { text-shadow: 0 0 20px #0ff, 0 0 60px #0ff, 0 0 5px #fff; }
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(0,255,255,0.5);
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+/* 总存储概览 */
+.storage-overview {
+  background: rgba(0,255,255,0.04);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.08);
+}
+
+.overview-title {
+  font-size: 10px;
+  color: rgba(0,255,255,0.5);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.total-bar-wrap {
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  height: 22px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.bar-seg {
+  height: 100%;
+  transition: width 1s ease;
+  position: relative;
+}
+.bar-seg::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: rgba(5,5,16,0.7);
+}
+
+.overview-stats {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ov-stat {
+  text-align: center;
+  flex: 1;
+  min-width: 70px;
+}
+.ov-label {
+  display: block;
+  font-size: 9px;
+  color: rgba(0,255,255,0.4);
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+.ov-val {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* 分类标签 */
+.tab-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.tab-row::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex-shrink: 0;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: 1px solid rgba(0,255,255,0.2);
+  color: rgba(0,255,255,0.5);
+  background: rgba(0,255,255,0.03);
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab.active, .tab:active {
+  background: rgba(0,255,255,0.15);
+  border-color: rgba(0,255,255,0.7);
+  color: #0ff;
+  box-shadow: 0 0 12px rgba(0,255,255,0.3);
+}
+
+/* 排序按钮 */
+.sort-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.sort-label {
+  font-size: 10px;
+  color: rgba(0,255,255,0.4);
+  letter-spacing: 2px;
+}
+.sort-btns {
+  display: flex;
+  gap: 6px;
+}
+.sort-btn {
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: 1px solid rgba(0,255,255,0.2);
+  color: rgba(0,255,255,0.5);
+  background: transparent;
+  font-family: inherit;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.sort-btn.active {
+  background: rgba(0,255,255,0.12);
+  border-color: rgba(0,255,255,0.6);
+  color: #0ff;
+}
+
+/* App 列表 */
+.app-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.app-item {
+  background: rgba(0,255,255,0.03);
+  border: 1px solid rgba(0,255,255,0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.2s;
+  animation: fadeIn 0.4s ease both;
+}
+.app-item:active {
+  border-color: rgba(0,255,255,0.4);
+  background: rgba(0,255,255,0.07);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.app-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.app-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.app-info {
+  flex: 1;
+  min-width: 0;
+}
+.app-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+.app-category {
+  font-size: 9px;
+  color: rgba(0,255,255,0.4);
+  letter-spacing: 1px;
+}
+
+.app-size {
+  text-align: right;
+  flex-shrink: 0;
+}
+.size-num {
+  font-size: 16px;
+  font-weight: 700;
+  display: block;
+}
+.size-unit {
+  font-size: 9px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1px;
+}
+
+.app-bar-wrap {
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  height: 4px;
+  overflow: hidden;
+}
+.app-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+/* 颜色方案 */
+.color-red    { color: #ff4466; }
+.color-orange { color: #ff9900; }
+.color-yellow { color: #ffee00; }
+.color-green  { color: #00ff88; }
+.color-cyan   { color: #00ffff; }
+.color-blue   { color: #4499ff; }
+.color-purple { color: #cc44ff; }
+.color-pink   { color: #ff66cc; }
+
+.bg-red    { background: linear-gradient(90deg, #ff4466, #ff0033); box-shadow: 0 0 6px #ff4466; }
+.bg-orange { background: linear-gradient(90deg, #ff9900, #ff6600); box-shadow: 0 0 6px #ff9900; }
+.bg-yellow { background: linear-gradient(90deg, #ffee00, #ffaa00); box-shadow: 0 0 6px #ffee00; }
+.bg-green  { background: linear-gradient(90deg, #00ff88, #00cc66); box-shadow: 0 0 6px #00ff88; }
+.bg-cyan   { background: linear-gradient(90deg, #00ffff, #0099ff); box-shadow: 0 0 6px #00ffff; }
+.bg-blue   { background: linear-gradient(90deg, #4499ff, #2266dd); box-shadow: 0 0 6px #4499ff; }
+.bg-purple { background: linear-gradient(90deg, #cc44ff, #9900cc); box-shadow: 0 0 6px #cc44ff; }
+.bg-pink   { background: linear-gradient(90deg, #ff66cc, #cc0099); box-shadow: 0 0 6px #ff66cc; }
+
+.icon-bg-red    { background: rgba(255,68,102,0.15); }
+.icon-bg-orange { background: rgba(255,153,0,0.15); }
+.icon-bg-yellow { background: rgba(255,238,0,0.15); }
+.icon-bg-green  { background: rgba(0,255,136,0.15); }
+.icon-bg-cyan   { background: rgba(0,255,255,0.15); }
+.icon-bg-blue   { background: rgba(68,153,255,0.15); }
+.icon-bg-purple { background: rgba(204,68,255,0.15); }
+.icon-bg-pink   { background: rgba(255,102,204,0.15); }
+
+/* 区域标题 */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 12px;
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(0,255,255,0.15);
+}
+.section-title {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(0,255,255,0.5);
+  white-space: nowrap;
+}
+
+/* 图例 */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 12px;
+  border: 1px solid rgba(0,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(0,255,255,0.02);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  font-family: 'PingFang SC', sans-serif;
+}
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* 底部提示 */
+.footer-note {
+  text-align: center;
+  font-size: 10px;
+  color: rgba(0,255,255,0.25);
+  letter-spacing: 1px;
+  margin-top: 24px;
+  line-height: 1.8;
+  font-family: 'PingFang SC', sans-serif;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>存储空间分析</h1>
+  <div class="subtitle">STORAGE ANALYZER</div>
+
+  <!-- 总存储概览 -->
+  <div class="storage-overview">
+    <div class="overview-title">TOTAL STORAGE / 总存储</div>
+    <div class="total-bar-wrap" id="total-bar"></div>
+    <div class="overview-stats">
+      <div class="ov-stat">
+        <span class="ov-label">已用</span>
+        <span class="ov-val color-cyan" id="used-val">—</span>
+      </div>
+      <div class="ov-stat">
+        <span class="ov-label">App占用</span>
+        <span class="ov-val color-orange" id="app-val">—</span>
+      </div>
+      <div class="ov-stat">
+        <span class="ov-label">照片/视频</span>
+        <span class="ov-val color-purple" id="media-val">—</span>
+      </div>
+      <div class="ov-stat">
+        <span class="ov-label">可用</span>
+        <span class="ov-val color-green" id="free-val">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 分类标签 -->
+  <div class="tab-row">
+    <div class="tab active" onclick="filterCategory('全部')">全部</div>
+    <div class="tab" onclick="filterCategory('游戏')">🎮 游戏</div>
+    <div class="tab" onclick="filterCategory('社交')">💬 社交</div>
+    <div class="tab" onclick="filterCategory('视频')">▶️ 视频</div>
+    <div class="tab" onclick="filterCategory('购物')">🛍 购物</div>
+    <div class="tab" onclick="filterCategory('工具')">🔧 工具</div>
+    <div class="tab" onclick="filterCategory('系统')">⚙️ 系统</div>
+  </div>
+
+  <!-- 排序 -->
+  <div class="sort-row">
+    <span class="sort-label">SORT BY</span>
+    <div class="sort-btns">
+      <button class="sort-btn active" onclick="sortApps('desc', this)">最多 ↓</button>
+      <button class="sort-btn" onclick="sortApps('asc', this)">最少 ↑</button>
+    </div>
+  </div>
+
+  <!-- 最占空间 -->
+  <div class="section-header">
+    <div class="section-line"></div>
+    <div class="section-title">🔴 最占空间</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="app-list" id="top-list"></div>
+
+  <!-- 占用最少 -->
+  <div class="section-header">
+    <div class="section-line"></div>
+    <div class="section-title">🟢 占用最少</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="app-list" id="bottom-list"></div>
+
+  <!-- 图例 -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#ff4466"></div>游戏</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00ffff"></div>社交</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#cc44ff"></div>视频/音乐</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff9900"></div>购物/外卖</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00ff88"></div>工具/地图</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4499ff"></div>系统内置</div>
+  </div>
+
+  <div class="footer-note">
+    数据为示例数据，实际大小因使用情况而异<br>
+    请在手机「设置 → 存储」查看实际数据
+  </div>
+</div>
+
+<script>
+const APPS = [
+  // 游戏
+  { name: '原神',         icon: '⚔️',  category: '游戏', size: 15800, color: 'red',    unit: 'MB' },
+  { name: '王者荣耀',     icon: '🏆',  category: '游戏', size: 8200,  color: 'red',    unit: 'MB' },
+  { name: '和平精英',     icon: '🪖',  category: '游戏', size: 6400,  color: 'red',    unit: 'MB' },
+  { name: '明日方舟',     icon: '🎯',  category: '游戏', size: 4200,  color: 'red',    unit: 'MB' },
+  // 社交
+  { name: '微信',         icon: '💬',  category: '社交', size: 2100,  color: 'cyan',   unit: 'MB' },
+  { name: 'QQ',           icon: '🐧',  category: '社交', size: 820,   color: 'cyan',   unit: 'MB' },
+  { name: '微博',         icon: '📣',  category: '社交', size: 410,   color: 'cyan',   unit: 'MB' },
+  // 视频/音乐
+  { name: '抖音',         icon: '🎵',  category: '视频', size: 1520,  color: 'purple', unit: 'MB' },
+  { name: '哔哩哔哩',     icon: '📺',  category: '视频', size: 730,   color: 'purple', unit: 'MB' },
+  { name: '爱奇艺',       icon: '🎬',  category: '视频', size: 620,   color: 'purple', unit: 'MB' },
+  { name: '网易云音乐',   icon: '🎧',  category: '视频', size: 510,   color: 'purple', unit: 'MB' },
+  { name: '优酷',         icon: '🎞️', category: '视频', size: 480,   color: 'purple', unit: 'MB' },
+  // 购物/外卖
+  { name: '淘宝',         icon: '🛍',  category: '购物', size: 520,   color: 'orange', unit: 'MB' },
+  { name: '京东',         icon: '📦',  category: '购物', size: 210,   color: 'orange', unit: 'MB' },
+  { name: '美团',         icon: '🍔',  category: '购物', size: 185,   color: 'orange', unit: 'MB' },
+  { name: '拼多多',       icon: '💰',  category: '购物', size: 155,   color: 'orange', unit: 'MB' },
+  { name: '饿了么',       icon: '🥡',  category: '购物', size: 140,   color: 'orange', unit: 'MB' },
+  // 工具/地图
+  { name: '百度地图',     icon: '🗺',  category: '工具', size: 610,   color: 'green',  unit: 'MB' },
+  { name: '高德地图',     icon: '📍',  category: '工具', size: 510,   color: 'green',  unit: 'MB' },
+  { name: '支付宝',       icon: '💳',  category: '工具', size: 305,   color: 'green',  unit: 'MB' },
+  { name: '钉钉',         icon: '🔔',  category: '工具', size: 295,   color: 'green',  unit: 'MB' },
+  { name: '滴滴出行',     icon: '🚗',  category: '工具', size: 125,   color: 'green',  unit: 'MB' },
+  // 系统
+  { name: '相机',         icon: '📷',  category: '系统', size: 55,    color: 'blue',   unit: 'MB' },
+  { name: '便签',         icon: '📝',  category: '系统', size: 12,    color: 'blue',   unit: 'MB' },
+  { name: '计算器',       icon: '🔢',  category: '系统', size: 6,     color: 'blue',   unit: 'MB' },
+  { name: '时钟',         icon: '⏰',  category: '系统', size: 4,     color: 'blue',   unit: 'MB' },
+];
+
+let currentCategory = '全部';
+let currentSort = 'desc';
+
+const maxSize = Math.max(...APPS.map(a => a.size));
+
+function formatSize(mb) {
+  if (mb >= 1024) return { num: (mb / 1024).toFixed(1), unit: 'GB' };
+  return { num: mb.toString(), unit: 'MB' };
+}
+
+function getColorClass(color) {
+  return { text: `color-${color}`, bg: `bg-${color}`, icon: `icon-bg-${color}` };
+}
+
+function renderItem(app, rank, delay) {
+  const { num, unit } = formatSize(app.size);
+  const cls = getColorClass(app.color);
+  const pct = Math.round((app.size / maxSize) * 100);
+  return `
+    <div class="app-item" style="animation-delay:${delay}ms">
+      <div class="app-row">
+        <div class="app-icon ${cls.icon}">${app.icon}</div>
+        <div class="app-info">
+          <div class="app-name">${app.name}</div>
+          <div class="app-category">${app.category}</div>
+        </div>
+        <div class="app-size">
+          <span class="size-num ${cls.text}">${num}</span>
+          <span class="size-unit">${unit}</span>
+        </div>
+      </div>
+      <div class="app-bar-wrap">
+        <div class="app-bar ${cls.bg}" style="width:${pct}%"></div>
+      </div>
+    </div>`;
+}
+
+function getFiltered() {
+  let list = currentCategory === '全部' ? [...APPS] : APPS.filter(a => a.category === currentCategory);
+  list.sort((a, b) => currentSort === 'desc' ? b.size - a.size : a.size - b.size);
+  return list;
+}
+
+function render() {
+  const list = getFiltered();
+  const topList = document.getElementById('top-list');
+  const bottomList = document.getElementById('bottom-list');
+
+  const top = list.slice(0, 5);
+  const bottom = [...list].reverse().slice(0, 5).reverse();
+
+  topList.innerHTML = top.map((a, i) => renderItem(a, i + 1, i * 60)).join('');
+  bottomList.innerHTML = bottom.map((a, i) => renderItem(a, i, i * 60)).join('');
+}
+
+function filterCategory(cat) {
+  currentCategory = cat;
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.textContent.replace(/.*?\s/, '') === cat || t.textContent === cat);
+  });
+  render();
+}
+
+function sortApps(dir, btn) {
+  currentSort = dir;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function initOverview() {
+  const totalGB = 128;
+  const appsMB = APPS.reduce((s, a) => s + a.size, 0);
+  const mediaMB = 18400;
+  const systemMB = 8200;
+  const usedMB = appsMB + mediaMB + systemMB;
+  const freeMB = totalGB * 1024 - usedMB;
+
+  const bar = document.getElementById('total-bar');
+  const total = totalGB * 1024;
+  const segs = [
+    { pct: appsMB / total * 100,   cls: 'bg-orange', label: 'apps' },
+    { pct: mediaMB / total * 100,  cls: 'bg-purple', label: 'media' },
+    { pct: systemMB / total * 100, cls: 'bg-blue',   label: 'system' },
+    { pct: freeMB / total * 100,   cls: 'bg-green',  label: 'free' },
+  ];
+  bar.innerHTML = segs.map(s => `<div class="bar-seg ${s.cls}" style="width:${s.pct.toFixed(1)}%"></div>`).join('');
+
+  const fmtGB = mb => (mb / 1024).toFixed(1) + ' GB';
+  document.getElementById('used-val').textContent  = fmtGB(usedMB);
+  document.getElementById('app-val').textContent   = fmtGB(appsMB);
+  document.getElementById('media-val').textContent = fmtGB(mediaMB);
+  document.getElementById('free-val').textContent  = fmtGB(freeMB);
+}
+
+initOverview();
+render();
+</script>
+</body>
+</html>
