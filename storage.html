@@ -72,31 +72,24 @@ h1 {
   border: 1px solid rgba(0,255,255,0.2);
   border-radius: 16px;
   padding: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   box-shadow: 0 0 20px rgba(0,255,255,0.08);
 }
-
 .overview-title {
   font-size: 10px;
   color: rgba(0,255,255,0.5);
   letter-spacing: 3px;
   margin-bottom: 12px;
 }
-
 .total-bar-wrap {
   background: rgba(255,255,255,0.05);
   border-radius: 8px;
   height: 22px;
   overflow: hidden;
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
-
-.bar-seg {
-  height: 100%;
-  transition: width 1s ease;
-  position: relative;
-}
+.bar-seg { height: 100%; transition: width 1s ease; position: relative; }
 .bar-seg::after {
   content: '';
   position: absolute;
@@ -104,45 +97,45 @@ h1 {
   width: 2px;
   background: rgba(5,5,16,0.7);
 }
-
 .overview-stats {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
 }
-.ov-stat {
-  text-align: center;
-  flex: 1;
-  min-width: 70px;
+.ov-stat { text-align: center; flex: 1; min-width: 60px; }
+.ov-label { display: block; font-size: 9px; color: rgba(0,255,255,0.4); letter-spacing: 1px; margin-bottom: 3px; }
+.ov-val   { display: block; font-size: 14px; font-weight: 700; }
+
+/* 总计卡片 */
+.total-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0,255,255,0.06);
+  border: 1px solid rgba(0,255,255,0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 0 16px rgba(0,255,255,0.1);
 }
-.ov-label {
-  display: block;
-  font-size: 9px;
-  color: rgba(0,255,255,0.4);
-  letter-spacing: 1px;
-  margin-bottom: 3px;
-}
-.ov-val {
-  display: block;
-  font-size: 15px;
-  font-weight: 700;
-}
+.total-card-label { font-size: 10px; color: rgba(0,255,255,0.5); letter-spacing: 2px; }
+.total-card-val   { font-size: 22px; font-weight: 900; color: #0ff; text-shadow: 0 0 12px #0ff; }
+.total-card-count { font-size: 10px; color: rgba(0,255,255,0.4); text-align: right; }
 
 /* 分类标签 */
 .tab-row {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   overflow-x: auto;
   padding-bottom: 4px;
   scrollbar-width: none;
 }
 .tab-row::-webkit-scrollbar { display: none; }
-
 .tab {
   flex-shrink: 0;
-  padding: 7px 16px;
+  padding: 7px 14px;
   border-radius: 20px;
   font-size: 11px;
   letter-spacing: 1px;
@@ -152,32 +145,26 @@ h1 {
   background: rgba(0,255,255,0.03);
   transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
-.tab.active, .tab:active {
+.tab.active {
   background: rgba(0,255,255,0.15);
   border-color: rgba(0,255,255,0.7);
   color: #0ff;
   box-shadow: 0 0 12px rgba(0,255,255,0.3);
 }
 
-/* 排序按钮 */
+/* 排序 */
 .sort-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
 }
-.sort-label {
-  font-size: 10px;
-  color: rgba(0,255,255,0.4);
-  letter-spacing: 2px;
-}
-.sort-btns {
-  display: flex;
-  gap: 6px;
-}
+.sort-label { font-size: 10px; color: rgba(0,255,255,0.4); letter-spacing: 2px; }
+.sort-btns  { display: flex; gap: 6px; }
 .sort-btn {
-  padding: 4px 12px;
+  padding: 5px 14px;
   border-radius: 10px;
   font-size: 10px;
   letter-spacing: 1px;
@@ -196,26 +183,22 @@ h1 {
 }
 
 /* App 列表 */
-.app-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.app-list { display: flex; flex-direction: column; gap: 7px; }
 
 .app-item {
   background: rgba(0,255,255,0.03);
-  border: 1px solid rgba(0,255,255,0.12);
+  border: 1px solid rgba(0,255,255,0.1);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 11px 13px;
   transition: all 0.2s;
-  animation: fadeIn 0.4s ease both;
+  animation: fadeIn 0.35s ease both;
 }
 .app-item:active {
   border-color: rgba(0,255,255,0.4);
   background: rgba(0,255,255,0.07);
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -223,24 +206,30 @@ h1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 
+.rank-num {
+  width: 22px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(0,255,255,0.35);
+  text-align: center;
+  flex-shrink: 0;
+}
+.rank-num.top3 { color: #ff9900; text-shadow: 0 0 8px #ff9900; }
+
 .app-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 18px;
   flex-shrink: 0;
 }
-
-.app-info {
-  flex: 1;
-  min-width: 0;
-}
+.app-info { flex: 1; min-width: 0; }
 .app-name {
   font-size: 13px;
   font-weight: 700;
@@ -251,40 +240,40 @@ h1 {
   text-overflow: ellipsis;
   font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
-.app-category {
-  font-size: 9px;
-  color: rgba(0,255,255,0.4);
-  letter-spacing: 1px;
-}
+.app-category { font-size: 9px; color: rgba(0,255,255,0.4); letter-spacing: 1px; }
 
-.app-size {
-  text-align: right;
+.app-size { text-align: right; flex-shrink: 0; }
+.size-num  { font-size: 15px; font-weight: 700; display: block; }
+.size-unit { font-size: 9px; color: rgba(255,255,255,0.35); letter-spacing: 1px; }
+
+.app-bar-wrap { background: rgba(255,255,255,0.05); border-radius: 4px; height: 3px; overflow: hidden; }
+.app-bar { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+
+/* 饼图区域 */
+.pie-section {
+  background: rgba(0,255,255,0.03);
+  border: 1px solid rgba(0,255,255,0.15);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.pie-title { font-size: 10px; color: rgba(0,255,255,0.5); letter-spacing: 3px; margin-bottom: 14px; text-align: center; }
+.pie-wrap  { display: flex; align-items: center; gap: 16px; }
+.pie-chart {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
   flex-shrink: 0;
+  position: relative;
 }
-.size-num {
-  font-size: 16px;
-  font-weight: 700;
-  display: block;
-}
-.size-unit {
-  font-size: 9px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 1px;
-}
+.pie-legend { flex: 1; display: flex; flex-direction: column; gap: 7px; }
+.pie-leg-item { display: flex; align-items: center; gap: 8px; }
+.pie-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.pie-leg-name { font-size: 11px; color: rgba(255,255,255,0.7); font-family: 'PingFang SC', sans-serif; flex: 1; }
+.pie-leg-val  { font-size: 11px; font-weight: 700; }
+.pie-leg-pct  { font-size: 10px; color: rgba(255,255,255,0.35); margin-left: 4px; }
 
-.app-bar-wrap {
-  background: rgba(255,255,255,0.05);
-  border-radius: 4px;
-  height: 4px;
-  overflow: hidden;
-}
-.app-bar {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.8s ease;
-}
-
-/* 颜色方案 */
+/* 颜色 */
 .color-red    { color: #ff4466; }
 .color-orange { color: #ff9900; }
 .color-yellow { color: #ffee00; }
@@ -294,14 +283,14 @@ h1 {
 .color-purple { color: #cc44ff; }
 .color-pink   { color: #ff66cc; }
 
-.bg-red    { background: linear-gradient(90deg, #ff4466, #ff0033); box-shadow: 0 0 6px #ff4466; }
-.bg-orange { background: linear-gradient(90deg, #ff9900, #ff6600); box-shadow: 0 0 6px #ff9900; }
-.bg-yellow { background: linear-gradient(90deg, #ffee00, #ffaa00); box-shadow: 0 0 6px #ffee00; }
-.bg-green  { background: linear-gradient(90deg, #00ff88, #00cc66); box-shadow: 0 0 6px #00ff88; }
-.bg-cyan   { background: linear-gradient(90deg, #00ffff, #0099ff); box-shadow: 0 0 6px #00ffff; }
-.bg-blue   { background: linear-gradient(90deg, #4499ff, #2266dd); box-shadow: 0 0 6px #4499ff; }
-.bg-purple { background: linear-gradient(90deg, #cc44ff, #9900cc); box-shadow: 0 0 6px #cc44ff; }
-.bg-pink   { background: linear-gradient(90deg, #ff66cc, #cc0099); box-shadow: 0 0 6px #ff66cc; }
+.bg-red    { background: linear-gradient(90deg,#ff4466,#ff0033); box-shadow:0 0 5px #ff4466; }
+.bg-orange { background: linear-gradient(90deg,#ff9900,#ff6600); box-shadow:0 0 5px #ff9900; }
+.bg-yellow { background: linear-gradient(90deg,#ffee00,#ffaa00); box-shadow:0 0 5px #ffee00; }
+.bg-green  { background: linear-gradient(90deg,#00ff88,#00cc66); box-shadow:0 0 5px #00ff88; }
+.bg-cyan   { background: linear-gradient(90deg,#00ffff,#0099ff); box-shadow:0 0 5px #00ffff; }
+.bg-blue   { background: linear-gradient(90deg,#4499ff,#2266dd); box-shadow:0 0 5px #4499ff; }
+.bg-purple { background: linear-gradient(90deg,#cc44ff,#9900cc); box-shadow:0 0 5px #cc44ff; }
+.bg-pink   { background: linear-gradient(90deg,#ff66cc,#cc0099); box-shadow:0 0 5px #ff66cc; }
 
 .icon-bg-red    { background: rgba(255,68,102,0.15); }
 .icon-bg-orange { background: rgba(255,153,0,0.15); }
@@ -312,58 +301,20 @@ h1 {
 .icon-bg-purple { background: rgba(204,68,255,0.15); }
 .icon-bg-pink   { background: rgba(255,102,204,0.15); }
 
-/* 区域标题 */
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 20px 0 12px;
-}
-.section-line {
-  flex: 1;
-  height: 1px;
-  background: rgba(0,255,255,0.15);
-}
-.section-title {
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: rgba(0,255,255,0.5);
-  white-space: nowrap;
-}
+.solid-red    { background: #ff4466; }
+.solid-orange { background: #ff9900; }
+.solid-green  { background: #00ff88; }
+.solid-cyan   { background: #00ffff; }
+.solid-blue   { background: #4499ff; }
+.solid-purple { background: #cc44ff; }
 
-/* 图例 */
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-  padding: 12px;
-  border: 1px solid rgba(0,255,255,0.1);
-  border-radius: 12px;
-  background: rgba(0,255,255,0.02);
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  color: rgba(255,255,255,0.5);
-  font-family: 'PingFang SC', sans-serif;
-}
-.legend-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-/* 底部提示 */
 .footer-note {
   text-align: center;
   font-size: 10px;
-  color: rgba(0,255,255,0.25);
+  color: rgba(0,255,255,0.22);
   letter-spacing: 1px;
   margin-top: 24px;
-  line-height: 1.8;
+  line-height: 1.9;
   font-family: 'PingFang SC', sans-serif;
 }
 </style>
@@ -371,19 +322,19 @@ h1 {
 <body>
 <div id="app">
   <h1>存储空间分析</h1>
-  <div class="subtitle">STORAGE ANALYZER</div>
+  <div class="subtitle">ALL APPS · STORAGE BREAKDOWN</div>
 
   <!-- 总存储概览 -->
   <div class="storage-overview">
-    <div class="overview-title">TOTAL STORAGE / 总存储</div>
+    <div class="overview-title">TOTAL STORAGE · 128 GB</div>
     <div class="total-bar-wrap" id="total-bar"></div>
     <div class="overview-stats">
       <div class="ov-stat">
-        <span class="ov-label">已用</span>
+        <span class="ov-label">总已用</span>
         <span class="ov-val color-cyan" id="used-val">—</span>
       </div>
       <div class="ov-stat">
-        <span class="ov-label">App占用</span>
+        <span class="ov-label">全部App</span>
         <span class="ov-val color-orange" id="app-val">—</span>
       </div>
       <div class="ov-stat">
@@ -391,199 +342,257 @@ h1 {
         <span class="ov-val color-purple" id="media-val">—</span>
       </div>
       <div class="ov-stat">
-        <span class="ov-label">可用</span>
+        <span class="ov-label">剩余可用</span>
         <span class="ov-val color-green" id="free-val">—</span>
       </div>
     </div>
   </div>
 
+  <!-- 全部App总计 -->
+  <div class="total-card">
+    <div>
+      <div class="total-card-label">全部 APP 合计</div>
+      <div class="total-card-val" id="all-total">—</div>
+    </div>
+    <div class="total-card-count" id="app-count">— 个应用</div>
+  </div>
+
+  <!-- 分类饼图 -->
+  <div class="pie-section">
+    <div class="pie-title">按分类占比 · CATEGORY BREAKDOWN</div>
+    <div class="pie-wrap">
+      <canvas class="pie-chart" id="pie" width="110" height="110"></canvas>
+      <div class="pie-legend" id="pie-legend"></div>
+    </div>
+  </div>
+
   <!-- 分类标签 -->
-  <div class="tab-row">
-    <div class="tab active" onclick="filterCategory('全部')">全部</div>
-    <div class="tab" onclick="filterCategory('游戏')">🎮 游戏</div>
-    <div class="tab" onclick="filterCategory('社交')">💬 社交</div>
-    <div class="tab" onclick="filterCategory('视频')">▶️ 视频</div>
-    <div class="tab" onclick="filterCategory('购物')">🛍 购物</div>
-    <div class="tab" onclick="filterCategory('工具')">🔧 工具</div>
-    <div class="tab" onclick="filterCategory('系统')">⚙️ 系统</div>
+  <div class="tab-row" id="tab-row">
+    <div class="tab active" data-cat="全部">全部</div>
+    <div class="tab" data-cat="游戏">🎮 游戏</div>
+    <div class="tab" data-cat="社交">💬 社交</div>
+    <div class="tab" data-cat="视频">▶ 视频</div>
+    <div class="tab" data-cat="购物">🛍 购物</div>
+    <div class="tab" data-cat="工具">🔧 工具</div>
+    <div class="tab" data-cat="系统">⚙ 系统</div>
   </div>
 
   <!-- 排序 -->
   <div class="sort-row">
-    <span class="sort-label">SORT BY</span>
+    <span class="sort-label">SORT</span>
     <div class="sort-btns">
-      <button class="sort-btn active" onclick="sortApps('desc', this)">最多 ↓</button>
-      <button class="sort-btn" onclick="sortApps('asc', this)">最少 ↑</button>
+      <button class="sort-btn active" id="sort-desc" onclick="setSort('desc')">最多 ↓</button>
+      <button class="sort-btn"        id="sort-asc"  onclick="setSort('asc')">最少 ↑</button>
     </div>
   </div>
 
-  <!-- 最占空间 -->
-  <div class="section-header">
-    <div class="section-line"></div>
-    <div class="section-title">🔴 最占空间</div>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="app-list" id="top-list"></div>
-
-  <!-- 占用最少 -->
-  <div class="section-header">
-    <div class="section-line"></div>
-    <div class="section-title">🟢 占用最少</div>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="app-list" id="bottom-list"></div>
-
-  <!-- 图例 -->
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#ff4466"></div>游戏</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#00ffff"></div>社交</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#cc44ff"></div>视频/音乐</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ff9900"></div>购物/外卖</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#00ff88"></div>工具/地图</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#4499ff"></div>系统内置</div>
-  </div>
+  <!-- 全部App列表 -->
+  <div class="app-list" id="app-list"></div>
 
   <div class="footer-note">
-    数据为示例数据，实际大小因使用情况而异<br>
-    请在手机「设置 → 存储」查看实际数据
+    以上为示例数据（常见 App 典型大小）<br>
+    实际请到手机「设置 → 存储空间 → 应用」查看<br>
+    可修改下方 APPS 数组替换为您的真实数据
   </div>
 </div>
 
 <script>
 const APPS = [
-  // 游戏
-  { name: '原神',         icon: '⚔️',  category: '游戏', size: 15800, color: 'red',    unit: 'MB' },
-  { name: '王者荣耀',     icon: '🏆',  category: '游戏', size: 8200,  color: 'red',    unit: 'MB' },
-  { name: '和平精英',     icon: '🪖',  category: '游戏', size: 6400,  color: 'red',    unit: 'MB' },
-  { name: '明日方舟',     icon: '🎯',  category: '游戏', size: 4200,  color: 'red',    unit: 'MB' },
-  // 社交
-  { name: '微信',         icon: '💬',  category: '社交', size: 2100,  color: 'cyan',   unit: 'MB' },
-  { name: 'QQ',           icon: '🐧',  category: '社交', size: 820,   color: 'cyan',   unit: 'MB' },
-  { name: '微博',         icon: '📣',  category: '社交', size: 410,   color: 'cyan',   unit: 'MB' },
-  // 视频/音乐
-  { name: '抖音',         icon: '🎵',  category: '视频', size: 1520,  color: 'purple', unit: 'MB' },
-  { name: '哔哩哔哩',     icon: '📺',  category: '视频', size: 730,   color: 'purple', unit: 'MB' },
-  { name: '爱奇艺',       icon: '🎬',  category: '视频', size: 620,   color: 'purple', unit: 'MB' },
-  { name: '网易云音乐',   icon: '🎧',  category: '视频', size: 510,   color: 'purple', unit: 'MB' },
-  { name: '优酷',         icon: '🎞️', category: '视频', size: 480,   color: 'purple', unit: 'MB' },
-  // 购物/外卖
-  { name: '淘宝',         icon: '🛍',  category: '购物', size: 520,   color: 'orange', unit: 'MB' },
-  { name: '京东',         icon: '📦',  category: '购物', size: 210,   color: 'orange', unit: 'MB' },
-  { name: '美团',         icon: '🍔',  category: '购物', size: 185,   color: 'orange', unit: 'MB' },
-  { name: '拼多多',       icon: '💰',  category: '购物', size: 155,   color: 'orange', unit: 'MB' },
-  { name: '饿了么',       icon: '🥡',  category: '购物', size: 140,   color: 'orange', unit: 'MB' },
-  // 工具/地图
-  { name: '百度地图',     icon: '🗺',  category: '工具', size: 610,   color: 'green',  unit: 'MB' },
-  { name: '高德地图',     icon: '📍',  category: '工具', size: 510,   color: 'green',  unit: 'MB' },
-  { name: '支付宝',       icon: '💳',  category: '工具', size: 305,   color: 'green',  unit: 'MB' },
-  { name: '钉钉',         icon: '🔔',  category: '工具', size: 295,   color: 'green',  unit: 'MB' },
-  { name: '滴滴出行',     icon: '🚗',  category: '工具', size: 125,   color: 'green',  unit: 'MB' },
-  // 系统
-  { name: '相机',         icon: '📷',  category: '系统', size: 55,    color: 'blue',   unit: 'MB' },
-  { name: '便签',         icon: '📝',  category: '系统', size: 12,    color: 'blue',   unit: 'MB' },
-  { name: '计算器',       icon: '🔢',  category: '系统', size: 6,     color: 'blue',   unit: 'MB' },
-  { name: '时钟',         icon: '⏰',  category: '系统', size: 4,     color: 'blue',   unit: 'MB' },
+  // ── 游戏 ──────────────────────────────────────────
+  { name: '原神',           icon: '⚔️',  category: '游戏', size: 15800, color: 'red' },
+  { name: '王者荣耀',       icon: '🏆',  category: '游戏', size: 8200,  color: 'red' },
+  { name: '和平精英',       icon: '🪖',  category: '游戏', size: 6400,  color: 'red' },
+  { name: '明日方舟',       icon: '🎯',  category: '游戏', size: 4200,  color: 'red' },
+  { name: '崩坏：星穹铁道', icon: '🌌',  category: '游戏', size: 3800,  color: 'red' },
+  { name: '第五人格',       icon: '🎭',  category: '游戏', size: 2600,  color: 'red' },
+  // ── 社交 ──────────────────────────────────────────
+  { name: '微信',           icon: '💬',  category: '社交', size: 2100,  color: 'cyan' },
+  { name: 'QQ',             icon: '🐧',  category: '社交', size: 820,   color: 'cyan' },
+  { name: '微博',           icon: '📣',  category: '社交', size: 410,   color: 'cyan' },
+  { name: 'LINE',           icon: '💚',  category: '社交', size: 280,   color: 'cyan' },
+  { name: '小红书',         icon: '📖',  category: '社交', size: 360,   color: 'cyan' },
+  // ── 视频/音乐 ──────────────────────────────────────
+  { name: '抖音',           icon: '🎵',  category: '视频', size: 1520,  color: 'purple' },
+  { name: '哔哩哔哩',       icon: '📺',  category: '视频', size: 730,   color: 'purple' },
+  { name: '爱奇艺',         icon: '🎬',  category: '视频', size: 620,   color: 'purple' },
+  { name: '优酷',           icon: '🎞',  category: '视频', size: 480,   color: 'purple' },
+  { name: '网易云音乐',     icon: '🎧',  category: '视频', size: 510,   color: 'purple' },
+  { name: '腾讯视频',       icon: '🎥',  category: '视频', size: 560,   color: 'purple' },
+  { name: 'YouTube',        icon: '▶️',  category: '视频', size: 440,   color: 'purple' },
+  { name: 'Spotify',        icon: '🎶',  category: '视频', size: 320,   color: 'purple' },
+  // ── 购物/外卖 ──────────────────────────────────────
+  { name: '淘宝',           icon: '🛍',  category: '购物', size: 520,   color: 'orange' },
+  { name: '京东',           icon: '📦',  category: '购物', size: 210,   color: 'orange' },
+  { name: '美团',           icon: '🍔',  category: '购物', size: 185,   color: 'orange' },
+  { name: '拼多多',         icon: '💰',  category: '购物', size: 155,   color: 'orange' },
+  { name: '饿了么',         icon: '🥡',  category: '购物', size: 140,   color: 'orange' },
+  { name: '天猫',           icon: '🐱',  category: '购物', size: 180,   color: 'orange' },
+  // ── 工具/地图 ──────────────────────────────────────
+  { name: '百度地图',       icon: '🗺',  category: '工具', size: 610,   color: 'green' },
+  { name: '高德地图',       icon: '📍',  category: '工具', size: 510,   color: 'green' },
+  { name: '支付宝',         icon: '💳',  category: '工具', size: 305,   color: 'green' },
+  { name: '钉钉',           icon: '🔔',  category: '工具', size: 295,   color: 'green' },
+  { name: '滴滴出行',       icon: '🚗',  category: '工具', size: 125,   color: 'green' },
+  { name: '腾讯会议',       icon: '🎙',  category: '工具', size: 220,   color: 'green' },
+  { name: '百度',           icon: '🔍',  category: '工具', size: 190,   color: 'green' },
+  { name: 'WPS Office',     icon: '📄',  category: '工具', size: 380,   color: 'green' },
+  // ── 系统内置 ──────────────────────────────────────
+  { name: '相机',           icon: '📷',  category: '系统', size: 55,    color: 'blue' },
+  { name: '设置',           icon: '⚙',  category: '系统', size: 28,    color: 'blue' },
+  { name: 'WPS便签',        icon: '📝',  category: '系统', size: 12,    color: 'blue' },
+  { name: '计算器',         icon: '🔢',  category: '系统', size: 6,     color: 'blue' },
+  { name: '时钟',           icon: '⏰',  category: '系统', size: 4,     color: 'blue' },
+  { name: '录音机',         icon: '🎤',  category: '系统', size: 8,     color: 'blue' },
+  { name: '文件管理',       icon: '📁',  category: '系统', size: 18,    color: 'blue' },
 ];
 
-let currentCategory = '全部';
-let currentSort = 'desc';
+const CAT_COLORS = {
+  '游戏': { solid: 'solid-red',    text: 'color-red',    hex: '#ff4466' },
+  '社交': { solid: 'solid-cyan',   text: 'color-cyan',   hex: '#00ffff' },
+  '视频': { solid: 'solid-purple', text: 'color-purple', hex: '#cc44ff' },
+  '购物': { solid: 'solid-orange', text: 'color-orange', hex: '#ff9900' },
+  '工具': { solid: 'solid-green',  text: 'color-green',  hex: '#00ff88' },
+  '系统': { solid: 'solid-blue',   text: 'color-blue',   hex: '#4499ff' },
+};
 
+let currentCat  = '全部';
+let currentSort = 'desc';
 const maxSize = Math.max(...APPS.map(a => a.size));
 
-function formatSize(mb) {
-  if (mb >= 1024) return { num: (mb / 1024).toFixed(1), unit: 'GB' };
-  return { num: mb.toString(), unit: 'MB' };
-}
-
-function getColorClass(color) {
-  return { text: `color-${color}`, bg: `bg-${color}`, icon: `icon-bg-${color}` };
-}
-
-function renderItem(app, rank, delay) {
-  const { num, unit } = formatSize(app.size);
-  const cls = getColorClass(app.color);
-  const pct = Math.round((app.size / maxSize) * 100);
-  return `
-    <div class="app-item" style="animation-delay:${delay}ms">
-      <div class="app-row">
-        <div class="app-icon ${cls.icon}">${app.icon}</div>
-        <div class="app-info">
-          <div class="app-name">${app.name}</div>
-          <div class="app-category">${app.category}</div>
-        </div>
-        <div class="app-size">
-          <span class="size-num ${cls.text}">${num}</span>
-          <span class="size-unit">${unit}</span>
-        </div>
-      </div>
-      <div class="app-bar-wrap">
-        <div class="app-bar ${cls.bg}" style="width:${pct}%"></div>
-      </div>
-    </div>`;
+function fmt(mb) {
+  return mb >= 1024
+    ? { num: (mb / 1024).toFixed(1), unit: 'GB' }
+    : { num: mb >= 10 ? Math.round(mb).toString() : mb.toFixed(1), unit: 'MB' };
 }
 
 function getFiltered() {
-  let list = currentCategory === '全部' ? [...APPS] : APPS.filter(a => a.category === currentCategory);
-  list.sort((a, b) => currentSort === 'desc' ? b.size - a.size : a.size - b.size);
-  return list;
+  let list = currentCat === '全部' ? [...APPS] : APPS.filter(a => a.category === currentCat);
+  return list.sort((a, b) => currentSort === 'desc' ? b.size - a.size : a.size - b.size);
 }
 
-function render() {
+function renderList() {
   const list = getFiltered();
-  const topList = document.getElementById('top-list');
-  const bottomList = document.getElementById('bottom-list');
+  const globalSorted = [...APPS].sort((a,b) => b.size - a.size);
 
-  const top = list.slice(0, 5);
-  const bottom = [...list].reverse().slice(0, 5).reverse();
-
-  topList.innerHTML = top.map((a, i) => renderItem(a, i + 1, i * 60)).join('');
-  bottomList.innerHTML = bottom.map((a, i) => renderItem(a, i, i * 60)).join('');
+  document.getElementById('app-list').innerHTML = list.map((app, i) => {
+    const globalRank = globalSorted.findIndex(a => a.name === app.name) + 1;
+    const { num, unit } = fmt(app.size);
+    const pct = Math.round(app.size / maxSize * 100);
+    const isTop3 = globalRank <= 3 && currentCat === '全部';
+    return `
+      <div class="app-item" style="animation-delay:${i*40}ms">
+        <div class="app-row">
+          <div class="rank-num ${isTop3 ? 'top3' : ''}">${currentSort==='desc'?i+1:list.length-i}</div>
+          <div class="app-icon icon-bg-${app.color}">${app.icon}</div>
+          <div class="app-info">
+            <div class="app-name">${app.name}</div>
+            <div class="app-category">${app.category}</div>
+          </div>
+          <div class="app-size">
+            <span class="size-num color-${app.color}">${num}</span>
+            <span class="size-unit">${unit}</span>
+          </div>
+        </div>
+        <div class="app-bar-wrap">
+          <div class="app-bar bg-${app.color}" style="width:${pct}%"></div>
+        </div>
+      </div>`;
+  }).join('');
 }
 
-function filterCategory(cat) {
-  currentCategory = cat;
-  document.querySelectorAll('.tab').forEach(t => {
-    t.classList.toggle('active', t.textContent.replace(/.*?\s/, '') === cat || t.textContent === cat);
+function renderPie() {
+  const cats = Object.keys(CAT_COLORS);
+  const totals = {};
+  cats.forEach(c => totals[c] = 0);
+  APPS.forEach(a => { if (totals[a.category] !== undefined) totals[a.category] += a.size; });
+  const grand = Object.values(totals).reduce((s,v)=>s+v,0);
+
+  const canvas = document.getElementById('pie');
+  const ctx = canvas.getContext('2d');
+  const cx = 55, cy = 55, r = 50, hole = 28;
+  let angle = -Math.PI/2;
+
+  ctx.clearRect(0,0,110,110);
+  cats.forEach(cat => {
+    const slice = totals[cat] / grand * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, angle, angle + slice);
+    ctx.closePath();
+    ctx.fillStyle = CAT_COLORS[cat].hex;
+    ctx.shadowColor = CAT_COLORS[cat].hex;
+    ctx.shadowBlur = 6;
+    ctx.fill();
+    angle += slice;
   });
-  render();
-}
+  // hole
+  ctx.shadowBlur = 0;
+  ctx.beginPath();
+  ctx.arc(cx, cy, hole, 0, Math.PI*2);
+  ctx.fillStyle = '#050510';
+  ctx.fill();
 
-function sortApps(dir, btn) {
-  currentSort = dir;
-  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  render();
+  // legend
+  const legend = document.getElementById('pie-legend');
+  legend.innerHTML = cats.map(cat => {
+    const mb = totals[cat];
+    const { num, unit } = fmt(mb);
+    const pct = Math.round(mb/grand*100);
+    return `<div class="pie-leg-item">
+      <div class="pie-dot ${CAT_COLORS[cat].solid}"></div>
+      <span class="pie-leg-name">${cat}</span>
+      <span class="pie-leg-val ${CAT_COLORS[cat].text}">${num}<span class="pie-leg-pct">${unit}</span></span>
+      <span class="pie-leg-pct">${pct}%</span>
+    </div>`;
+  }).join('');
 }
 
 function initOverview() {
-  const totalGB = 128;
-  const appsMB = APPS.reduce((s, a) => s + a.size, 0);
+  const totalMB = 128 * 1024;
+  const appsMB  = APPS.reduce((s,a) => s+a.size, 0);
   const mediaMB = 18400;
   const systemMB = 8200;
-  const usedMB = appsMB + mediaMB + systemMB;
-  const freeMB = totalGB * 1024 - usedMB;
+  const usedMB  = appsMB + mediaMB + systemMB;
+  const freeMB  = totalMB - usedMB;
 
   const bar = document.getElementById('total-bar');
-  const total = totalGB * 1024;
-  const segs = [
-    { pct: appsMB / total * 100,   cls: 'bg-orange', label: 'apps' },
-    { pct: mediaMB / total * 100,  cls: 'bg-purple', label: 'media' },
-    { pct: systemMB / total * 100, cls: 'bg-blue',   label: 'system' },
-    { pct: freeMB / total * 100,   cls: 'bg-green',  label: 'free' },
-  ];
-  bar.innerHTML = segs.map(s => `<div class="bar-seg ${s.cls}" style="width:${s.pct.toFixed(1)}%"></div>`).join('');
+  bar.innerHTML = [
+    { pct: appsMB/totalMB*100,   cls: 'bg-orange' },
+    { pct: mediaMB/totalMB*100,  cls: 'bg-purple'  },
+    { pct: systemMB/totalMB*100, cls: 'bg-blue'    },
+    { pct: freeMB/totalMB*100,   cls: 'bg-green'   },
+  ].map(s=>`<div class="bar-seg ${s.cls}" style="width:${s.pct.toFixed(1)}%"></div>`).join('');
 
-  const fmtGB = mb => (mb / 1024).toFixed(1) + ' GB';
+  const fmtGB = mb => (mb/1024).toFixed(1)+' GB';
   document.getElementById('used-val').textContent  = fmtGB(usedMB);
   document.getElementById('app-val').textContent   = fmtGB(appsMB);
   document.getElementById('media-val').textContent = fmtGB(mediaMB);
   document.getElementById('free-val').textContent  = fmtGB(freeMB);
+
+  const { num, unit } = fmt(appsMB);
+  document.getElementById('all-total').textContent = num + ' ' + unit;
+  document.getElementById('app-count').textContent = APPS.length + ' 个应用';
 }
 
+function setSort(dir) {
+  currentSort = dir;
+  document.getElementById('sort-desc').classList.toggle('active', dir==='desc');
+  document.getElementById('sort-asc').classList.toggle('active',  dir==='asc');
+  renderList();
+}
+
+// 分类标签事件
+document.getElementById('tab-row').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  currentCat = tab.dataset.cat;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t===tab));
+  renderList();
+});
+
 initOverview();
-render();
+renderPie();
+renderList();
 </script>
 </body>
 </html>
