@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMIÈRE NAILS | 高端美甲沙龙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #C9A96E;
+  --gold-light: #E8D5A3;
+  --gold-dark: #A07840;
+  --rose: #E8B4B8;
+  --rose-deep: #C4838A;
+  --blush: #F9EEE8;
+  --cream: #FDF8F3;
+  --charcoal: #2C2825;
+  --taupe: #8B7D75;
+  --white: #FFFFFF;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+
+nav.scrolled {
+  background: rgba(253, 248, 243, 0.97);
+  backdrop-filter: blur(20px);
+  padding: 14px 60px;
+  box-shadow: 0 2px 30px rgba(201, 169, 110, 0.12);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.4s;
+}
+
+nav.scrolled .nav-logo { color: var(--charcoal); }
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+nav.scrolled .nav-links a { color: var(--taupe); }
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--gold) !important; }
+
+.nav-book {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 28px;
+  border: 1px solid rgba(255,255,255,0.6);
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+nav.scrolled .nav-book {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.nav-book:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white) !important;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px; height: 1.5px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+nav.scrolled .hamburger span { background: var(--charcoal); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  z-index: 1050;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  color: var(--charcoal);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.mobile-menu a:hover { color: var(--gold); }
+
+/* ===== HERO ===== */
+.hero {
+  height: 100vh;
+  min-height: 700px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(44,40,37,0.85) 0%, rgba(160,120,64,0.6) 50%, rgba(196,131,138,0.5) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cdefs%3E%3CradialGradient id='a' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23E8B4B8'/%3E%3Cstop offset='100%25' stop-color='%232C2825'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='600'/%3E%3Ccircle cx='200' cy='150' r='180' fill='%23C9A96E' opacity='0.15'/%3E%3Ccircle cx='600' cy='450' r='200' fill='%23E8B4B8' opacity='0.12'/%3E%3Ccircle cx='400' cy='300' r='250' fill='%23A07840' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Animated gradient orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 8s ease-in-out infinite;
+}
+
+.orb1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,169,110,0.25), transparent);
+  top: -100px; right: -100px;
+  animation-delay: 0s;
+}
+
+.orb2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(232,180,184,0.2), transparent);
+  bottom: -80px; left: -80px;
+  animation-delay: 3s;
+}
+
+.orb3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,169,110,0.15), transparent);
+  top: 40%; left: 30%;
+  animation-delay: 5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+/* Decorative lines */
+.hero-line {
+  position: absolute;
+  background: rgba(201,169,110,0.3);
+}
+
+.hero-line-1 {
+  width: 1px; height: 120px;
+  top: 0; left: 60px;
+}
+
+.hero-line-2 {
+  width: 120px; height: 1px;
+  top: 120px; left: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 20px;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  animation: fadeUp 1s 0.2s both;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 40px; height: 1px;
+  background: var(--gold-light);
+  opacity: 0.6;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 9vw, 110px);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--white);
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  animation: fadeUp 1s 0.4s both;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.hero-title-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 8px;
+  margin-bottom: 36px;
+  animation: fadeUp 1s 0.5s both;
+}
+
+.hero-desc {
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.65);
+  max-width: 480px;
+  margin: 0 auto 50px;
+  animation: fadeUp 1s 0.6s both;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 1s 0.8s both;
+}
+
+.btn-primary {
+  padding: 16px 48px;
+  background: var(--gold);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  transform: translateX(-100%);
+  transition: transform 0.4s;
+}
+
+.btn-primary:hover::after { transform: translateX(0); }
+.btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+.btn-outline {
+  padding: 16px 48px;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.5);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: fadeUp 1s 1.2s both;
+}
+
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, rgba(201,169,110,0.6), transparent);
+  animation: scrollDown 2s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  50% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MARQUEE STRIP ===== */
+.marquee-strip {
+  background: var(--gold);
+  padding: 14px 0;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 30px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.marquee-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===== SECTIONS ===== */
+section { padding: 110px 60px; }
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 30px; height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--charcoal);
+  margin-bottom: 20px;
+}
+
+.section-title em { font-style: italic; color: var(--gold-dark); }
+
+.section-sub {
+  font-size: 13px;
+  color: var(--taupe);
+  max-width: 520px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== ABOUT ===== */
+.about {
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-img-main {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(135deg, var(--blush), var(--rose));
+  position: relative;
+  overflow: hidden;
+}
+
+.about-img-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(201,169,110,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 30%, rgba(232,180,184,0.5) 0%, transparent 60%);
+}
+
+/* Nail art SVG illustration */
+.nail-illustration {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-img-accent {
+  position: absolute;
+  width: 55%;
+  aspect-ratio: 1;
+  bottom: -40px;
+  right: -40px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--white);
+  text-align: center;
+  padding: 30px;
+}
+
+.accent-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.accent-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.about-content { padding: 20px 0; }
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 1px solid rgba(201,169,110,0.2);
+}
+
+.stat-item {}
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--taupe);
+  text-transform: uppercase;
+}
+
+/* ===== SERVICES ===== */
+.services {
+  background: var(--charcoal);
+  text-align: center;
+}
+
+.services .section-eyebrow { justify-content: center; color: var(--gold-light); }
+.services .section-eyebrow::before { background: var(--gold-light); }
+.services .section-title { color: var(--white); }
+.services .section-sub { color: rgba(255,255,255,0.5); margin: 0 auto 70px; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: rgba(255,255,255,0.03);
+  padding: 50px 40px;
+  text-align: left;
+  border: 1px solid rgba(201,169,110,0.1);
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), var(--rose-deep));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.service-card:hover {
+  background: rgba(201,169,110,0.06);
+  transform: translateY(-4px);
+}
+
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-icon {
+  width: 56px; height: 56px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-icon svg { width: 100%; height: 100%; }
+
+.service-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.service-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.5px;
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.service-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.price-from {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.price-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--gold);
+  font-weight: 300;
+}
+
+.price-unit {
+  font-size: 11px;
+  color: rgba(201,169,110,0.6);
+}
+
+/* ===== PROCESS ===== */
+.process {
+  background: var(--blush);
+  text-align: center;
+}
+
+.process .section-eyebrow { justify-content: center; }
+.process .section-sub { margin: 0 auto 70px; }
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 36px; left: 12.5%; right: 12.5%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+.process-step {
+  text-align: center;
+  padding: 0 30px;
+  position: relative;
+}
+
+.step-num {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 30px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  color: var(--gold);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.process-step:hover .step-num {
+  background: var(--gold);
+  color: var(--white);
+}
+
+.step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--charcoal);
+  margin-bottom: 12px;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: var(--taupe);
+  line-height: 1.8;
+}
+
+/* ===== GALLERY ===== */
+.gallery { background: var(--white); }
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 50px;
+}
+
+.gallery-link {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--gold);
+  transition: gap 0.3s;
+}
+
+.gallery-link:hover { gap: 16px; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 12px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(44,40,37,0.5);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.gallery-item:hover::after { opacity: 1; }
+
+.gallery-item:hover .gallery-img { transform: scale(1.08); }
+
+.g1 { grid-column: span 5; grid-row: span 2; }
+.g2 { grid-column: span 4; }
+.g3 { grid-column: span 3; }
+.g4 { grid-column: span 3; }
+.g5 { grid-column: span 4; }
+.g6 { grid-column: span 5; }
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  display: block;
+}
+
+/* Colored placeholder gradients */
+.nail-img-1 { background: linear-gradient(135deg, #F4C5CA, #E8879F, #C4607A); }
+.nail-img-2 { background: linear-gradient(135deg, #E8D5A3, #C9A96E, #A07840); }
+.nail-img-3 { background: linear-gradient(135deg, #E8E0F0, #C4B0D8, #9B85C0); }
+.nail-img-4 { background: linear-gradient(135deg, #B8E0D2, #7EC8B8, #4FA898); }
+.nail-img-5 { background: linear-gradient(135deg, #F0D4C0, #E0A87A, #C07840); }
+.nail-img-6 { background: linear-gradient(135deg, #F8C8D0, #F09098, #D06070); }
+
+/* SVG nail art overlays */
+.gallery-img-inner {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(44,40,37,0.8));
+  color: var(--white);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 10;
+}
+
+.gallery-item:hover .gallery-label { opacity: 1; }
+
+/* ===== TESTIMONIALS ===== */
+.testimonials {
+  background: var(--charcoal);
+  text-align: center;
+  overflow: hidden;
+}
+
+.testimonials .section-eyebrow { justify-content: center; color: var(--gold-light); }
+.testimonials .section-eyebrow::before { background: var(--gold-light); }
+.testimonials .section-title { color: var(--white); margin-bottom: 60px; }
+
+.testimonials-track {
+  display: flex;
+  gap: 30px;
+  animation: slideLeft 30s linear infinite;
+}
+
+.testimonials-track:hover { animation-play-state: paused; }
+
+.testimonial-card {
+  flex-shrink: 0;
+  width: 380px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,169,110,0.15);
+  padding: 44px;
+  text-align: left;
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.star {
+  width: 14px; height: 14px;
+  color: var(--gold);
+}
+
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.author-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--rose-deep));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--white);
+}
+
+.author-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.author-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(201,169,110,0.7);
+  text-transform: uppercase;
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===== PRODUCTS ===== */
+.products {
+  background: var(--cream);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.product-card {
+  background: var(--white);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(201,169,110,0.15);
+}
+
+.product-img {
+  width: 100%;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-img-inner {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prod-1 { background: linear-gradient(135deg, #FDE8EC, #F5B8C4); }
+.prod-2 { background: linear-gradient(135deg, #EDE8FE, #C4B8F5); }
+.prod-3 { background: linear-gradient(135deg, #E8F5EE, #B8E8CC); }
+.prod-4 { background: linear-gradient(135deg, #FEF3E8, #F5D4B8); }
+
+.product-badge {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+}
+
+.product-info { padding: 24px; }
+
+.product-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+
+.product-sub {
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--gold);
+}
+
+.product-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--charcoal);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.product-btn:hover { background: var(--gold); }
+
+/* ===== BOOKING ===== */
+.booking {
+  background: linear-gradient(135deg, var(--charcoal) 0%, #3D3530 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.booking-content .section-eyebrow { color: var(--gold-light); }
+.booking-content .section-eyebrow::before { background: var(--gold-light); }
+.booking-content .section-title { color: var(--white); }
+.booking-content .section-sub { color: rgba(255,255,255,0.5); margin-bottom: 40px; }
+
+.booking-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  width: 32px; height: 32px;
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.feature-text h4 {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.feature-text p {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.5px;
+}
+
+.booking-form {
+  background: var(--white);
+  padding: 50px;
+}
+
+.form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.form-sub {
+  font-size: 12px;
+  color: var(--taupe);
+  margin-bottom: 36px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  border-bottom: 1px solid rgba(44,40,37,0.15);
+  background: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: var(--charcoal);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus { border-color: var(--gold); }
+.form-input::placeholder { color: rgba(44,40,37,0.3); }
+
+select.form-input { cursor: pointer; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--charcoal);
+  color: var(--white);
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.form-submit:hover { background: var(--gold); }
+
+/* ===== CONTACT ===== */
+.contact {
+  background: var(--blush);
+  text-align: center;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  max-width: 900px;
+  margin: 60px auto 0;
+}
+
+.contact-item {}
+
+.contact-icon {
+  width: 52px; height: 52px;
+  background: var(--white);
+  border: 1px solid rgba(201,169,110,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.contact-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.contact-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--charcoal);
+  line-height: 1.5;
+}
+
+/* ===== MAP STRIP ===== */
+.map-strip {
+  height: 300px;
+  background: linear-gradient(135deg, rgba(201,169,110,0.1), rgba(232,180,184,0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-placeholder {
+  text-align: center;
+  z-index: 1;
+}
+
+.map-placeholder p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--taupe);
+  margin-top: 12px;
+}
+
+.map-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,169,110,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,169,110,0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--charcoal);
+  padding: 70px 60px 40px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(201,169,110,0.1);
+}
+
+.footer-brand {}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 1px;
+  line-height: 1.8;
+  max-width: 240px;
+  margin-bottom: 30px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.social-btn {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(201,169,110,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(201,169,110,0.6);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.social-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+
+.footer-col h4 {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col a {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+
+.footer-col a:hover { color: var(--gold); }
+
+.footer-hours { font-size: 12px; color: rgba(255,255,255,0.4); }
+.footer-hours p { margin-bottom: 10px; }
+.footer-hours span { color: rgba(255,255,255,0.2); font-size: 10px; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+}
+
+.footer-copy em { color: var(--gold); font-style: normal; }
+
+.footer-policy {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-policy a {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-policy a:hover { color: var(--gold); }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  section { padding: 80px 40px; }
+  nav { padding: 18px 40px; }
+  nav.scrolled { padding: 12px 40px; }
+  .about { grid-template-columns: 1fr; gap: 50px; }
+  .about-img-main { aspect-ratio: 16/9; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .process-steps::before { display: none; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .booking { grid-template-columns: 1fr; gap: 60px; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  section { padding: 70px 24px; }
+  nav { padding: 16px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  .nav-links, .nav-book { display: none; }
+  .hamburger { display: flex; }
+  .hero-title { font-size: clamp(44px, 12vw, 80px); }
+  .services-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .g1, .g2, .g3, .g4, .g5, .g6 { grid-column: span 1; grid-row: span 1; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .booking-form { padding: 36px 28px; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .gallery-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">LUMIÈRE NAILS</a>
+  <ul class="nav-links">
+    <li><a href="#about">关于我们</a></li>
+    <li><a href="#services">服务项目</a></li>
+    <li><a href="#gallery">作品展示</a></li>
+    <li><a href="#products">精选产品</a></li>
+    <li><a href="#contact">联系我们</a></li>
+  </ul>
+  <a href="#booking" class="nav-book">立即预约</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">关于我们</a>
+  <a href="#services" onclick="toggleMenu()">服务项目</a>
+  <a href="#gallery" onclick="toggleMenu()">作品展示</a>
+  <a href="#products" onclick="toggleMenu()">精选产品</a>
+  <a href="#booking" onclick="toggleMenu()">立即预约</a>
+  <a href="#contact" onclick="toggleMenu()">联系我们</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+  </div>
+  <div class="hero-line hero-line-1"></div>
+  <div class="hero-line hero-line-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">高端美甲沙龙 · 专业美学</div>
+    <h1 class="hero-title"><em>Lumière</em></h1>
+    <div class="hero-title-sub">NAILS & BEAUTY</div>
+    <p class="hero-desc">以艺术的眼光，精雕每一寸细节。让您的指尖，成为最美的画布。</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary">立即预约</a>
+      <a href="#services" class="btn-outline">探索服务</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>向下浏览</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>专业美甲</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>光疗美甲</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>日式美甲</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>手足护理</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>甲片定制</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>彩绘艺术</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>晕染渐变</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>专业美甲</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>光疗美甲</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>日式美甲</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>手足护理</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>甲片定制</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>彩绘艺术</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>晕染渐变</span><div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-main">
+      <!-- SVG Nail Art Illustration -->
+      <svg width="100%" height="100%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;">
+        <defs>
+          <radialGradient id="bg1" cx="50%" cy="50%" r="70%">
+            <stop offset="0%" stop-color="#F9EEE8"/>
+            <stop offset="100%" stop-color="#E8B4B8"/>
+          </radialGradient>
+          <linearGradient id="nail1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F5C8CC"/>
+            <stop offset="100%" stop-color="#E0848E"/>
+          </linearGradient>
+          <linearGradient id="nail2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E8D5A3"/>
+            <stop offset="100%" stop-color="#C9A96E"/>
+          </linearGradient>
+          <filter id="shadow1">
+            <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(44,40,37,0.2)"/>
+          </filter>
+        </defs>
+        <rect fill="url(#bg1)" width="500" height="600"/>
+
+        <!-- Decorative circles -->
+        <circle cx="80" cy="80" r="60" fill="rgba(201,169,110,0.12)"/>
+        <circle cx="420" cy="520" r="80" fill="rgba(232,180,184,0.15)"/>
+        <circle cx="400" cy="100" r="40" fill="rgba(201,169,110,0.08)"/>
+
+        <!-- Hand silhouette -->
+        <g transform="translate(100, 120)" filter="url(#shadow1)">
+          <!-- Palm -->
+          <ellipse cx="150" cy="340" rx="110" ry="80" fill="#FDDDD8"/>
+
+          <!-- Fingers -->
+          <!-- Thumb -->
+          <path d="M40,300 C20,280 10,250 15,220 C18,200 30,195 45,200 C60,205 65,220 65,240 L65,300 Z" fill="#FDDDD8"/>
+
+          <!-- Index -->
+          <rect x="75" y="140" width="46" height="170" rx="23" fill="#FDDDD8"/>
+          <!-- Middle -->
+          <rect x="130" y="110" width="46" height="200" rx="23" fill="#FDDDD8"/>
+          <!-- Ring -->
+          <rect x="185" y="130" width="46" height="180" rx="23" fill="#FDDDD8"/>
+          <!-- Pinky -->
+          <rect x="240" y="160" width="38" height="150" rx="19" fill="#FDDDD8"/>
+
+          <!-- Nails with gradient -->
+          <rect x="75" y="140" width="46" height="60" rx="23" fill="url(#nail1)"/>
+          <rect x="130" y="110" width="46" height="60" rx="23" fill="url(#nail2)"/>
+          <rect x="185" y="130" width="46" height="60" rx="23" fill="url(#nail1)"/>
+          <rect x="240" y="160" width="38" height="50" rx="19" fill="url(#nail2)"/>
+
+          <!-- Nail shine -->
+          <ellipse cx="98" cy="158" rx="8" ry="12" fill="rgba(255,255,255,0.4)"/>
+          <ellipse cx="153" cy="128" rx="8" ry="12" fill="rgba(255,255,255,0.4)"/>
+          <ellipse cx="208" cy="148" rx="8" ry="12" fill="rgba(255,255,255,0.4)"/>
+          <ellipse cx="259" cy="175" rx="7" ry="10" fill="rgba(255,255,255,0.4)"/>
+
+          <!-- Nail art dots on ring finger -->
+          <circle cx="208" cy="168" r="3" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="218" cy="173" r="2" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="200" cy="174" r="2" fill="rgba(255,255,255,0.5)"/>
+        </g>
+
+        <!-- Decorative elements -->
+        <circle cx="60" cy="480" r="5" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="440" cy="200" r="4" fill="rgba(232,180,184,0.5)"/>
+        <circle cx="450" cy="350" r="3" fill="rgba(201,169,110,0.3)"/>
+        <line x1="30" y1="300" x2="70" y2="300" stroke="rgba(201,169,110,0.3)" stroke-width="1"/>
+        <line x1="430" y1="300" x2="470" y2="300" stroke="rgba(232,180,184,0.3)" stroke-width="1"/>
+
+        <!-- Sparkle stars -->
+        <g fill="rgba(201,169,110,0.5)">
+          <polygon points="450,150 453,143 456,150 463,150 457,155 459,163 453,158 447,163 449,155 443,150" />
+        </g>
+        <g fill="rgba(232,180,184,0.4)" transform="scale(0.6) translate(50,700)">
+          <polygon points="450,150 453,143 456,150 463,150 457,155 459,163 453,158 447,163 449,155 443,150" />
+        </g>
+      </svg>
+    </div>
+    <div class="about-img-accent">
+      <div class="accent-number">10+</div>
+      <div class="accent-label">年专业经验</div>
+    </div>
+  </div>
+
+  <div class="about-content reveal">
+    <div class="section-eyebrow">关于我们</div>
+    <h2 class="section-title">用艺术诠释<br><em>指尖之美</em></h2>
+    <p class="section-sub" style="margin-bottom:20px;">
+      Lumière Nails 是一家专注于高端美甲艺术的沙龙，由资深美甲师创立。我们相信，每一双手都值得被精心对待。
+    </p>
+    <p class="section-sub">
+      我们团队拥有超过十年的专业经验，融合东西方美学，运用顶级甲油与工具，为每位客人创造独一无二的作品。
+    </p>
+
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-num">5,000+</div>
+        <div class="stat-label">满意客户</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">设计款式</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15</div>
+        <div class="stat-label">专业美甲师</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">99%</div>
+        <div class="stat-label">好评率</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-eyebrow">服务项目</div>
+  <h2 class="section-title" style="color:var(--white)">专属您的<em style="color:var(--gold-light)">美甲体验</em></h2>
+  <p class="section-sub">每项服务都经过精心设计，带给您极致的放松与美丽体验</p>
+
+  <div class="services-grid">
+    <!-- Card 1 -->
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="18" y="8" width="20" height="34" rx="10" stroke="#C9A96E" stroke-width="1.5"/>
+          <path d="M18 28 Q14 30 14 36 Q14 42 18 44 L38 44 Q42 42 42 36 Q42 30 38 28" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+          <ellipse cx="28" cy="18" rx="5" ry="7" fill="rgba(201,169,110,0.2)" stroke="#C9A96E" stroke-width="1"/>
+          <line x1="28" y1="8" x2="28" y2="4" stroke="#C9A96E" stroke-width="1.5"/>
+          <circle cx="28" cy="3" r="2" fill="#C9A96E"/>
+        </svg>
+      </div>
+      <div class="service-name">光疗美甲</div>
+      <div class="service-desc">采用进口UV光疗甲油，持久不脱落，色彩饱满亮丽。提供超过200种颜色选择，让您的指甲光泽动人。</div>
+      <div class="service-price">
+        <span class="price-from">起价</span>
+        <span class="price-num">¥168</span>
+        <span class="price-unit">/次</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 40 L20 20 L28 32 L34 16 L42 40 Z" stroke="#C9A96E" stroke-width="1.5" stroke-linejoin="round" fill="rgba(201,169,110,0.1)"/>
+          <circle cx="28" cy="12" r="4" stroke="#C9A96E" stroke-width="1.5"/>
+          <path d="M20 40 Q28 45 36 40" stroke="#C9A96E" stroke-width="1" fill="none"/>
+          <circle cx="14" cy="40" r="2.5" fill="#C9A96E"/>
+          <circle cx="42" cy="40" r="2.5" fill="#C9A96E"/>
+        </svg>
+      </div>
+      <div class="service-name">日式美甲</div>
+      <div class="service-desc">融合日本精湛工艺与美学理念，精细甲型修整，温和产品护理，打造优雅精致的日式风格指甲艺术。</div>
+      <div class="service-price">
+        <span class="price-from">起价</span>
+        <span class="price-num">¥258</span>
+        <span class="price-unit">/次</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="20" width="32" height="22" rx="4" stroke="#C9A96E" stroke-width="1.5"/>
+          <path d="M20 20 L20 16 Q20 12 24 12 L32 12 Q36 12 36 16 L36 20" stroke="#C9A96E" stroke-width="1.5"/>
+          <line x1="12" y1="28" x2="44" y2="28" stroke="#C9A96E" stroke-width="1"/>
+          <circle cx="24" cy="34" r="3" fill="rgba(201,169,110,0.3)" stroke="#C9A96E" stroke-width="1"/>
+          <circle cx="32" cy="34" r="3" fill="rgba(232,180,184,0.4)" stroke="#C9A96E" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="service-name">甲片定制</div>
+      <div class="service-desc">量身定制专属甲片，可选超薄水晶甲、亚克力甲等多种材质。独特造型，彰显个性美学，持久耐用。</div>
+      <div class="service-price">
+        <span class="price-from">起价</span>
+        <span class="price-num">¥388</span>
+        <span class="price-unit">/次</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 38 Q14 20 28 16 Q42 20 46 38" stroke="#C9A96E" stroke-width="1.5" fill="rgba(201,169,110,0.08)"/>
+          <path d="M16 38 Q18 26 28 22 Q38 26 40 38" stroke="#C9A96E" stroke-width="1" fill="rgba(201,169,110,0.12)"/>
+          <ellipse cx="28" cy="40" rx="18" ry="6" stroke="#C9A96E" stroke-width="1.5"/>
+          <path d="M22 30 Q28 27 34 30" stroke="#C9A96E" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="service-name">晕染渐变</div>
+      <div class="service-desc">专业晕染渐变技法，颜色过渡自然流畅。多色系搭配选择，营造层次丰富的视觉效果，独具魅力。</div>
+      <div class="service-price">
+        <span class="price-from">起价</span>
+        <span class="price-num">¥218</span>
+        <span class="price-unit">/次</span>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="16" stroke="#C9A96E" stroke-width="1.5"/>
+          <path d="M20 28 Q22 22 28 20 Q34 22 36 28 Q34 34 28 36 Q22 34 20 28 Z" fill="rgba(201,169,110,0.15)" stroke="#C9A96E" stroke-width="1"/>
+          <circle cx="28" cy="28" r="4" fill="#C9A96E" opacity="0.4"/>
+          <line x1="28" y1="12" x2="28" y2="8" stroke="#C9A96E" stroke-width="1.5"/>
+          <line x1="28" y1="44" x2="28" y2="48" stroke="#C9A96E" stroke-width="1.5"/>
+          <line x1="12" y1="28" x2="8" y2="28" stroke="#C9A96E" stroke-width="1.5"/>
+          <line x1="44" y1="28" x2="48" y2="28" stroke="#C9A96E" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="service-name">美甲彩绘</div>
+      <div class="service-desc">手工精绘艺术图案，花卉、几何、抽象、卡通等多种风格，每一笔都是艺术创作，指尖即是画布。</div>
+      <div class="service-price">
+        <span class="price-from">起价</span>
+        <span class="price-num">¥298</span>
+        <span class="price-unit">/次</span>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 10 L32 22 L44 22 L34 30 L38 42 L28 34 L18 42 L22 30 L12 22 L24 22 Z" stroke="#C9A96E" stroke-width="1.5" stroke-linejoin="round" fill="rgba(201,169,110,0.12)"/>
+          <circle cx="28" cy="28" r="6" fill="rgba(201,169,110,0.2)"/>
+        </svg>
+      </div>
+      <div class="service-name">手足护理 SPA</div>
+      <div class="service-desc">深层滋养护理，去角质、保湿按摩、精油疗程一体化。让双手双足重焕活力，柔嫩细滑，倍感舒适。</div>
+      <div class="service-price">
+        <span class="price-from">起价</span>
+        <span class="price-num">¥328</span>
+        <span class="price-unit">/次</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-eyebrow">服务流程</div>
+  <h2 class="section-title">极致体验<br><em>从到访开始</em></h2>
+  <p class="section-sub">我们精心设计每一个环节，让您的到访成为完美的放松之旅</p>
+
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-title">咨询设计</div>
+      <div class="step-desc">与专业美甲师沟通，了解您的喜好与需求，共同设计专属方案</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">02</div>
+      <div class="step-title">基础护理</div>
+      <div class="step-desc">温和去除旧甲，精细修整甲型，打磨抛光，为美甲打好完美基础</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">03</div>
+      <div class="step-title">艺术创作</div>
+      <div class="step-desc">专业美甲师精心施艺，一笔一画皆是匠心，成就您的专属美丽</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">04</div>
+      <div class="step-title">完美收尾</div>
+      <div class="step-desc">顶层封层保护，润甲油滋养，确保色彩持久亮丽，完美呈现</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-eyebrow">作品展示</div>
+      <h2 class="section-title">指尖上的<br><em>艺术世界</em></h2>
+    </div>
+    <a href="#" class="gallery-link">查看全部作品 →</a>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item g1 reveal">
+      <div class="gallery-img-inner nail-img-1">
+        <svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0;">
+          <defs>
+            <linearGradient id="g1a" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F4C5CA"/>
+              <stop offset="100%" stop-color="#C4607A"/>
+            </linearGradient>
+          </defs>
+          <rect fill="url(#g1a)" width="300" height="380"/>
+          <circle cx="150" cy="120" r="70" fill="rgba(255,255,255,0.08)"/>
+          <circle cx="80" cy="280" r="50" fill="rgba(255,255,255,0.06)"/>
+          <!-- Nail fingers -->
+          <rect x="90" y="80" width="40" height="60" rx="20" fill="rgba(255,255,255,0.3)"/>
+          <rect x="140" y="60" width="40" height="70" rx="20" fill="rgba(255,255,255,0.3)"/>
+          <rect x="190" y="75" width="40" height="65" rx="20" fill="rgba(255,255,255,0.3)"/>
+          <!-- Rose petals -->
+          <g opacity="0.4" transform="translate(150,230)">
+            <ellipse cx="0" cy="-20" rx="15" ry="25" fill="#fff" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-20" rx="15" ry="25" fill="#fff" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-20" rx="15" ry="25" fill="#fff" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-20" rx="15" ry="25" fill="#fff" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-20" rx="15" ry="25" fill="#fff" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="8" fill="#E8879F"/>
+          </g>
+        </svg>
+      </div>
+      <div class="gallery-label">玫瑰盛宴 · 法式浪漫</div>
+    </div>
+
+    <div class="gallery-item g2 reveal">
+      <div class="gallery-img-inner nail-img-2">
+        <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0;">
+          <defs>
+            <linearGradient id="g2a" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E8D5A3"/>
+              <stop offset="100%" stop-color="#A07840"/>
+            </linearGradient>
+          </defs>
+          <rect fill="url(#g2a)" width="260" height="200"/>
+          <circle cx="130" cy="100" r="60" fill="rgba(255,255,255,0.06)"/>
+          <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <line x1="130" y1="0" x2="130" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <!-- Gold geometric pattern -->
+          <polygon points="130,40 160,80 130,120 100,80" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <polygon points="130,55 150,80 130,105 110,80" fill="rgba(255,255,255,0.1)"/>
+          <circle cx="130" cy="80" r="8" fill="rgba(255,255,255,0.4)"/>
+        </svg>
+      </div>
+      <div class="gallery-label">流金岁月 · 几何美学</div>
+    </div>
+
+    <div class="gallery-item g3 reveal">
+      <div class="gallery-img-inner nail-img-3">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0;">
+          <defs>
+            <linearGradient id="g3a" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E8E0F0"/>
+              <stop offset="100%" stop-color="#9B85C0"/>
+            </linearGradient>
+          </defs>
+          <rect fill="url(#g3a)" width="200" height="200"/>
+          <!-- Sparkle pattern -->
+          <g fill="rgba(255,255,255,0.6)">
+            <polygon points="100,30 103,45 118,45 106,54 111,70 100,61 89,70 94,54 82,45 97,45"/>
+            <polygon points="50,100 52,110 62,110 54,116 57,126 50,120 43,126 46,116 38,110 48,110" transform="scale(0.7) translate(20,50)"/>
+            <polygon points="150,150 152,158 162,158 154,164 157,174 150,168 143,174 146,164 138,158 148,158" transform="scale(0.5) translate(110,110)"/>
+          </g>
+          <circle cx="100" cy="130" r="30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="gallery-label">星光璀璨 · 紫罗兰</div>
+    </div>
+
+    <div class="gallery-item g4 reveal">
+      <div class="gallery-img-inner nail-img-4">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0;">
+          <defs>
+            <linearGradient id="g4a" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#B8E0D2"/>
+              <stop offset="100%" stop-color="#4FA898"/>
+            </linearGradient>
+          </defs>
+          <rect fill="url(#g4a)" width="200" height="200"/>
+          <!-- Wave pattern -->
+          <path d="M0,80 Q50,60 100,80 Q150,100 200,80" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+          <path d="M0,100 Q50,80 100,100 Q150,120 200,100" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+          <path d="M0,120 Q50,100 100,120 Q150,140 200,120" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+          <circle cx="100" cy="80" r="25" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="gallery-label">碧海清波 · 清新系</div>
+    </div>
+
+    <div class="gallery-item g5 reveal">
+      <div class="gallery-img-inner nail-img-5">
+        <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0;">
+          <defs>
+            <linearGradient id="g5a" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F0D4C0"/>
+              <stop offset="100%" stop-color="#C07840"/>
+            </linearGradient>
+          </defs>
+          <rect fill="url(#g5a)" width="260" height="200"/>
+          <!-- Marble texture -->
+          <path d="M0,50 Q60,30 120,70 Q180,110 260,60" stroke="rgba(255,255,255,0.2)" stroke-width="8" fill="none"/>
+          <path d="M0,120 Q80,90 160,140 Q200,160 260,130" stroke="rgba(255,255,255,0.15)" stroke-width="6" fill="none"/>
+          <path d="M30,0 Q50,60 80,100 Q100,140 90,200" stroke="rgba(255,255,255,0.1)" stroke-width="4" fill="none"/>
+        </svg>
+      </div>
+      <div class="gallery-label">奶茶暖色 · 日常高级</div>
+    </div>
+
+    <div class="gallery-item g6 reveal">
+      <div class="gallery-img-inner nail-img-6">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0;">
+          <defs>
+            <linearGradient id="g6a" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F8C8D0"/>
+              <stop offset="100%" stop-color="#D06070"/>
+            </linearGradient>
+          </defs>
+          <rect fill="url(#g6a)" width="300" height="200"/>
+          <!-- Cherry blossom -->
+          <g transform="translate(150,100)">
+            <g opacity="0.5">
+              <ellipse cx="0" cy="-25" rx="12" ry="20" fill="white" transform="rotate(0)"/>
+              <ellipse cx="0" cy="-25" rx="12" ry="20" fill="white" transform="rotate(72)"/>
+              <ellipse cx="0" cy="-25" rx="12" ry="20" fill="white" transform="rotate(144)"/>
+              <ellipse cx="0" cy="-25" rx="12" ry="20" fill="white" transform="rotate(216)"/>
+              <ellipse cx="0" cy="-25" rx="12" ry="20" fill="white" transform="rotate(288)"/>
+            </g>
+            <circle cx="0" cy="0" r="10" fill="rgba(255,220,180,0.7)"/>
+          </g>
+          <!-- Small flowers -->
+          <g transform="translate(60,50) scale(0.5)">
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="7" fill="rgba(255,200,160,0.6)"/>
+          </g>
+          <g transform="translate(240,150) scale(0.4)">
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-20" rx="10" ry="16" fill="rgba(255,255,255,0.4)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="7" fill="rgba(255,200,160,0.6)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="gallery-label">樱花物语 · 手绘艺术</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-eyebrow">客户评价</div>
+  <h2 class="section-title">她们的<em style="color:var(--gold-light)">美丽故事</em></h2>
+
+  <div style="overflow:hidden; margin: 0 -60px;">
+    <div class="testimonials-track">
+      <!-- Cards x2 for infinite loop -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"第一次来就被精致的环境和专业的服务震撼到了。美甲师非常耐心，做出来的效果完全超出期待！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">李</div>
+          <div><div class="author-name">李晓雨</div><div class="author-label">忠实客户 · 2年</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"日式美甲做得非常精细，已经持续了三周还没有任何起翘。环境很舒适，音乐很治愈，会一直回来的！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">张</div>
+          <div><div class="author-name">张美琳</div><div class="author-label">忠实客户 · 1年</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"每次来都有不同的惊喜！美甲师艺术感很强，给我推荐的晕染渐变款式得到好多朋友称赞，太爱了！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">王</div>
+          <div><div class="author-name">王思涵</div><div class="author-label">忠实客户 · 3年</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"婚礼美甲就在这里做的，定制款式非常用心，拍婚纱照收到无数赞美。感谢Lumière团队！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">陈</div>
+          <div><div class="author-name">陈雅珊</div><div class="author-label">新娘定制</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"手足SPA套餐体验一流，从泡脚到按摩都非常专业，做完之后脚像婴儿皮肤一样嫩滑，太享受了！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">刘</div>
+          <div><div class="author-name">刘依依</div><div class="author-label">定期护理客户</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"价格透明，不强制推销，美甲师技术超棒。光疗甲已经保持了一个月完好如初，性价比极高！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">赵</div>
+          <div><div class="author-name">赵小桐</div><div class="author-label">新客户</div></div>
+        </div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"第一次来就被精致的环境和专业的服务震撼到了。美甲师非常耐心，做出来的效果完全超出期待！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">李</div>
+          <div><div class="author-name">李晓雨</div><div class="author-label">忠实客户 · 2年</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"日式美甲做得非常精细，已经持续了三周还没有任何起翘。环境很舒适，音乐很治愈，会一直回来的！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">张</div>
+          <div><div class="author-name">张美琳</div><div class="author-label">忠实客户 · 1年</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"每次来都有不同的惊喜！美甲师艺术感很强，给我推荐的晕染渐变款式得到好多朋友称赞，太爱了！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">王</div>
+          <div><div class="author-name">王思涵</div><div class="author-label">忠实客户 · 3年</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"婚礼美甲就在这里做的，定制款式非常用心，拍婚纱照收到无数赞美。感谢Lumière团队！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">陈</div>
+          <div><div class="author-name">陈雅珊</div><div class="author-label">新娘定制</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"手足SPA套餐体验一流，从泡脚到按摩都非常专业，做完之后脚像婴儿皮肤一样嫩滑，太享受了！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">刘</div>
+          <div><div class="author-name">刘依依</div><div class="author-label">定期护理客户</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testimonial-text">"价格透明，不强制推销，美甲师技术超棒。光疗甲已经保持了一个月完好如初，性价比极高！"</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">赵</div>
+          <div><div class="author-name">赵小桐</div><div class="author-label">新客户</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="section-eyebrow">精选产品</div>
+  <h2 class="section-title">带走属于您的<br><em>指尖华彩</em></h2>
+  <p class="section-sub">精选国际顶级美甲品牌，让您在家也能延续沙龙级别的呵护</p>
+
+  <div class="products-grid">
+    <div class="product-card reveal">
+      <div class="product-img">
+        <div class="product-img-inner prod-1">
+          <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" width="80" height="100">
+            <rect x="35" y="20" width="50" height="80" rx="8" fill="rgba(255,255,255,0.6)"/>
+            <rect x="35" y="20" width="50" height="25" rx="8" fill="rgba(196,96,122,0.8)"/>
+            <rect x="45" y="55" width="30" height="2" rx="1" fill="rgba(196,96,122,0.4)"/>
+            <rect x="45" y="62" width="20" height="2" rx="1" fill="rgba(196,96,122,0.3)"/>
+            <rect x="40" y="15" width="40" height="10" rx="5" fill="rgba(255,255,255,0.8)"/>
+            <rect x="52" y="10" width="16" height="15" rx="4" fill="rgba(255,255,255,0.9)"/>
+          </svg>
+        </div>
+        <div class="product-badge">畅销</div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">玫瑰晨露光疗甲油</div>
+        <div class="product-sub">持久 · 无毒配方 · 30色可选</div>
+        <div class="product-footer">
+          <div class="product-price">¥128</div>
+          <button class="product-btn">
+            <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <div class="product-img-inner prod-2">
+          <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" width="80" height="100">
+            <ellipse cx="60" cy="90" rx="30" ry="38" fill="rgba(255,255,255,0.6)"/>
+            <ellipse cx="60" cy="90" rx="30" ry="38" fill="none" stroke="rgba(156,133,192,0.5)" stroke-width="2"/>
+            <ellipse cx="60" cy="52" rx="12" ry="6" fill="rgba(255,255,255,0.8)"/>
+            <ellipse cx="60" cy="48" rx="10" ry="4" fill="rgba(255,255,255,0.9)"/>
+            <text x="60" y="95" text-anchor="middle" fill="rgba(130,100,180,0.7)" font-size="10" font-family="serif">護手霜</text>
+          </svg>
+        </div>
+        <div class="product-badge">新品</div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">薰衣草护手霜</div>
+        <div class="product-sub">深层滋润 · 快速吸收</div>
+        <div class="product-footer">
+          <div class="product-price">¥88</div>
+          <button class="product-btn">
+            <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <div class="product-img-inner prod-3">
+          <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" width="80" height="100">
+            <rect x="30" y="30" width="60" height="75" rx="6" fill="rgba(255,255,255,0.7)"/>
+            <rect x="30" y="30" width="60" height="20" rx="6" fill="rgba(79,168,152,0.6)"/>
+            <circle cx="60" cy="20" r="8" fill="rgba(255,255,255,0.9)"/>
+            <circle cx="60" cy="20" r="5" fill="rgba(79,168,152,0.5)"/>
+            <rect x="40" y="65" width="40" height="2" rx="1" fill="rgba(79,168,152,0.3)"/>
+            <rect x="40" y="72" width="28" height="2" rx="1" fill="rgba(79,168,152,0.2)"/>
+            <rect x="40" y="79" width="34" height="2" rx="1" fill="rgba(79,168,152,0.2)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">角质软化精华</div>
+        <div class="product-sub">温和去角质 · 全甲护理</div>
+        <div class="product-footer">
+          <div class="product-price">¥168</div>
+          <button class="product-btn">
+            <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <div class="product-img-inner prod-4">
+          <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" width="80" height="100">
+            <path d="M45,40 L75,40 L80,110 L40,110 Z" fill="rgba(255,255,255,0.65)" rx="4"/>
+            <rect x="42" y="33" width="36" height="12" rx="3" fill="rgba(255,255,255,0.85)"/>
+            <rect x="50" y="28" width="20" height="10" rx="3" fill="rgba(255,255,255,0.95)"/>
+            <rect x="43" y="55" width="34" height="2" rx="1" fill="rgba(210,150,80,0.4)"/>
+            <text x="60" y="82" text-anchor="middle" fill="rgba(180,120,60,0.7)" font-size="8">精油</text>
+          </svg>
+        </div>
+        <div class="product-badge">热门</div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">玫瑰金箔营养油</div>
+        <div class="product-sub">滋养甲周 · 修护干燥</div>
+        <div class="product-footer">
+          <div class="product-price">¥198</div>
+          <button class="product-btn">
+            <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-content">
+    <div class="section-eyebrow">在线预约</div>
+    <h2 class="section-title">为您的美丽<br><em style="color:var(--gold-light)">预留时光</em></h2>
+    <p class="section-sub">轻松在线预约，我们的专业团队将为您量身定制最完美的美甲体验</p>
+
+    <div class="booking-features">
+      <div class="booking-feature">
+        <div class="feature-icon">
+          <svg width="16" height="16" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h4>灵活时段安排</h4>
+          <p>周一至周日 10:00 - 21:00，随时为您服务</p>
+        </div>
+      </div>
+      <div class="booking-feature">
+        <div class="feature-icon">
+          <svg width="16" height="16" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h4>免费改期</h4>
+          <p>预约前24小时内均可免费改期或取消</p>
+        </div>
+      </div>
+      <div class="booking-feature">
+        <div class="feature-icon">
+          <svg width="16" height="16" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h4>专属美甲师指定</h4>
+          <p>可指定心仪的美甲师，延续您的专属风格</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-form reveal">
+    <div class="form-title">预约申请</div>
+    <div class="form-sub">请填写以下信息，我们将在2小时内确认</div>
+
+    <form onsubmit="handleBooking(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">姓名</label>
+          <input type="text" class="form-input" placeholder="您的姓名">
+        </div>
+        <div class="form-group">
+          <label class="form-label">手机号码</label>
+          <input type="tel" class="form-input" placeholder="联系电话">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">选择服务</label>
+        <select class="form-input">
+          <option value="">请选择服务类型</option>
+          <option>光疗美甲 · 起价¥168</option>
+          <option>日式美甲 · 起价¥258</option>
+          <option>甲片定制 · 起价¥388</option>
+          <option>晕染渐变 · 起价¥218</option>
+          <option>美甲彩绘 · 起价¥298</option>
+          <option>手足护理 SPA · 起价¥328</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">预约日期</label>
+          <input type="date" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">预约时间</label>
+          <select class="form-input">
+            <option>10:00</option><option>11:00</option><option>12:00</option>
+            <option>13:00</option><option>14:00</option><option>15:00</option>
+            <option>16:00</option><option>17:00</option><option>18:00</option>
+            <option>19:00</option><option>20:00</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">备注</label>
+        <input type="text" class="form-input" placeholder="特殊需求或指定美甲师...">
+      </div>
+
+      <button type="submit" class="form-submit">确认预约</button>
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-eyebrow">联系我们</div>
+  <h2 class="section-title">随时欢迎<br><em>您的到来</em></h2>
+
+  <div class="contact-grid">
+    <div class="contact-item reveal">
+      <div class="contact-icon">
+        <svg width="22" height="22" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div class="contact-label">门店地址</div>
+      <div class="contact-value">上海市静安区南京西路<br>1688号 华美广场 3楼</div>
+    </div>
+
+    <div class="contact-item reveal">
+      <div class="contact-icon">
+        <svg width="22" height="22" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+      </div>
+      <div class="contact-label">预约电话</div>
+      <div class="contact-value">400-888-6688<br>微信同号</div>
+    </div>
+
+    <div class="contact-item reveal">
+      <div class="contact-icon">
+        <svg width="22" height="22" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+      </div>
+      <div class="contact-label">营业时间</div>
+      <div class="contact-value">周一至周五 10:00-21:00<br>周末及节假日 09:00-22:00</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP STRIP -->
+<div class="map-strip">
+  <div class="map-grid-lines"></div>
+  <div class="map-placeholder">
+    <svg width="48" height="48" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24" opacity="0.6">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    <p>上海市静安区南京西路 1688号</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">LUMIÈRE NAILS</div>
+      <div class="footer-tagline">以艺术的眼光，精雕每一寸细节。让您的指尖，成为最美的画布。</div>
+      <div class="footer-social">
+        <a href="#" class="social-btn" title="微信">微</a>
+        <a href="#" class="social-btn" title="微博">博</a>
+        <a href="#" class="social-btn" title="小红书">书</a>
+        <a href="#" class="social-btn" title="抖音">音</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>服务项目</h4>
+      <ul>
+        <li><a href="#">光疗美甲</a></li>
+        <li><a href="#">日式美甲</a></li>
+        <li><a href="#">甲片定制</a></li>
+        <li><a href="#">晕染渐变</a></li>
+        <li><a href="#">手足护理</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>关于我们</h4>
+      <ul>
+        <li><a href="#">品牌故事</a></li>
+        <li><a href="#">美甲师团队</a></li>
+        <li><a href="#">门店环境</a></li>
+        <li><a href="#">会员特权</a></li>
+        <li><a href="#">招募加盟</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>营业时间</h4>
+      <div class="footer-hours">
+        <p>周一 — 周五<br><span>10:00 — 21:00</span></p>
+        <p>周六 — 周日<br><span>09:00 — 22:00</span></p>
+        <p>节假日<br><span>照常营业</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <em>Lumière Nails</em> · 版权所有</div>
+    <div class="footer-policy">
+      <a href="#">隐私政策</a>
+      <a href="#">服务条款</a>
+      <a href="#">退款政策</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Booking Success Modal -->
+<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(44,40,37,0.7);z-index:2000;display:none;align-items:center;justify-content:center;">
+  <div style="background:white;padding:60px;max-width:460px;width:90%;text-align:center;">
+    <svg width="56" height="56" fill="none" stroke="#C9A96E" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 20px;">
+      <path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#2C2825;margin-bottom:12px;">预约成功！</div>
+    <div style="font-size:13px;color:#8B7D75;line-height:1.8;margin-bottom:30px;">感谢您的预约，我们将在2小时内通过电话或微信与您确认。期待为您服务！</div>
+    <button onclick="document.getElementById('modal').style.display='none'" style="padding:14px 48px;background:#2C2825;color:white;border:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">关闭</button>
+  </div>
+</div>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Stagger reveal for grid children
+document.querySelectorAll('.services-grid .service-card, .products-grid .product-card').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 3) * 0.12}s`;
+});
+
+// Booking form
+function handleBooking(e) {
+  e.preventDefault();
+  const modal = document.getElementById('modal');
+  modal.style.display = 'flex';
+}
+
+// Smooth active nav highlight
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 120) current = section.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--gold)' : '';
+  });
+});
+</script>
+</body>
+</html>
