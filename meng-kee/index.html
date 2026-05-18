@@ -303,21 +303,22 @@
     .menu-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 60px rgba(232,62,43,0.3); border-color: rgba(212,160,23,0.5); }
     .menu-card:hover::before { opacity: 1; }
     .card-emoji-wrap {
-      height: 160px; display: flex; align-items: center; justify-content: center;
-      background: radial-gradient(ellipse at center, rgba(232,62,43,0.15), transparent 70%);
-      position: relative; overflow: hidden;
+      height: 200px; position: relative; overflow: hidden;
+      background: #1a0a00;
     }
-    .card-emoji {
-      font-size: 5rem; transition: transform 0.4s ease;
-      filter: drop-shadow(0 4px 20px rgba(255,107,53,0.5));
+    .card-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease;
     }
-    .menu-card:hover .card-emoji { transform: scale(1.2) rotate(-5deg); }
-    .card-glow {
+    .menu-card:hover .card-img { transform: scale(1.08); }
+    .card-img-overlay {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(255,107,53,0.2), transparent 60%);
-      opacity: 0; transition: opacity 0.4s;
+      background: linear-gradient(to bottom, transparent 40%, rgba(13,5,1,0.55) 100%);
+      transition: opacity 0.4s;
     }
-    .menu-card:hover .card-glow { opacity: 1; }
+    .menu-card:hover .card-img-overlay {
+      background: linear-gradient(to bottom, transparent 30%, rgba(232,62,43,0.25) 100%);
+    }
     .card-body { padding: 20px 24px 24px; }
     .card-tag {
       font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
@@ -739,8 +740,8 @@
     <!-- GRILL -->
     <div class="menu-card reveal" data-cat="grill">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🐟</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0Zha5YtT6eGtKVqxEeZgX_LtGzcZiP4hSj0qOv6PHDw_tgbSt8ZKJ68M6LsdZs3yQrIMpz7aGFahBqEhuRo3xv4ufLD6YBSmptQVy8yp9N0XaQIoWlLG43SvCpczulTVUCyIwhnlY2vR7/s800/IMG_20170415_221614.jpg" alt="Grilled Stingray" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Grill · Signature</div>
@@ -755,8 +756,8 @@
 
     <div class="menu-card reveal" data-cat="grill">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🐡</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGBpHfB51VyJjlDQOxwQahAEFXbjN6P63XfRo0gI5xQQUgQmqiF7BP3voQf4n8YnxMGSF-iA-3ROkLOP17br56bjjmWNYd8vp8zDF_K_eMNUGySxDbxtHd-isNCjDNVuE1XU69tchMpeuL/s800/IMG_20170415_220315.jpg" alt="Grilled Chicken Fish" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Grill</div>
@@ -770,8 +771,8 @@
 
     <div class="menu-card reveal" data-cat="grill">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🥩</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2AWPxA2rupmTOxcygQBvNFzFE6PO0dCaoVYnK5Mkh79aXVBncOZuHrsAEAa51MyICU8WLkHt9ythecCswYgpX7PYAT0R1iMUrU-3Ojc_51Ko7zZnTehJjWArvaNKI-V9w8SUm-FxFZTmRdgP9Zq0IJ9kcA5KlzzKrWwAvT8oEC__l64kdoSH6YyrSpig/s800/IMG_7475%202.jpeg" alt="Mutton & Chicken Satay" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Grill</div>
@@ -787,8 +788,8 @@
     <!-- SEAFOOD -->
     <div class="menu-card reveal" data-cat="seafood">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🦐</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIecunesAAM55olQxjCwHp4Kvde3ElqwQX-pEWLnM-EszfN3m1H2xSrktIefDjca5YvlbvkzxPQ2QWrf7oMJ8Yxpoo0B9KWeangVZwRS9Pthzpa_JndhG4r5IJ0jADixk1GNR8j_5_OaLG/s800/IMG_20170415_220240.jpg" alt="Butter Prawns" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Seafood · Signature</div>
@@ -803,8 +804,8 @@
 
     <div class="menu-card reveal" data-cat="seafood">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🦑</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcwlAx-DAwpWNfn-6L56LrxLSAUzjuUl2-AGbhXH8VO-eOqfZMcYBXXOfMR0LQ0oABiO8bey6ey_jcFrH0noQesMrJWjV4VgkqPkMEGJnq9wCWiu6wZxIFL_cBT6mKEBSxx1XjZ958tYsN/s800/IMG_20170415_221852.jpg" alt="Salted Egg Squid" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Seafood · Signature</div>
@@ -819,8 +820,8 @@
 
     <div class="menu-card reveal" data-cat="seafood">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🦀</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjZpJ8XBOdFU8SwGEZ8jprjX-FOrdES66jYsy-DQz8JhfD9BU1ZR4jY4bhaQ__a5tASiv0vPbPTlKRQiKjxBwhrfSdVMdEcPWexlUDb4rjhC7Tfc6Dh9HN_e5sVp6Q09OJK9P7bug-jiav4/s800/IMG_20170415_220247.jpg" alt="Crab Black Pepper" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Seafood</div>
@@ -834,8 +835,8 @@
 
     <div class="menu-card reveal" data-cat="seafood">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🐚</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqrZZ5RXmum2gcQT1ohExFgVI1wF0S644MVnZEgu0ojrT8Ut_ahox1z_v3QoNyCHRvwlgsmkAKKbwISApcP18-kVbXg_qSirZg4fm1D8qfJ6JEdkTM4kEWmYlCHOViOS-lgxhwmjD2BtV3/s800/IMG_20170415_221833.jpg" alt="Wok Fried Lala Clams" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Seafood · Signature</div>
@@ -850,8 +851,8 @@
 
     <div class="menu-card reveal" data-cat="seafood">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🍳</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibqfKpEexuw_rVo0tR7Wu_MQCiD_K8Gai6TFncCbJ94qvr8K_4AtUZahVYXpm1__Z0aQ5FygM4Tyi0UyqMikYJQnU2ama8pt5y-x3r5_maOhGCKK0MdL8sj_E_QDyEKu5bBuaa_rc11sj_/s800/IMG_20170415_222258.jpg" alt="Fried Oyster Omelette" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Seafood</div>
@@ -866,8 +867,8 @@
     <!-- RICE & NOODLES -->
     <div class="menu-card reveal" data-cat="rice">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🍜</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrL-VxiVGlluvuHiW8rDkrZPMlCECR2l5oqF-h7Mr6cL_BQT8E0q6yFTdlzlYCXOIjO4sogRwfT5LSFz8_1L3s3e-0LThtnyLTg9nvkgx5KJzLdVY3G7ZyscZRGL20d63eOg7gIC4ttSAw/s800/IMG_20170415_220323.jpg" alt="Beef Fried Hokkien Mee" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Rice & Noodles</div>
@@ -882,8 +883,8 @@
 
     <div class="menu-card reveal" data-cat="rice">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🍚</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjMKbX36HXF_-wS248JhlhT0HBnDa02l42JU3vqzsFXHc8VOWy6OciGvXPh3HadAsg5mCETl0-ForYGw5dniOhTOiLQ7NUshJH9XILT9S3ogGReTu2SAOMtnq-sVXwKYg2SOWSJTtY97Lvx/s800/IMG_20170415_220207.jpg" alt="Chinese Fried Rice" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Rice & Noodles</div>
@@ -898,8 +899,8 @@
     <!-- VEG -->
     <div class="menu-card reveal" data-cat="veg">
       <div class="card-emoji-wrap">
-        <div class="card-glow"></div>
-        <div class="card-emoji">🥬</div>
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEheEJGWRGvLDtD8ufQ-6dLXgKj2l_TmM4MrFvv0BiE1-7AyKKe628OQb_BRO8rKa05Ub0tw_tKm4LNkq5mUrCsUPE28Sm0fVIlqj9mHHBc6EfaXSuZvM1SF2uOUMHKVRCcRklRqJV_PGTp3CUCVdbHQnfkuEKJv_gqd3Rjoq3LNCyD4wwve8botDSug8qY/s800/IMG_7447.jpeg" alt="Garlic Sweet Potato Leaf" loading="lazy">
+        <div class="card-img-overlay"></div>
       </div>
       <div class="card-body">
         <div class="card-tag">Vegetables</div>
