@@ -183,8 +183,43 @@
     .gallery-item:first-child { grid-row: span 2; }
     .gallery-item {
       position: relative; overflow: hidden; cursor: pointer;
-      background: var(--blush); /* fallback if image fails */
     }
+    /* ── Offline placeholder design ── */
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 0 0 1px rgba(201,169,110,0.18);
+      transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+    }
+    .gallery-item:hover .gallery-placeholder { transform: scale(1.04); }
+    .gp-inner {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.9rem; position: relative; z-index: 1;
+    }
+    /* Faint circle accent behind icon */
+    .gp-inner::before {
+      content: ''; position: absolute;
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(255,255,255,0.38);
+      top: 50%; left: 50%; transform: translate(-50%, -58%);
+    }
+    .gp-icon { color: rgba(100,75,58,0.26); transition: color 0.35s; position: relative; }
+    .gallery-item:hover .gp-icon { color: rgba(201,169,110,0.65); }
+    .gp-label {
+      font-size: 0.6rem; letter-spacing: 2.8px; text-transform: uppercase;
+      color: rgba(80,62,50,0.3); text-align: center;
+    }
+    /* Gradient palette — all warm, on-brand tones */
+    .gp-1 { background: linear-gradient(145deg, #f5e6dd, #edd2c2); }
+    .gp-2 { background: linear-gradient(130deg, #faf2ec, #f1e0d0); }
+    .gp-3 { background: linear-gradient(155deg, #eeddd4, #e6cfc2); }
+    .gp-4 { background: linear-gradient(140deg, #f7ede5, #ecdecf); }
+    .gp-5 { background: linear-gradient(125deg, #fbf6f1, #f3e7dc); }
+    .gp-6 { background: linear-gradient(150deg, #efdfd5, #e7d0bf); }
+    .gp-7 { background: linear-gradient(135deg, #f8f0e7, #efdfd2); }
+    .gp-8 { background: linear-gradient(160deg, #f4e5da, #ecd4c5); }
+    .gp-9 { background: linear-gradient(120deg, #faf3ee, #f1e3d6); }
+    /* Keep img styles ready for when buyers add their own photos */
     .gallery-item img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
@@ -204,7 +239,8 @@
       background: rgba(255,255,255,0.12); padding: 8px 18px; backdrop-filter: blur(4px);
     }
     .gallery-item:hover .gallery-overlay span { opacity: 1; }
-    .gallery-note { text-align: center; margin-top: 2rem; font-size: 0.78rem; color: var(--light); font-style: italic; max-width: 680px; margin-left: auto; margin-right: auto; }
+    .gallery-note { text-align: center; margin-top: 2rem; font-size: 0.78rem; color: var(--light); font-style: italic; max-width: 720px; margin-left: auto; margin-right: auto; }
+    .gallery-note code { font-style: normal; font-size: 0.72rem; background: rgba(212,175,122,0.12); color: var(--medium); padding: 1px 6px; border-radius: 2px; white-space: nowrap; }
 
     /* ── ABOUT ── */
     #about { background: linear-gradient(135deg, #f7ede8 0%, var(--warm-white) 100%); }
@@ -603,14 +639,18 @@
 
 <!-- GALLERY
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     Images below are from Unsplash (unsplash.com) — free for commercial use.
-     ⚠️  These load from the internet. If offline, gradient fallbacks show instead.
+     All placeholders are 100% offline — no internet required.
 
      HOW TO REPLACE WITH YOUR OWN PHOTOS:
-     Swap each <img> tag's src="" with a path to your own image file, e.g.:
-       src="photos/my-nail-photo.jpg"
-     Keep style="width:100%;height:100%;object-fit:cover;display:block;"
-     Recommended size: 600×600 px or larger.
+     For each gallery item, delete the <div class="gallery-placeholder gp-X">
+     block and replace it with an <img> tag, for example:
+
+       <img src="my-nail-photo.jpg" alt="Nail art design"
+            style="width:100%;height:100%;object-fit:cover;display:block;">
+
+     The image file should sit in the same folder as this HTML file,
+     or use a relative path like "photos/my-nail-photo.jpg".
+     Recommended size: 600×600 px or larger, square crop preferred.
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section id="gallery">
   <div class="section-header">
@@ -622,84 +662,178 @@
 
   <div class="gallery-grid">
 
-    <!-- Item 1 — spans 2 rows (tall) -->
+    <!-- Shared inline SVG icon used in every placeholder cell (nail polish bottle) -->
+    <!-- To swap an icon: edit the <svg> inside any .gp-inner below -->
+
+    <!-- ── Item 1 — tall, spans 2 rows ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-1"> block below
+         with: <img src="your-photo.jpg" alt="..." style="width:100%;height:100%;object-fit:cover;display:block;"> -->
     <div class="gallery-item fade-up">
-      <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&h=540&q=80"
-           alt="Elegant nail art design" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
-      <!-- EDIT: Replace src above with your own photo path -->
+      <div class="gallery-placeholder gp-1">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 2 -->
+    <!-- ── Item 2 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-2"> block with your <img> tag -->
     <div class="gallery-item fade-up fd1">
-      <img src="https://images.unsplash.com/photo-1604654893831-a5c3a4c6a0da?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Gel nail polish close-up" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-2">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 3 -->
+    <!-- ── Item 3 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-3"> block with your <img> tag -->
     <div class="gallery-item fade-up fd2">
-      <img src="https://images.unsplash.com/photo-1604654892543-7c28f25f31a4?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Acrylic nail set" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-3">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 4 -->
+    <!-- ── Item 4 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-4"> block with your <img> tag -->
     <div class="gallery-item fade-up fd1">
-      <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62eff?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Colorful nail art" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-4">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 5 -->
+    <!-- ── Item 5 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-5"> block with your <img> tag -->
     <div class="gallery-item fade-up fd2">
-      <img src="https://images.unsplash.com/photo-1604654892801-a6a5ba94e2af?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Manicure in progress" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-5">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 6 -->
+    <!-- ── Item 6 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-6"> block with your <img> tag -->
     <div class="gallery-item fade-up fd3">
-      <img src="https://images.unsplash.com/photo-1519167758481-83f29c418f6f?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Nail polish collection" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-6">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 7 -->
+    <!-- ── Item 7 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-7"> block with your <img> tag -->
     <div class="gallery-item fade-up fd3">
-      <img src="https://images.unsplash.com/photo-1601158935942-52255782d322?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Pink gel nails" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-7">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 8 -->
+    <!-- ── Item 8 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-8"> block with your <img> tag -->
     <div class="gallery-item fade-up fd4">
-      <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Nail salon treatment" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-8">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
-    <!-- Item 9 -->
+    <!-- ── Item 9 ── -->
+    <!-- EDIT: Replace the <div class="gallery-placeholder gp-9"> block with your <img> tag -->
     <div class="gallery-item fade-up fd4">
-      <img src="https://images.unsplash.com/photo-1604655855048-3f8f25c22b1e?auto=format&fit=crop&w=600&h=260&q=80"
-           alt="Nail art detail" loading="lazy"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="gallery-placeholder gp-9">
+        <div class="gp-inner">
+          <div class="gp-icon">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="26" width="20" height="16" rx="5"/><path d="M14 33 Q24 31 34 33" stroke-opacity="0.4"/>
+              <rect x="19" y="19" width="10" height="8" rx="1"/><rect x="17" y="13" width="14" height="6" rx="2"/>
+              <line x1="24" y1="13" x2="24" y2="8"/><path d="M21.5 8 Q24 5 26.5 8 Q24 11 21.5 8" fill="currentColor" stroke="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="gp-label">Your Nail Photo</span>
+        </div>
+      </div>
       <div class="gallery-overlay"><span>View</span></div>
     </div>
 
   </div>
 
   <p class="gallery-note fade-up">
-    📌 Gallery images require internet to load (sourced from Unsplash — free for commercial use).
-    Replace each &lt;img src="..."&gt; with your own salon photos for a fully offline site.
+    📌 To add your salon photos: find each <code>gallery-placeholder</code> block in the HTML and replace it with
+    <code>&lt;img src="your-photo.jpg" alt="…" style="width:100%;height:100%;object-fit:cover;display:block;"&gt;</code>
+    — Recommended size: 600 × 600 px or larger.
   </p>
 </section>
 
