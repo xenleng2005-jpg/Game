@@ -446,6 +446,12 @@
       box-shadow: 0 8px 20px rgba(212,117,42,0.3);
     }
 
+    .img-error-wrap {
+      background: linear-gradient(135deg, var(--brown-mid), var(--amber)) !important;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .img-error-wrap .error-emoji { font-size: 5rem; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1013,7 +1019,7 @@
       <!-- MAINS -->
       <div class="menu-card reveal" data-category="mains">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1598514983318-2f64f8f4796c?w=500&q=80&auto=format&fit=crop" alt="Chicken Chop" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=500&q=80&auto=format&fit=crop" alt="Chicken Chop" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍗';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">Best Seller</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1030,7 +1036,7 @@
 
       <div class="menu-card reveal" data-category="mains">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=500&q=80&auto=format&fit=crop" alt="Grill Lamb" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=500&q=80&auto=format&fit=crop" alt="Grill Lamb" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🥩';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">Premium</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1047,7 +1053,7 @@
 
       <div class="menu-card reveal" data-category="mains">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500&q=80&auto=format&fit=crop" alt="Seafood Fried Rice" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500&q=80&auto=format&fit=crop" alt="Seafood Fried Rice" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍚';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
         </div>
@@ -1063,7 +1069,7 @@
 
       <div class="menu-card reveal" data-category="mains">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80&auto=format&fit=crop" alt="Sizzling Grilled Chicken" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1527324688151-0e627063f2b1?w=500&q=80&auto=format&fit=crop" alt="Sizzling Grilled Chicken" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🔥';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">Sizzling!</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1081,7 +1087,7 @@
       <!-- BURGERS -->
       <div class="menu-card reveal" data-category="burgers">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80&auto=format&fit=crop" alt="Smashed Burger" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80&auto=format&fit=crop" alt="Smashed Burger" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍔';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">Fan Fav</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1098,7 +1104,7 @@
 
       <div class="menu-card reveal" data-category="burgers">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&q=80&auto=format&fit=crop" alt="Homies Charcoal Burger" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500&q=80&auto=format&fit=crop" alt="Homies Charcoal Burger" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍔';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">Unique</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1116,7 +1122,7 @@
       <!-- PASTA -->
       <div class="menu-card reveal" data-category="pasta">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=500&q=80&auto=format&fit=crop" alt="Creamy Pasta" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=500&q=80&auto=format&fit=crop" alt="Creamy Pasta" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍝';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
         </div>
@@ -1132,7 +1138,7 @@
 
       <div class="menu-card reveal" data-category="pasta">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500&q=80&auto=format&fit=crop" alt="Aglio Olio" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500&q=80&auto=format&fit=crop" alt="Aglio Olio" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍝';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
         </div>
@@ -1149,7 +1155,7 @@
       <!-- DRINKS -->
       <div class="menu-card reveal" data-category="drinks">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&q=80&auto=format&fit=crop" alt="Cappuccino" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&q=80&auto=format&fit=crop" alt="Cappuccino" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='☕';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">House Blend</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1166,7 +1172,7 @@
 
       <div class="menu-card reveal" data-category="drinks">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&q=80&auto=format&fit=crop" alt="White Chocolate Mocha" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1485808191679-5f86510bd9d4?w=500&q=80&auto=format&fit=crop" alt="White Chocolate Mocha" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='☕';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">Signature</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1183,7 +1189,7 @@
 
       <div class="menu-card reveal" data-category="drinks">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&q=80&auto=format&fit=crop" alt="K&C Blended" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&q=80&auto=format&fit=crop" alt="K&C Blended" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🥤';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">K&S Special</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1200,7 +1206,7 @@
 
       <div class="menu-card reveal" data-category="drinks">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500&q=80&auto=format&fit=crop" alt="Air Lemon Asam Boi" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500&q=80&auto=format&fit=crop" alt="Air Lemon Asam Boi" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍋';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
         </div>
@@ -1217,7 +1223,7 @@
       <!-- DESSERTS -->
       <div class="menu-card reveal" data-category="desserts">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&q=80&auto=format&fit=crop" alt="Dessert" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=500&q=80&auto=format&fit=crop" alt="Dessert" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🍰';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-badge">Sweet</div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
@@ -1234,7 +1240,7 @@
 
       <div class="menu-card reveal" data-category="desserts">
         <div class="menu-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&q=80&auto=format&fit=crop" alt="Waffle" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&q=80&auto=format&fit=crop" alt="Waffle" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-error-wrap');var e=document.createElement('div');e.className='error-emoji';e.textContent='🧇';this.parentElement.appendChild(e);" />
           <div class="menu-card-overlay"></div>
           <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
         </div>
