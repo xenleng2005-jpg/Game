@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuppi & Sekut Caffe | Kota Damansara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* ===== ROOT & RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brown-dark: #1a0a00;
+      --brown: #2C1810;
+      --brown-mid: #5C2E0A;
+      --amber: #D4752A;
+      --gold: #F5C518;
+      --cream: #FDF6E3;
+      --cream-light: #FFFDF7;
+      --text: #2a1a0a;
+      --text-light: #6b4c2a;
+      --white: #ffffff;
+      --shadow: rgba(44, 24, 16, 0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--cream-light);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 4px; }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 18px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(26, 10, 0, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 12px 5%;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-order-btn {
+      background: var(--amber);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .nav-order-btn:hover { background: var(--gold); color: var(--brown); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,117,42,0.5); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 25px; height: 2px; background: white; border-radius: 2px; transition: 0.3s; }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--brown-dark);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1600&q=80') center/cover no-repeat;
+      transform: scale(1.1);
+      animation: heroZoom 20s ease-in-out infinite alternate;
+      filter: brightness(0.3);
+    }
+    @keyframes heroZoom { from { transform: scale(1.1); } to { transform: scale(1.2); } }
+
+    /* floating particles */
+    .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .particle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatUp 8s infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.2; }
+      100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 0 5%;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(212,117,42,0.2);
+      border: 1px solid var(--amber);
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 30px;
+      margin-bottom: 28px;
+      animation: fadeInDown 1s ease 0.3s both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 12px;
+      animation: fadeInUp 1s ease 0.5s both;
+    }
+    .hero-title span { color: var(--gold); font-style: italic; }
+    .hero-subtitle {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--amber);
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease 0.7s both;
+    }
+    .hero-desc {
+      color: rgba(255,255,255,0.7);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      animation: fadeInUp 1s ease 0.9s both;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 1.1s both;
+    }
+    .btn-primary {
+      background: var(--amber);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(212,117,42,0.4);
+    }
+    .btn-primary:hover { background: var(--gold); color: var(--brown); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(245,197,24,0.5); }
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.4);
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+    /* rating badge */
+    .hero-rating {
+      position: absolute;
+      bottom: 50px;
+      right: 8%;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 16px 24px;
+      text-align: center;
+      animation: fadeInRight 1s ease 1.3s both;
+    }
+    .hero-rating .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 4px; }
+    .hero-rating .rating-num { color: white; font-size: 2rem; font-weight: 700; display: block; }
+    .hero-rating .rating-label { color: rgba(255,255,255,0.6); font-size: 0.75rem; }
+
+    /* coffee steam decoration */
+    .coffee-deco {
+      position: absolute;
+      bottom: 50px;
+      left: 8%;
+      opacity: 0.6;
+      animation: fadeInLeft 1s ease 1.3s both;
+    }
+    .coffee-cup { font-size: 3rem; }
+    .steam { display: flex; gap: 6px; justify-content: center; margin-bottom: 6px; }
+    .steam span {
+      width: 3px;
+      height: 20px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 3px;
+      animation: steam 2s ease-in-out infinite;
+      transform-origin: bottom;
+    }
+    .steam span:nth-child(2) { animation-delay: 0.4s; height: 28px; }
+    .steam span:nth-child(3) { animation-delay: 0.8s; }
+    @keyframes steam {
+      0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.5; }
+      50% { transform: scaleY(1.3) translateY(-8px); opacity: 1; }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .scroll-indicator i { font-size: 1.2rem; }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    @keyframes fadeInDown { from { opacity:0; transform: translateY(-30px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes fadeInUp { from { opacity:0; transform: translateY(40px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes fadeInLeft { from { opacity:0; transform: translateX(-40px); } to { opacity:0.6; transform: translateX(0); } }
+    @keyframes fadeInRight { from { opacity:0; transform: translateX(40px); } to { opacity:1; transform: translateX(0); } }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--brown);
+      padding: 30px 5%;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-label { color: rgba(255,255,255,0.6); font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 90px 5%; }
+    .section-tag {
+      display: inline-block;
+      background: rgba(212,117,42,0.1);
+      color: var(--amber);
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(212,117,42,0.3);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-title span { color: var(--amber); font-style: italic; }
+    .section-subtitle { color: var(--text-light); font-size: 1rem; max-width: 520px; line-height: 1.8; }
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--gold));
+      border-radius: 2px;
+      margin: 20px 0;
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--cream-light); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-images {
+      position: relative;
+      height: 500px;
+    }
+    .about-img-main {
+      width: 75%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px var(--shadow);
+      position: absolute;
+      top: 0; left: 0;
+      transition: transform 0.5s ease;
+    }
+    .about-img-main:hover { transform: scale(1.02); }
+    .about-img-secondary {
+      width: 55%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px var(--shadow);
+      position: absolute;
+      bottom: 0; right: 0;
+      border: 6px solid var(--cream-light);
+      transition: transform 0.5s ease;
+    }
+    .about-img-secondary:hover { transform: scale(1.03); }
+    .about-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--amber);
+      color: white;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-align: center;
+      z-index: 2;
+      border: 4px solid white;
+      animation: rotateBadge 15s linear infinite;
+      box-shadow: 0 8px 25px rgba(212,117,42,0.4);
+    }
+    @keyframes rotateBadge { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .about-badge .badge-inner { display: flex; flex-direction: column; align-items: center; }
+    .about-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .feature-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cream);
+      border: 1px solid rgba(212,117,42,0.2);
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 0.82rem;
+      color: var(--text-light);
+      transition: all 0.3s;
+    }
+    .feature-chip:hover { background: var(--amber); color: white; transform: translateY(-2px); }
+    .feature-chip i { color: var(--amber); font-size: 0.85rem; transition: 0.3s; }
+    .feature-chip:hover i { color: white; }
+
+    /* ===== MENU ===== */
+    #menu { background: var(--cream); }
+    .menu-header { text-align: center; margin-bottom: 50px; }
+    .menu-header .section-subtitle { margin: 0 auto; }
+    .menu-header .divider { margin: 20px auto; }
+
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+    .menu-tab {
+      background: transparent;
+      border: 2px solid rgba(212,117,42,0.3);
+      color: var(--text-light);
+      padding: 10px 26px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .menu-tab:hover, .menu-tab.active {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212,117,42,0.3);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--cream-light);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(44,24,16,0.08);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      cursor: pointer;
+    }
+    .menu-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(44,24,16,0.18);
+    }
+    .menu-card-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+    .menu-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .menu-card:hover img { transform: scale(1.1); }
+    .menu-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,10,0,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .menu-card:hover .menu-card-overlay { opacity: 1; }
+    .menu-card-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--amber);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+    .menu-card-fav {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(255,255,255,0.9);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #e44;
+      transition: all 0.3s;
+    }
+    .menu-card:hover .menu-card-fav { transform: scale(1.2); }
+    .menu-card-body { padding: 20px; }
+    .menu-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+    .menu-card-desc { color: var(--text-light); font-size: 0.82rem; line-height: 1.6; margin-bottom: 14px; }
+    .menu-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .menu-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--amber);
+    }
+    .menu-price span { font-size: 0.8rem; font-weight: 400; color: var(--text-light); }
+    .menu-add-btn {
+      background: var(--brown);
+      color: white;
+      border: none;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-add-btn:hover { background: var(--amber); transform: rotate(90deg) scale(1.1); }
+    .menu-card[data-category].hidden { display: none; }
+
+    /* ===== SPECIALS BANNER ===== */
+    .specials-banner {
+      background: linear-gradient(135deg, var(--brown) 0%, var(--brown-mid) 100%);
+      margin: 0 -5%;
+      padding: 70px 10%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .specials-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    .specials-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: white;
+      margin-bottom: 12px;
+    }
+    .specials-banner h2 span { color: var(--gold); font-style: italic; }
+    .specials-banner p { color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 30px; }
+    .specials-items {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .special-item {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 24px 30px;
+      text-align: center;
+      min-width: 180px;
+      transition: all 0.3s;
+    }
+    .special-item:hover { background: rgba(255,255,255,0.15); transform: translateY(-6px); }
+    .special-item .emoji { font-size: 2.5rem; display: block; margin-bottom: 10px; animation: floatItem 3s ease-in-out infinite; }
+    .special-item:nth-child(2) .emoji { animation-delay: 0.5s; }
+    .special-item:nth-child(3) .emoji { animation-delay: 1s; }
+    .special-item:nth-child(4) .emoji { animation-delay: 1.5s; }
+    @keyframes floatItem { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .special-item h4 { color: white; font-size: 0.95rem; margin-bottom: 4px; }
+    .special-item p { color: var(--gold); font-size: 1.1rem; font-weight: 700; }
+
+    /* ===== GALLERY ===== */
+    #gallery { background: var(--brown-dark); padding: 90px 5%; }
+    #gallery .section-title { color: white; }
+    #gallery .section-subtitle { color: rgba(255,255,255,0.6); }
+    .gallery-header { margin-bottom: 50px; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,10,0,0.85) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span { color: white; font-weight: 600; font-size: 0.9rem; }
+
+    /* ===== EXPERIENCE ===== */
+    #experience {
+      background: var(--cream-light);
+      text-align: center;
+    }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1000px;
+      margin: 50px auto 0;
+    }
+    .exp-card {
+      padding: 40px 30px;
+      border-radius: 20px;
+      background: var(--cream);
+      border: 1px solid rgba(212,117,42,0.1);
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--gold));
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+    .exp-card:hover::before { transform: scaleX(1); }
+    .exp-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px var(--shadow); }
+    .exp-icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--amber), var(--gold));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.8rem;
+      color: white;
+      box-shadow: 0 10px 30px rgba(212,117,42,0.3);
+      transition: transform 0.3s;
+    }
+    .exp-card:hover .exp-icon { transform: rotate(10deg) scale(1.1); }
+    .exp-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--brown);
+      margin-bottom: 12px;
+    }
+    .exp-card p { color: var(--text-light); font-size: 0.88rem; line-height: 1.7; }
+
+    /* ===== HOURS & CONTACT ===== */
+    #contact {
+      background: linear-gradient(135deg, var(--brown) 0%, var(--brown-mid) 100%);
+      color: white;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    #contact .section-title { color: white; }
+    #contact .section-subtitle { color: rgba(255,255,255,0.7); }
+    #contact .divider { background: linear-gradient(90deg, var(--gold), var(--amber)); }
+
+    .hours-list { margin-top: 30px; }
+    .hour-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .hour-item:hover { padding-left: 10px; }
+    .hour-day { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+    .hour-time { color: var(--gold); font-weight: 600; font-size: 0.9rem; }
+    .hour-closed { color: #e07070; }
+
+    .contact-info { margin-top: 30px; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .contact-item:hover { background: rgba(255,255,255,0.12); transform: translateX(5px); }
+    .contact-item i {
+      width: 40px; height: 40px;
+      background: var(--amber);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    .contact-item-text h4 { color: var(--gold); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+    .contact-item-text p { color: rgba(255,255,255,0.85); font-size: 0.9rem; line-height: 1.6; }
+    .contact-item-text a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.3s; }
+    .contact-item-text a:hover { color: var(--gold); }
+
+    .social-links { display: flex; gap: 12px; margin-top: 24px; }
+    .social-link {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .social-link:hover { background: var(--amber); border-color: var(--amber); transform: translateY(-4px); }
+
+    /* ===== MAP ===== */
+    .map-section { margin-top: 40px; border-radius: 16px; overflow: hidden; }
+    .map-placeholder {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 50px;
+      text-align: center;
+    }
+    .map-placeholder i { font-size: 3rem; color: var(--amber); margin-bottom: 16px; display: block; animation: bounce2 2s infinite; }
+    @keyframes bounce2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .map-placeholder p { color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--amber);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    .map-link:hover { background: var(--gold); color: var(--brown); transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--brown-dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 40px 5%;
+    }
+    .footer-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .footer-logo span { color: rgba(255,255,255,0.8); }
+    footer p { font-size: 0.85rem; margin-bottom: 8px; }
+    .footer-divider { width: 40px; height: 2px; background: var(--amber); margin: 16px auto; border-radius: 2px; }
+
+    /* ===== ANIMATIONS & REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(50px); transition: all 0.8s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--brown);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s;
+      border-left: 4px solid var(--amber);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-images { height: 350px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .exp-grid { grid-template-columns: 1fr; gap: 20px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .hero-rating, .coffee-deco { display: none; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .stats-bar { gap: 30px; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 60px 4%; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Kuppi <span>& Sekut</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://www.foodpanda.my/restaurant/p8zf/kuppi-and-sekut-caffe" target="_blank" class="nav-order-btn">Order Now</a>
+    <div class="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="hero-content">
+      <div class="hero-tag"><i class="fas fa-star" style="margin-right:6px;"></i> Kota Damansara's Finest Café</div>
+      <h1 class="hero-title">Kuppi &<br><span>Sekut Caffe</span></h1>
+      <div class="hero-subtitle">A calming mood that invites you to slow down &amp; breathe</div>
+      <p class="hero-desc">
+        Experience the perfect blend of Western and local cuisine, crafted with passion. From signature smashed burgers to artisan coffee — every bite is a memory.
+      </p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-primary"><i class="fas fa-utensils" style="margin-right:8px;"></i>View Menu</a>
+        <a href="#contact" class="btn-secondary"><i class="fas fa-map-marker-alt" style="margin-right:8px;"></i>Find Us</a>
+      </div>
+    </div>
+
+    <div class="coffee-deco">
+      <div class="steam">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="coffee-cup">☕</div>
+    </div>
+
+    <div class="hero-rating">
+      <div class="stars">★★★★★</div>
+      <span class="rating-num">4.4</span>
+      <span class="rating-label">364+ Reviews</span>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num" data-target="364">0</span>
+      <span class="stat-label">Happy Reviews</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="4">0</span>
+      <span class="stat-label">Rating / 5</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="30">0</span>
+      <span class="stat-label">Menu Items</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="8">0</span>
+      <span class="stat-label">Years of Craft</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-images reveal-left">
+        <img class="about-img-main"
+          src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=700&q=80"
+          alt="Kuppi Sekut Caffe interior" />
+        <img class="about-img-secondary"
+          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80"
+          alt="Coffee craft" />
+        <div class="about-badge">
+          <div class="badge-inner">
+            <i class="fas fa-award" style="font-size:1.2rem; margin-bottom:4px;"></i>
+            <div>Since<br>2016</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <div class="section-tag">Our Story</div>
+        <h2 class="section-title">More Than a Café,<br>It's an <span>Experience</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+          Nestled at I-Residence, Kota Damansara, Kuppi & Sekut Caffe is a sanctuary of flavor and warmth. With exposed brick walls, warm wooden tones, and natural light — we created a space where every visit feels like coming home.
+        </p>
+        <p style="color:var(--text-light); font-size:0.9rem; margin-top:16px; line-height:1.8;">
+          Our menu blends the best of Western and Malaysian cuisine — from juicy smashed burgers and hearty chicken chops to fragrant seafood fried rice and silky pasta. Pair it with our signature craft coffee for the ultimate experience.
+        </p>
+        <div class="about-features">
+          <div class="feature-chip"><i class="fas fa-wifi"></i> Free Wi-Fi</div>
+          <div class="feature-chip"><i class="fas fa-parking"></i> Free Parking</div>
+          <div class="feature-chip"><i class="fas fa-wheelchair"></i> Accessible</div>
+          <div class="feature-chip"><i class="fas fa-umbrella"></i> Outdoor Seating</div>
+          <div class="feature-chip"><i class="fas fa-truck"></i> Takeaway</div>
+          <div class="feature-chip"><i class="fas fa-calendar-check"></i> Catering</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="menu-header reveal">
+      <div class="section-tag">Our Signature Dishes</div>
+      <h2 class="section-title">Crafted with <span>Passion</span></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">From hearty mains to artisan coffee — every item on our menu is made with the finest ingredients and a whole lot of love.</p>
+    </div>
+
+    <div class="menu-tabs reveal">
+      <button class="menu-tab active" onclick="filterMenu('all')">All</button>
+      <button class="menu-tab" onclick="filterMenu('mains')">Mains</button>
+      <button class="menu-tab" onclick="filterMenu('burgers')">Burgers</button>
+      <button class="menu-tab" onclick="filterMenu('pasta')">Pasta</button>
+      <button class="menu-tab" onclick="filterMenu('drinks')">Drinks</button>
+      <button class="menu-tab" onclick="filterMenu('desserts')">Desserts</button>
+    </div>
+
+    <div class="menu-grid">
+
+      <!-- MAINS -->
+      <div class="menu-card reveal" data-category="mains">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c4?w=500&q=80" alt="Chicken Chop" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">Best Seller</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Grilled Chicken Chop</div>
+          <p class="menu-card-desc">Generous portion of perfectly grilled chicken, served with golden fries and fresh garden salad.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 24 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Chicken Chop added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="mains">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=500&q=80" alt="Grill Lamb" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">Premium</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Signature Grill Lamb</div>
+          <p class="menu-card-desc">Tender marinated lamb grilled to perfection, drizzled with our house special herb sauce.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 35 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Grill Lamb added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="mains">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500&q=80" alt="Seafood Fried Rice" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Seafood Fried Rice</div>
+          <p class="menu-card-desc">Fragrant wok-fried rice loaded with fresh prawns, squid and fish fillet with aromatic spices.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 20 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Seafood Fried Rice added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="mains">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1625944526178-3add4bf3a5e9?w=500&q=80" alt="Sizzling Grilled Chicken" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">Sizzling!</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Sizzling Grilled Chicken</div>
+          <p class="menu-card-desc">Served on a scorching hot plate with rich black pepper sauce, caramelized onions and mushrooms.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 22 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Sizzling Chicken added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BURGERS -->
+      <div class="menu-card reveal" data-category="burgers">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80" alt="Smashed Burger" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">Fan Fav</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">K&S Smashed Burger</div>
+          <p class="menu-card-desc">Double smashed beef patty with caramelized onions, cheese sauce, pickles and our signature K&S sauce.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 22 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Smashed Burger added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="burgers">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1586816001966-79b736744398?w=500&q=80" alt="Homies Charcoal Burger" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">Unique</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Homies Charcoal Burger</div>
+          <p class="menu-card-desc">Striking jet-black charcoal bun, packed with a juicy beef patty, coleslaw and spicy mayo.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 24 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Charcoal Burger added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASTA -->
+      <div class="menu-card reveal" data-category="pasta">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=500&q=80" alt="Creamy Pasta" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Creamy Mushroom Pasta</div>
+          <p class="menu-card-desc">Al dente spaghetti tossed in a rich, velvety cream sauce with sautéed button and oyster mushrooms.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 20 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Creamy Pasta added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="pasta">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500&q=80" alt="Aglio Olio" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Aglio Olio Prawn</div>
+          <p class="menu-card-desc">Classic Italian-style pasta with garlic-infused olive oil, fresh chili and plump tiger prawns.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 22 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Aglio Olio added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="menu-card reveal" data-category="drinks">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&q=80" alt="Cappuccino" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">House Blend</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Artisan Cappuccino</div>
+          <p class="menu-card-desc">Rich espresso topped with silky micro-foam milk, dusted with fine cocoa powder.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 12 <span>/ cup</span></div>
+            <button class="menu-add-btn" onclick="addToast('Cappuccino added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="drinks">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=500&q=80" alt="White Chocolate Mocha" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">Signature</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">White Choc Mocha Ais</div>
+          <p class="menu-card-desc">Creamy white chocolate blended with our house espresso over shaved ice — utterly irresistible.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 14 <span>/ cup</span></div>
+            <button class="menu-add-btn" onclick="addToast('White Mocha added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="drinks">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&q=80" alt="K&C Blended" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">K&S Special</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">K&S Blended</div>
+          <p class="menu-card-desc">Our legendary house blended drink — a secret recipe that keeps customers coming back for more.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 15 <span>/ cup</span></div>
+            <button class="menu-add-btn" onclick="addToast('K&S Blended added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="drinks">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500&q=80" alt="Air Lemon Asam Boi" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Air Lemon Asam Boi</div>
+          <p class="menu-card-desc">Refreshing chilled lemon with tangy preserved plum — the perfect Malaysian thirst-quencher.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 10 <span>/ cup</span></div>
+            <button class="menu-add-btn" onclick="addToast('Asam Boi added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="menu-card reveal" data-category="desserts">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=80" alt="Dessert" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-badge">Sweet</div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Molten Lava Cake</div>
+          <p class="menu-card-desc">Warm chocolate cake with a gooey liquid centre, served with a scoop of vanilla bean ice cream.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 14 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Lava Cake added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-category="desserts">
+        <div class="menu-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&q=80" alt="Waffle" loading="lazy" />
+          <div class="menu-card-overlay"></div>
+          <div class="menu-card-fav"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-title">Belgian Waffle</div>
+          <p class="menu-card-desc">Crisp golden waffles topped with fresh berries, whipped cream and a drizzle of maple syrup.</p>
+          <div class="menu-card-footer">
+            <div class="menu-price">RM 15 <span>/ serving</span></div>
+            <button class="menu-add-btn" onclick="addToast('Waffle added!')">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end menu-grid -->
+  </section>
+
+  <!-- SPECIALS BANNER -->
+  <div class="specials-banner reveal">
+    <h2>Today's <span>Highlights</span></h2>
+    <p>Our chef's handpicked recommendations — made fresh daily</p>
+    <div class="specials-items">
+      <div class="special-item">
+        <span class="emoji">🍔</span>
+        <h4>Smashed Burger</h4>
+        <p>RM 22</p>
+      </div>
+      <div class="special-item">
+        <span class="emoji">🍗</span>
+        <h4>Chicken Chop</h4>
+        <p>RM 24</p>
+      </div>
+      <div class="special-item">
+        <span class="emoji">☕</span>
+        <h4>Cappuccino</h4>
+        <p>RM 12</p>
+      </div>
+      <div class="special-item">
+        <span class="emoji">🍰</span>
+        <h4>Lava Cake</h4>
+        <p>RM 14</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="gallery-header reveal">
+      <div class="section-tag" style="color:var(--gold); border-color:rgba(245,197,24,0.3); background:rgba(245,197,24,0.1);">Our Moments</div>
+      <h2 class="section-title">A Feast for <span>the Eyes</span></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Cozy corners, beautiful food, and unforgettable moments captured at Kuppi & Sekut Caffe.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="Restaurant ambiance" loading="lazy" />
+        <div class="gallery-overlay"><span>Cozy Ambiance ✨</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80" alt="Food" loading="lazy" />
+        <div class="gallery-overlay"><span>Signature Mains 🍽</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&q=80" alt="Coffee art" loading="lazy" />
+        <div class="gallery-overlay"><span>Craft Coffee ☕</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Dining experience" loading="lazy" />
+        <div class="gallery-overlay"><span>Dining Experience 🌟</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Desserts" loading="lazy" />
+        <div class="gallery-overlay"><span>Sweet Endings 🍰</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title">The Kuppi & Sekut <span>Experience</span></h2>
+      <div class="divider" style="margin:20px auto;"></div>
+    </div>
+
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <div class="exp-icon"><i class="fas fa-fire-alt"></i></div>
+        <h3>Freshly Crafted</h3>
+        <p>Every dish is prepared fresh to order using quality local and imported ingredients. No shortcuts, no compromises.</p>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon"><i class="fas fa-coffee"></i></div>
+        <h3>Artisan Coffee</h3>
+        <p>Our baristas craft every cup with precision. From single-origin espresso to creative blended drinks — coffee done right.</p>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon"><i class="fas fa-heart"></i></div>
+        <h3>Warm Hospitality</h3>
+        <p>A place where everyone is welcomed like family. Rated 4.4 stars with hundreds of happy customers and counting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <div class="section-tag" style="color:var(--gold); border-color:rgba(245,197,24,0.3); background:rgba(245,197,24,0.08);">Operating Hours</div>
+        <h2 class="section-title">Visit <span>Us Today</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">We'd love to see you! Come in for a meal, catch up with friends, or simply enjoy a quiet cup of coffee.</p>
+
+        <div class="hours-list">
+          <div class="hour-item">
+            <span class="hour-day"><i class="fas fa-calendar-day" style="margin-right:10px; color:var(--amber);"></i>Monday – Thursday</span>
+            <span class="hour-time">11:30 AM – 10:30 PM</span>
+          </div>
+          <div class="hour-item">
+            <span class="hour-day"><i class="fas fa-calendar-day" style="margin-right:10px; color:var(--amber);"></i>Friday</span>
+            <span class="hour-time">3:00 PM – 10:30 PM</span>
+          </div>
+          <div class="hour-item">
+            <span class="hour-day"><i class="fas fa-calendar-day" style="margin-right:10px; color:var(--amber);"></i>Saturday</span>
+            <span class="hour-time">11:30 AM – 10:30 PM</span>
+          </div>
+          <div class="hour-item">
+            <span class="hour-day"><i class="fas fa-calendar-day" style="margin-right:10px; color:var(--amber);"></i>Sunday</span>
+            <span class="hour-time hour-closed">Closed</span>
+          </div>
+        </div>
+
+        <div class="social-links" style="margin-top:30px;">
+          <a href="https://www.facebook.com/kuppisekutcaffe/" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/kuppisekutcaffe/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@kuppisekutcaffe" target="_blank" class="social-link"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.foodpanda.my/restaurant/p8zf/kuppi-and-sekut-caffe" target="_blank" class="social-link"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <div class="section-tag" style="color:var(--gold); border-color:rgba(245,197,24,0.3); background:rgba(245,197,24,0.08);">Get In Touch</div>
+        <h2 class="section-title">Find <span>Us Here</span></h2>
+        <div class="divider"></div>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="contact-item-text">
+              <h4>Address</h4>
+              <p>Lot G-13, I-Residence, Seksyen 4,<br>Persiaran Surian, Kota Damansara,<br>47810 Petaling Jaya, Selangor</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone-alt"></i>
+            <div class="contact-item-text">
+              <h4>Phone / WhatsApp</h4>
+              <p><a href="tel:+601115174117">+60 11-1517 4117</a></p>
+              <p><a href="tel:+60104346846">+60 10-434 6846</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-tag"></i>
+            <div class="contact-item-text">
+              <h4>Price Range</h4>
+              <p>RM 20 – RM 40 per person</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-section">
+          <div class="map-placeholder">
+            <i class="fas fa-map-pin"></i>
+            <p>Lot G-13, I-Residence, Kota Damansara, Petaling Jaya</p>
+            <a href="https://maps.google.com/?q=Kuppi+Sekut+Caffe+Kota+Damansara" target="_blank" class="map-link">
+              <i class="fas fa-directions"></i> Get Directions
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Kuppi <span>& Sekut Caffe</span></div>
+    <p>Cozy Vibes & Craft Flavors in Kota Damansara</p>
+    <div class="footer-divider"></div>
+    <p style="font-size:0.78rem;">Lot G-13, I-Residence, Persiaran Surian, Kota Damansara, 47810 Petaling Jaya, Selangor</p>
+    <p style="font-size:0.78rem; margin-top:8px;">© 2024 Kuppi & Sekut Caffe. All Rights Reserved.</p>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ===== NAVBAR SCROLL =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== PARTICLES =====
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        animation-delay: ${Math.random() * 8}s;
+        animation-duration: ${6 + Math.random() * 6}s;
+        width: ${2 + Math.random() * 4}px;
+        height: ${2 + Math.random() * 4}px;
+        opacity: ${0.3 + Math.random() * 0.4};
+      `;
+      particlesContainer.appendChild(p);
+    }
+
+    // ===== SCROLL REVEAL =====
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ===== COUNTER ANIMATION =====
+    const counters = document.querySelectorAll('.stat-num[data-target]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = +entry.target.dataset.target;
+          const isDecimal = target < 10;
+          let start = 0;
+          const step = target / 60;
+          const timer = setInterval(() => {
+            start += step;
+            if (start >= target) {
+              entry.target.textContent = isDecimal ? target.toFixed(1) : target + '+';
+              clearInterval(timer);
+            } else {
+              entry.target.textContent = isDecimal ? start.toFixed(1) : Math.floor(start);
+            }
+          }, 25);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    // ===== MENU FILTER =====
+    function filterMenu(category) {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.menu-card');
+      cards.forEach((card, i) => {
+        const cat = card.dataset.category;
+        if (category === 'all' || cat === category) {
+          card.style.display = '';
+          card.style.animationDelay = i * 0.08 + 's';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // ===== TOAST =====
+    let toastTimer;
+    function addToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerHTML = '<i class="fas fa-check-circle" style="color:var(--gold);margin-right:8px;"></i>' + msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ===== MOBILE MENU =====
+    function toggleMobileMenu() {
+      const links = document.querySelector('.nav-links');
+      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+      links.style.flexDirection = 'column';
+      links.style.position = 'absolute';
+      links.style.top = '70px';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = 'rgba(26,10,0,0.97)';
+      links.style.padding = '20px';
+      links.style.gap = '20px';
+    }
+
+    // close mobile on link click
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        const links = document.querySelector('.nav-links');
+        if (window.innerWidth < 900) links.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
