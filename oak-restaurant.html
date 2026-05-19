@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OAK Kota Damansara | Original Anak Kampung</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C8A951;
+      --gold-light: #E8C96B;
+      --gold-dark: #8A6B20;
+      --red: #C0392B;
+      --dark: #0A0A0A;
+      --dark2: #141414;
+      --dark3: #1E1E1E;
+      --card: #1A1A1A;
+      --light: #F5F0E6;
+      --cream: #FDF6E3;
+      --green: #2D6A4F;
+      --text: #E8E0D0;
+      --muted: #888;
+      --border: rgba(200,169,81,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5%;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.97);
+      box-shadow: 0 2px 30px rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #fff; font-style: italic; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0; height: 1px;
+      background: var(--gold); transform: scaleX(0); transition: transform 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-order {
+      background: var(--gold);
+      color: var(--dark);
+      padding: 10px 24px;
+      border-radius: 2px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-order:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); transition: 0.3s; }
+
+    #hero {
+      position: relative;
+      height: 100vh; min-height: 650px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0A0500 0%, #1A0D00 40%, #0D1A0A 100%);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(200,169,81,0.08) 0%, transparent 70%);
+    }
+
+    .food-particle {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: floatFood linear infinite;
+      opacity: 0;
+      filter: drop-shadow(0 0 12px rgba(200,169,81,0.4));
+      pointer-events: none;
+      user-select: none;
+    }
+    @keyframes floatFood {
+      0%   { transform: translateY(110vh) rotate(0deg) scale(0.6); opacity: 0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.5; }
+      100% { transform: translateY(-15vh) rotate(360deg) scale(1.1); opacity: 0; }
+    }
+
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(200,169,81,0.15);
+      animation: expandRing 4s ease-out infinite;
+    }
+    @keyframes expandRing {
+      0%   { transform: scale(0.5); opacity: 0.6; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 850px; padding: 0 24px; }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      padding: 7px 20px;
+      margin-bottom: 28px;
+      animation: fadeDown 0.8s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      animation: fadeDown 0.8s 0.2s ease both;
+    }
+    .hero-title .gold { color: var(--gold); }
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: rgba(245,240,230,0.7);
+      margin-bottom: 40px;
+      animation: fadeDown 0.8s 0.4s ease both;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      animation: fadeDown 0.8s 0.6s ease both;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--dark);
+      padding: 14px 36px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,169,81,0.35); }
+    .btn-outline {
+      border: 1px solid rgba(245,240,230,0.4);
+      color: var(--light);
+      padding: 14px 36px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.4); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      animation: fadeDown 1s 1s ease both;
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, rgba(200,169,81,0.8), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.4; transform: scaleY(0.8); } 50% { opacity: 1; transform: scaleY(1); } }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(30px);  } to { opacity: 1; transform: translateY(0); } }
+
+    .stats-bar {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: center; flex-wrap: wrap;
+    }
+    .stat-item {
+      flex: 1; min-width: 150px; max-width: 240px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .stat-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+    section { padding: 100px 5%; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px; display: block;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .section-line {
+      width: 60px; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      margin: 20px 0 30px;
+    }
+    .section-line.center { margin: 20px auto 30px; }
+    .text-center { text-align: center; }
+
+    #about { background: var(--dark2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .about-visual { position: relative; }
+    .about-plate {
+      width: 100%; aspect-ratio: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .plate-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      animation: rotateSlow linear infinite;
+    }
+    .plate-circle:nth-child(1) { width: 90%; height: 90%; animation-duration: 20s; }
+    .plate-circle:nth-child(2) { width: 75%; height: 75%; animation-duration: 30s; animation-direction: reverse; border-color: rgba(200,169,81,0.1); }
+    @keyframes rotateSlow { to { transform: rotate(360deg); } }
+    .plate-emoji {
+      font-size: 6rem;
+      position: relative; z-index: 2;
+      animation: plateBob 3s ease-in-out infinite;
+      filter: drop-shadow(0 10px 30px rgba(200,169,81,0.3));
+    }
+    @keyframes plateBob { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-12px) scale(1.05); } }
+    .about-badge-mini {
+      position: absolute; top: 8%; right: 8%;
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 1px;
+      padding: 8px 14px; border-radius: 2px;
+      text-transform: uppercase;
+      animation: badge-float 4s ease-in-out infinite;
+    }
+    @keyframes badge-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .about-text p {
+      color: rgba(245,240,230,0.7);
+      line-height: 1.85; font-size: 1rem;
+      margin-bottom: 18px;
+    }
+    .about-highlights {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px;
+    }
+    .highlight-tag {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(200,169,81,0.08);
+      border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 2px;
+      font-size: 0.8rem; color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .highlight-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+    #menu { background: var(--dark); }
+    .menu-tabs {
+      display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px 26px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; cursor: pointer;
+      transition: all 0.3s; border-radius: 2px; font-family: inherit;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--gold); color: var(--dark); border-color: var(--gold);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px; max-width: 1200px; margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.4s;
+      position: relative;
+    }
+    .menu-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,169,81,0.2);
+    }
+    .card-visual {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .card-emoji {
+      font-size: 5.5rem;
+      animation: cardBob 3s ease-in-out infinite;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
+      position: relative; z-index: 2;
+    }
+    @keyframes cardBob {
+      0%,100% { transform: translateY(0) rotate(-2deg) scale(1); }
+      50%      { transform: translateY(-8px) rotate(2deg) scale(1.05); }
+    }
+    .steam {
+      position: absolute; top: 8px;
+      display: flex; gap: 12px;
+    }
+    .steam-line {
+      width: 3px; border-radius: 3px;
+      background: linear-gradient(to top, rgba(255,255,255,0.3), transparent);
+      animation: steamRise 2s ease-in-out infinite;
+    }
+    .steam-line:nth-child(1) { height: 30px; animation-delay: 0s; }
+    .steam-line:nth-child(2) { height: 45px; animation-delay: 0.4s; }
+    .steam-line:nth-child(3) { height: 28px; animation-delay: 0.8s; }
+    @keyframes steamRise {
+      0%   { opacity: 0; transform: translateY(0) scaleX(1); }
+      30%  { opacity: 0.7; }
+      100% { opacity: 0; transform: translateY(-40px) scaleX(2); }
+    }
+    .bestseller-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--red); color: #fff;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 2px;
+      z-index: 3;
+    }
+    .card-body { padding: 22px 24px 26px; }
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 600;
+      color: #fff; margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 0.82rem; color: var(--muted);
+      line-height: 1.7; margin-bottom: 18px;
+    }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--gold); font-weight: 700;
+    }
+    .card-tag {
+      font-size: 0.68rem; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--green); border: 1px solid var(--green);
+      padding: 3px 8px; border-radius: 2px;
+    }
+    .bg-red    { background: linear-gradient(135deg, #2a0808 0%, #1a0a0a 100%); }
+    .bg-amber  { background: linear-gradient(135deg, #1a1200 0%, #0d0d0d 100%); }
+    .bg-green  { background: linear-gradient(135deg, #031a06 0%, #0a0a0a 100%); }
+    .bg-blue   { background: linear-gradient(135deg, #030c1a 0%, #0a0a0a 100%); }
+    .bg-purple { background: linear-gradient(135deg, #100514 0%, #0a0a0a 100%); }
+    .bg-teal   { background: linear-gradient(135deg, #021714 0%, #0a0a0a 100%); }
+
+    #specials { background: var(--dark2); }
+    .specials-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .special-item {
+      background: var(--dark3);
+      padding: 50px;
+      display: flex; gap: 30px; align-items: flex-start;
+      transition: background 0.3s;
+      border: 1px solid transparent;
+    }
+    .special-item:hover { background: var(--card); border-color: var(--border); }
+    .special-icon { font-size: 3.5rem; flex-shrink: 0; animation: specialBob 4s ease-in-out infinite; }
+    .special-item:nth-child(2) .special-icon { animation-delay: -1s; }
+    .special-item:nth-child(3) .special-icon { animation-delay: -2s; }
+    .special-item:nth-child(4) .special-icon { animation-delay: -3s; }
+    @keyframes specialBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .special-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: #fff; margin-bottom: 10px;
+    }
+    .special-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .special-tag {
+      display: inline-block; margin-top: 12px;
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    #amenities { background: var(--dark); }
+    .amenities-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px; max-width: 1000px; margin: 0 auto;
+    }
+    .amenity-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 36px 24px;
+      text-align: center;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .amenity-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .amenity-icon { font-size: 2.8rem; margin-bottom: 16px; animation: amenityPulse 3s ease-in-out infinite; }
+    .amenity-card:nth-child(2) .amenity-icon { animation-delay: -0.5s; }
+    .amenity-card:nth-child(3) .amenity-icon { animation-delay: -1s; }
+    .amenity-card:nth-child(4) .amenity-icon { animation-delay: -1.5s; }
+    .amenity-card:nth-child(5) .amenity-icon { animation-delay: -2s; }
+    @keyframes amenityPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    .amenity-name { font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); }
+
+    #order {
+      background: linear-gradient(135deg, #0D0A00 0%, #1A1200 50%, #0D0A00 100%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .order-food-row {
+      display: flex; justify-content: center; gap: 24px;
+      font-size: 3rem; margin-bottom: 40px;
+    }
+    .order-food-item { animation: orderFloat 3s ease-in-out infinite; }
+    .order-food-item:nth-child(1) { animation-delay: 0s; }
+    .order-food-item:nth-child(2) { animation-delay: 0.4s; }
+    .order-food-item:nth-child(3) { animation-delay: 0.8s; }
+    .order-food-item:nth-child(4) { animation-delay: 1.2s; }
+    .order-food-item:nth-child(5) { animation-delay: 1.6s; }
+    @keyframes orderFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .order-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+    .order-btn {
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 40px;
+      border-radius: 4px;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; transition: all 0.3s;
+      min-width: 220px; justify-content: center;
+    }
+    .grab-btn { background: #00B14F; color: #fff; }
+    .grab-btn:hover { background: #00D160; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,177,79,0.3); }
+    .panda-btn { background: #D70F64; color: #fff; }
+    .panda-btn:hover { background: #F0207A; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(215,15,100,0.3); }
+    .order-btn-icon { font-size: 1.4rem; }
+
+    #gallery { background: var(--dark2); }
+    .gallery-ticker {
+      overflow: hidden; margin-bottom: 60px;
+      padding: 20px 0;
+    }
+    .ticker-track {
+      display: flex; gap: 16px;
+      animation: ticker 20s linear infinite;
+      width: max-content;
+    }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+    .ticker-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px 32px;
+      border-radius: 4px;
+      display: flex; align-items: center; gap: 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ticker-emoji { font-size: 2rem; animation: tickerBob 2s ease-in-out infinite; }
+    .ticker-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--light); }
+    .gallery-plates {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px; max-width: 1200px; margin: 0 auto;
+    }
+    .gallery-plate {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 20px;
+      transition: all 0.4s;
+      cursor: default;
+    }
+    .gallery-plate:hover { border-color: var(--gold); transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+    .gallery-plate.tall { grid-row: span 2; padding: 60px 20px; }
+    .plate-big { font-size: 5rem; animation: plateBob 3s ease-in-out infinite; margin-bottom: 16px; }
+    .plate-small { font-size: 3.5rem; animation: plateBob 3s ease-in-out infinite; margin-bottom: 12px; }
+    .gallery-plate:nth-child(2) .plate-big { animation-delay: -0.5s; }
+    .gallery-plate:nth-child(3) .plate-big { animation-delay: -1s; }
+    .gallery-plate:nth-child(4) .plate-big { animation-delay: -1.5s; }
+    .gallery-plate:nth-child(5) .plate-small { animation-delay: -2s; }
+    .gallery-plate:nth-child(6) .plate-small { animation-delay: -2.5s; }
+    .gallery-plate:nth-child(7) .plate-small { animation-delay: -3s; }
+    .plate-label {
+      font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--light);
+      margin-top: 8px; text-align: center;
+    }
+    .plate-sublabel { font-size: 0.72rem; color: var(--muted); text-align: center; margin-top: 4px; }
+
+    #contact { background: var(--dark); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; margin: 0 auto; align-items: start; }
+    .info-row {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 28px 0; border-bottom: 1px solid var(--border);
+    }
+    .info-icon { font-size: 1.8rem; flex-shrink: 0; width: 40px; text-align: center; }
+    .info-label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .info-value { font-size: 0.95rem; color: var(--light); line-height: 1.6; }
+    .info-value a { color: var(--light); text-decoration: none; transition: color 0.2s; }
+    .info-value a:hover { color: var(--gold); }
+    .map-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 4px;
+      height: 400px; overflow: hidden; position: relative;
+    }
+    .map-box iframe { width: 100%; height: 100%; border: none; }
+    .map-label {
+      position: absolute; top: 16px; left: 16px;
+      background: var(--dark2); border: 1px solid var(--border);
+      padding: 8px 14px; border-radius: 2px;
+      font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      padding: 60px 5% 30px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; max-width: 1100px; margin: 0 auto 50px; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 700; color: var(--gold); letter-spacing: 2px;
+      margin-bottom: 14px; display: block;
+    }
+    .footer-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+    .footer-col-title { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--light); }
+    .social-row { display: flex; gap: 12px; margin-top: 10px; }
+    .social-btn {
+      width: 40px; height: 40px;
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; text-decoration: none; transition: all 0.3s;
+    }
+    .social-btn:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
+    .footer-bottom {
+      text-align: center; padding-top: 30px; border-top: 1px solid var(--border);
+      font-size: 0.78rem; color: var(--muted); max-width: 1100px; margin: 0 auto;
+    }
+    .halal-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--green); color: var(--green);
+      padding: 5px 12px; border-radius: 2px;
+      font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;
+      margin-left: 16px;
+    }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-visual { display: none; }
+      .specials-grid { grid-template-columns: 1fr; }
+      .gallery-plates { grid-template-columns: repeat(2, 1fr); }
+      .gallery-plate.tall { grid-row: span 1; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+    }
+    @media (max-width: 700px) {
+      .nav-links, .nav-order { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 70px 5%; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .gallery-plates { grid-template-columns: 1fr 1fr; }
+      .stat-item { min-width: 120px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-plates { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">OAK <span>KD</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#specials">Specials</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Find Us</a></li>
+  </ul>
+  <a href="#order" class="nav-order">Order Now</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-ring" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:0s;animation-duration:5s;"></div>
+  <div class="hero-ring" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1.7s;animation-duration:5s;"></div>
+  <div class="hero-ring" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:3.4s;animation-duration:5s;"></div>
+  <div id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Halal Chinese Muslim Cuisine ✦</div>
+    <h1 class="hero-title">
+      <span class="gold">OAK</span><br>Kota Damansara
+    </h1>
+    <p class="hero-tagline">Original Anak Kampung — Flavours of Malaysia, Served from the Heart</p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#contact" class="btn-outline">Find Us</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item reveal">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Halal Certified</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <span class="stat-num">3</span>
+    <span class="stat-label">Branches</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <span class="stat-num">12h</span>
+    <span class="stat-label">Open Daily</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-3">
+    <span class="stat-num">5★</span>
+    <span class="stat-label">Experience</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-plate">
+        <div class="plate-circle"></div>
+        <div class="plate-circle"></div>
+        <div class="plate-emoji">🍜</div>
+        <div class="about-badge-mini">Est. Kota Damansara</div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <span class="section-label">Our Story</span>
+      <h2 class="section-title">A Taste of Home,<br>Every Single Day</h2>
+      <div class="section-line"></div>
+      <p>OAK — Original Anak Kampung — is Malaysia's premier Halal Chinese Muslim eatery, bringing the authentic flavours of northern-inspired cuisine to the heart of Kota Damansara.</p>
+      <p>We believe great food should be accessible to everyone. That's why we craft every dish with the finest fresh ingredients, offering a 5-star dining experience at truly affordable prices — clean, wholesome, and made with heart.</p>
+      <p>From our signature Nasi Ayam Hainan to the richly spiced Mee Kari and the beloved Penang Prawn Mee, every bowl and plate carries the soul of Malaysian kampung cooking.</p>
+      <div class="about-highlights">
+        <div class="highlight-tag"><div class="dot"></div> 100% Halal</div>
+        <div class="highlight-tag"><div class="dot"></div> Chinese Muslim</div>
+        <div class="highlight-tag"><div class="dot"></div> Fresh Daily</div>
+        <div class="highlight-tag"><div class="dot"></div> Family Friendly</div>
+        <div class="highlight-tag"><div class="dot"></div> Affordable</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="text-center reveal">
+    <span class="section-label">What We Serve</span>
+    <h2 class="section-title">Our Signature Menu</h2>
+    <div class="section-line center"></div>
+  </div>
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="filterMenu('all')">All</button>
+    <button class="tab-btn" onclick="filterMenu('rice')">Rice</button>
+    <button class="tab-btn" onclick="filterMenu('noodles')">Noodles</button>
+    <button class="tab-btn" onclick="filterMenu('breakfast')">Breakfast</button>
+    <button class="tab-btn" onclick="filterMenu('drinks')">Drinks</button>
+  </div>
+  <div class="menu-grid" id="menuGrid">
+    <div class="menu-card reveal" data-cat="rice">
+      <div class="card-visual bg-amber"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🌗</div><div class="bestseller-badge">Best Seller</div></div>
+      <div class="card-body"><div class="card-name">Nasi Ayam Hainan</div><div class="card-desc">Silky Hainanese steamed or roasted chicken with fragrant pandan rice, ginger sauce, and house chili.</div><div class="card-footer"><div class="card-price">RM 13.50</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-1" data-cat="noodles">
+      <div class="card-visual bg-red"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🍲</div><div class="bestseller-badge">Best Seller</div></div>
+      <div class="card-body"><div class="card-name">Mee Kari</div><div class="card-desc">Aromatic curry noodle soup loaded with tofu puffs, seafood, boiled egg, and springy yellow noodles.</div><div class="card-footer"><div class="card-price">RM 12.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-2" data-cat="noodles">
+      <div class="card-visual bg-blue"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🦐</div><div class="bestseller-badge">Best Seller</div></div>
+      <div class="card-body"><div class="card-name">Penang Prawn Mee</div><div class="card-desc">Classic Penang-style prawn noodles with a deeply flavourful prawn broth, fresh prawns, and egg.</div><div class="card-footer"><div class="card-price">RM 14.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-3" data-cat="noodles">
+      <div class="card-visual bg-green"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🍝</div></div>
+      <div class="card-body"><div class="card-name">Pan Mee</div><div class="card-desc">Hand-torn flat noodles in a clear anchovy broth topped with minced chicken, mushrooms, and crispy ikan bilis.</div><div class="card-footer"><div class="card-price">RM 11.50</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal" data-cat="rice">
+      <div class="card-visual bg-red"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🍛</div><div class="bestseller-badge">Best Seller</div></div>
+      <div class="card-body"><div class="card-name">Nasi Kari Ayam</div><div class="card-desc">Rich and creamy chicken curry served over steamed white rice with a side of fresh vegetable.</div><div class="card-footer"><div class="card-price">RM 13.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-1" data-cat="noodles">
+      <div class="card-visual bg-purple"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🍜</div></div>
+      <div class="card-body"><div class="card-name">Wantan Mee</div><div class="card-desc">Springy egg noodles tossed in house soy sauce, topped with char siew and juicy steamed wantan dumplings.</div><div class="card-footer"><div class="card-price">RM 11.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-2" data-cat="rice">
+      <div class="card-visual bg-amber"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🍱</div></div>
+      <div class="card-body"><div class="card-name">Special Mix Chicken Rice</div><div class="card-desc">A combination plate of roasted and steamed Hainanese chicken with fragrant rice and two signature sauces.</div><div class="card-footer"><div class="card-price">RM 16.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-3" data-cat="breakfast">
+      <div class="card-visual bg-teal"><div class="card-emoji">🍞</div></div>
+      <div class="card-body"><div class="card-name">Roti Bakar Set</div><div class="card-desc">Thick-cut toast with real butter and kaya, served with two kampung eggs and a hot cup of Hainan coffee.</div><div class="card-footer"><div class="card-price">RM 9.50</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal" data-cat="noodles">
+      <div class="card-visual bg-red"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🥟</div></div>
+      <div class="card-body"><div class="card-name">Fried Wantan</div><div class="card-desc">Crunchy golden parcels filled with juicy seasoned minced chicken, deep-fried to perfection. Perfect starter.</div><div class="card-footer"><div class="card-price">RM 7.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-1" data-cat="drinks">
+      <div class="card-visual bg-amber"><div class="card-emoji">☕</div></div>
+      <div class="card-body"><div class="card-name">Hainan Coffee</div><div class="card-desc">Traditional Hainanese-style kopi, rich and smooth, served hot or iced with condensed milk.</div><div class="card-footer"><div class="card-price">RM 4.50</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-2" data-cat="drinks">
+      <div class="card-visual bg-teal"><div class="card-emoji">🧋</div></div>
+      <div class="card-body"><div class="card-name">Teh Tarik</div><div class="card-desc">The beloved Malaysian pulled tea, frothy and perfectly sweet, brewed fresh for every order.</div><div class="card-footer"><div class="card-price">RM 4.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+    <div class="menu-card reveal reveal-delay-3" data-cat="breakfast">
+      <div class="card-visual bg-amber"><div class="steam"><div class="steam-line"></div><div class="steam-line"></div><div class="steam-line"></div></div><div class="card-emoji">🥚</div></div>
+      <div class="card-body"><div class="card-name">Soft Boiled Eggs</div><div class="card-desc">Classic half-boiled kampung eggs seasoned with dark soy sauce and white pepper — a timeless morning treat.</div><div class="card-footer"><div class="card-price">RM 3.00</div><div class="card-tag">Halal</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="specials">
+  <div class="text-center reveal" style="margin-bottom:60px;">
+    <span class="section-label">Why Choose OAK</span>
+    <h2 class="section-title">The OAK Experience</h2>
+    <div class="section-line center"></div>
+  </div>
+  <div class="specials-grid">
+    <div class="special-item reveal"><div class="special-icon">🌿</div><div><div class="special-title">100% Halal Certified</div><div class="special-desc">Every ingredient, every dish, every process at OAK is fully Halal-certified, giving you complete peace of mind with every bite.</div><span class="special-tag">Certified Halal</span></div></div>
+    <div class="special-item reveal reveal-delay-1"><div class="special-icon">👨‍🍳</div><div><div class="special-title">Authentic Recipes</div><div class="special-desc">Our recipes are rooted in generations of Malaysian Chinese kampung cooking — no shortcuts, no compromises, just pure flavour.</div><span class="special-tag">Traditional Craft</span></div></div>
+    <div class="special-item reveal reveal-delay-2"><div class="special-icon">🥬</div><div><div class="special-title">Fresh Every Day</div><div class="special-desc">We source fresh produce and ingredients daily to ensure every dish that reaches your table is at its absolute best.</div><span class="special-tag">Farm Fresh</span></div></div>
+    <div class="special-item reveal reveal-delay-3"><div class="special-icon">💎</div><div><div class="special-title">5-Star at Every Price</div><div class="special-desc">Premium dining experience without the premium price tag. We believe extraordinary food should be for everyone.</div><span class="special-tag">Affordable Luxury</span></div></div>
+  </div>
+</section>
+
+<section id="amenities">
+  <div class="text-center reveal" style="margin-bottom:60px;">
+    <span class="section-label">Facilities</span>
+    <h2 class="section-title">Your Comfort, Our Priority</h2>
+    <div class="section-line center"></div>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity-card reveal"><div class="amenity-icon">🕌</div><div class="amenity-name">Surau</div></div>
+    <div class="amenity-card reveal reveal-delay-1"><div class="amenity-icon">🚗</div><div class="amenity-name">Ample Parking</div></div>
+    <div class="amenity-card reveal reveal-delay-2"><div class="amenity-icon">🚻</div><div class="amenity-name">Clean Toilets</div></div>
+    <div class="amenity-card reveal reveal-delay-3"><div class="amenity-icon">❄️</div><div class="amenity-name">Air Conditioned</div></div>
+    <div class="amenity-card reveal reveal-delay-4"><div class="amenity-icon">🛵</div><div class="amenity-name">Delivery Available</div></div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="reveal">
+    <div class="order-food-row">
+      <span class="order-food-item">🍜</span>
+      <span class="order-food-item">🌗</span>
+      <span class="order-food-item">🦐</span>
+      <span class="order-food-item">🍛</span>
+      <span class="order-food-item">☕</span>
+    </div>
+    <span class="section-label" style="display:block;text-align:center;">Order Online</span>
+    <h2 class="section-title text-center">Craving OAK?<br>We Deliver to You</h2>
+    <div class="section-line center"></div>
+    <p style="text-align:center;color:var(--muted);font-size:0.95rem;max-width:500px;margin:0 auto;">Can't make it in? Order your favourite OAK dishes right to your doorstep via GrabFood or Foodpanda.</p>
+    <div class="order-buttons">
+      <a href="https://r.grab.com/g/6-20240412_093121_1322AB432053419AA1A47285BC969737_MEXMPS-1-C6DATPD2AJNCDE" target="_blank" class="order-btn grab-btn"><span class="order-btn-icon">🛵</span> Order on GrabFood</a>
+      <a href="https://foodpanda.page.link/Dhyqxmh5GkM6cRzGA" target="_blank" class="order-btn panda-btn"><span class="order-btn-icon">🐼</span> Order on Foodpanda</a>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="text-center reveal" style="margin-bottom:60px;">
+    <span class="section-label">Food Gallery</span>
+    <h2 class="section-title">Every Dish Tells a Story</h2>
+    <div class="section-line center"></div>
+  </div>
+  <div class="gallery-ticker">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="ticker-emoji">🌗</span><span class="ticker-name">Nasi Ayam Hainan</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍲</span><span class="ticker-name">Mee Kari</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🦐</span><span class="ticker-name">Penang Prawn Mee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍝</span><span class="ticker-name">Pan Mee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍛</span><span class="ticker-name">Nasi Kari Ayam</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍜</span><span class="ticker-name">Wantan Mee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🥟</span><span class="ticker-name">Fried Wantan</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">☕</span><span class="ticker-name">Hainan Coffee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍞</span><span class="ticker-name">Roti Bakar Set</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🌗</span><span class="ticker-name">Nasi Ayam Hainan</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍲</span><span class="ticker-name">Mee Kari</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🦐</span><span class="ticker-name">Penang Prawn Mee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍝</span><span class="ticker-name">Pan Mee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍛</span><span class="ticker-name">Nasi Kari Ayam</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍜</span><span class="ticker-name">Wantan Mee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🥟</span><span class="ticker-name">Fried Wantan</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">☕</span><span class="ticker-name">Hainan Coffee</span></div>
+      <div class="ticker-item"><span class="ticker-emoji">🍞</span><span class="ticker-name">Roti Bakar Set</span></div>
+    </div>
+  </div>
+  <div class="gallery-plates">
+    <div class="gallery-plate tall reveal" style="background:linear-gradient(180deg,#1a0a00,#0d0d0d);"><div class="plate-big">🌗</div><div class="plate-label">Nasi Ayam Hainan</div><div class="plate-sublabel">Our Signature Dish</div></div>
+    <div class="gallery-plate reveal reveal-delay-1" style="background:linear-gradient(180deg,#0a0015,#0d0d0d);"><div class="plate-big">🍜</div><div class="plate-label">Wantan Mee</div><div class="plate-sublabel">Classic Favourite</div></div>
+    <div class="gallery-plate reveal reveal-delay-2" style="background:linear-gradient(180deg,#001020,#0d0d0d);"><div class="plate-big">🦐</div><div class="plate-label">Prawn Mee</div><div class="plate-sublabel">Penang Style</div></div>
+    <div class="gallery-plate tall reveal reveal-delay-3" style="background:linear-gradient(180deg,#150000,#0d0d0d);"><div class="plate-big">🍲</div><div class="plate-label">Mee Kari</div><div class="plate-sublabel">Rich Curry Broth</div></div>
+    <div class="gallery-plate reveal reveal-delay-1" style="background:linear-gradient(180deg,#001a05,#0d0d0d);"><div class="plate-small">🍝</div><div class="plate-label">Pan Mee</div></div>
+    <div class="gallery-plate reveal reveal-delay-2" style="background:linear-gradient(180deg,#0a0a00,#0d0d0d);"><div class="plate-small">🍛</div><div class="plate-label">Nasi Kari</div></div>
+    <div class="gallery-plate reveal reveal-delay-3" style="background:linear-gradient(180deg,#001515,#0d0d0d);"><div class="plate-small">☕</div><div class="plate-label">Hainan Coffee</div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="text-center reveal" style="margin-bottom:70px;">
+    <span class="section-label">Visit Us</span>
+    <h2 class="section-title">Find OAK Kota Damansara</h2>
+    <div class="section-line center"></div>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <div class="info-row reveal"><div class="info-icon">📍</div><div><div class="info-label">Address</div><div class="info-value">27G, Jalan PJU 5/20, Dataran Sunway,<br>Kota Damansara, 47810 Petaling Jaya, Selangor.</div></div></div>
+      <div class="info-row reveal reveal-delay-1"><div class="info-icon">🕙</div><div><div class="info-label">Opening Hours</div><div class="info-value">Open Daily — 10:00 AM to 10:00 PM</div></div></div>
+      <div class="info-row reveal reveal-delay-2"><div class="info-icon">📱</div><div><div class="info-label">WhatsApp / Call</div><div class="info-value"><a href="tel:+60189702850">+60 18-970 2850</a></div></div></div>
+      <div class="info-row reveal reveal-delay-3"><div class="info-icon">✉️</div><div><div class="info-label">Email</div><div class="info-value"><a href="mailto:theoriginalanakkampung@gmail.com">theoriginalanakkampung@gmail.com</a></div></div></div>
+      <div class="info-row reveal"><div class="info-icon">🚗</div><div><div class="info-label">Parking</div><div class="info-value">Ample free parking available at Dataran Sunway, right in front of the restaurant.</div></div></div>
+    </div>
+    <div class="map-box reveal reveal-delay-2">
+      <div class="map-label">📍 OAK Kota Damansara</div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.6073504!2d101.5906!3d3.1619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4ea42a000001%3A0x1!2s27G%2C%20Jalan%20PJU%205%2F20%2C%20Kota%20Damansara%2C%2047810%20Petaling%20Jaya!5e0!3m2!1sen!2smy!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="footer-logo">OAK</span>
+      <p class="footer-desc">Original Anak Kampung — Malaysia's premier Halal Chinese Muslim eatery. Flavours of Malaysia, served from the heart.<br><br>Kota Damansara · Kelana Jaya · Subang Bestari</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#menu">Our Menu</a></li>
+        <li><a href="#specials">Why OAK</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#order">Order Online</a></li>
+        <li><a href="#contact">Find Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Follow Us</div>
+      <div class="social-row">
+        <a href="https://www.facebook.com/originalanakkampung/" target="_blank" class="social-btn">📘</a>
+        <a href="https://www.instagram.com/oakofficialrestaurant/" target="_blank" class="social-btn">📷</a>
+        <a href="https://www.tiktok.com/@restaurantoak" target="_blank" class="social-btn">🎵</a>
+        <a href="https://wa.link/ww2etc" target="_blank" class="social-btn">💬</a>
+      </div>
+      <div style="margin-top:24px;">
+        <div class="footer-col-title">Certified</div>
+        <div class="halal-badge">✓ 100% Halal</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2025 OAK — Original Anak Kampung. All rights reserved. &nbsp;|&nbsp; 27G, Jalan PJU 5/20, Kota Damansara, Petaling Jaya.</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+
+  const foods = ['🍜','🌗','🦐','🍛','🍝','☕','🥟','🧋','🍲','🥚','🍞'];
+  const container = document.getElementById('particles');
+  function spawnParticle() {
+    const el = document.createElement('div');
+    el.className = 'food-particle';
+    el.textContent = foods[Math.floor(Math.random() * foods.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (1.5 + Math.random() * 2) + 'rem';
+    const dur = 8 + Math.random() * 10;
+    el.style.animationDuration = dur + 's';
+    el.style.animationDelay = (Math.random() * 4) + 's';
+    container.appendChild(el);
+    setTimeout(() => el.remove(), (dur + 4) * 1000);
+  }
+  for (let i = 0; i < 12; i++) spawnParticle();
+  setInterval(spawnParticle, 2200);
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  function filterMenu(cat) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.menu-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) { card.style.display = ''; }
+      else { card.style.display = 'none'; }
+    });
+  }
+
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (!links) return;
+    const open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '70px';
+    links.style.left = '0'; links.style.right = '0';
+    links.style.background = 'rgba(10,10,10,0.97)';
+    links.style.padding = '20px 5%';
+    links.style.borderTop = '1px solid rgba(200,169,81,0.2)';
+  }
+</script>
+</body>
+</html>
