@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restoran Meng Kee Grill Fish | Jalan Alor, KL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #d4a017;
+      --gold-light: #f0c040;
+      --fire: #ff6b35;
+      --ember: #e83e2b;
+      --dark: #0d0501;
+      --dark2: #1a0a00;
+      --dark3: #2a1200;
+      --cream: #f5e6c8;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(13,5,1,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,160,23,0.2);
+      padding: 12px 60px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .nav-logo span { color: var(--fire); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--cream); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative; padding-bottom: 4px;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--gold); color: var(--dark) !important;
+      padding: 10px 24px !important; border-radius: 30px;
+      font-weight: 600 !important;
+      transition: background 0.3s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-2px); }
+    .nav-cta::after { display: none !important; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh; min-height: 700px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #canvas-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, rgba(232,62,43,0.25) 0%, rgba(13,5,1,0.9) 70%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 0 20px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(212,160,23,0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+      padding: 8px 20px; border-radius: 30px;
+      margin-bottom: 24px;
+      animation: fadeInDown 0.8s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900; line-height: 1;
+      margin-bottom: 10px;
+      animation: fadeInUp 0.9s ease 0.2s both;
+    }
+    .hero-title .fire-text {
+      background: linear-gradient(135deg, #ff6b35, #f0c040, #e83e2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      color: var(--cream); opacity: 0.85;
+      margin-bottom: 40px; letter-spacing: 2px;
+      font-weight: 300;
+      animation: fadeInUp 0.9s ease 0.4s both;
+    }
+    .hero-btns {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      animation: fadeInUp 0.9s ease 0.6s both;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--fire), var(--ember));
+      color: white; padding: 16px 40px;
+      border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; letter-spacing: 1px;
+      box-shadow: 0 8px 30px rgba(232,62,43,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(232,62,43,0.6); }
+    .btn-outline {
+      border: 2px solid var(--gold); color: var(--gold);
+      padding: 14px 36px; border-radius: 50px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; letter-spacing: 1px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .btn-outline:hover { background: rgba(212,160,23,0.15); transform: translateY(-3px); }
+
+    .hero-scroll {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      animation: bounce 2s infinite;
+    }
+    .hero-scroll span { font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* Floating food emojis */
+    .float-food {
+      position: absolute; z-index: 1;
+      font-size: 4rem; filter: drop-shadow(0 0 20px rgba(255,107,53,0.6));
+      animation: floatFood 6s ease-in-out infinite;
+      user-select: none; pointer-events: none;
+    }
+    .float-food:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; }
+    .float-food:nth-child(2) { top: 60%; left: 5%; animation-delay: 1.5s; font-size: 3rem; }
+    .float-food:nth-child(3) { top: 20%; right: 8%; animation-delay: 0.8s; }
+    .float-food:nth-child(4) { top: 65%; right: 6%; animation-delay: 2.2s; font-size: 3.5rem; }
+    .float-food:nth-child(5) { top: 40%; left: 12%; animation-delay: 3s; font-size: 2.8rem; }
+    .float-food:nth-child(6) { top: 35%; right: 12%; animation-delay: 1s; font-size: 3.2rem; }
+
+    /* ── STATS BAND ── */
+    .stats-band {
+      background: linear-gradient(90deg, var(--dark2), var(--dark3), var(--dark2));
+      border-top: 1px solid rgba(212,160,23,0.3);
+      border-bottom: 1px solid rgba(212,160,23,0.3);
+      padding: 40px 60px;
+      display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900;
+      color: var(--gold); display: block;
+    }
+    .stat-label { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 100px 60px; }
+    .section-tag {
+      display: inline-block;
+      color: var(--fire); font-size: 0.75rem; letter-spacing: 4px;
+      text-transform: uppercase; font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 900; line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .section-title em { color: var(--gold); font-style: normal; }
+    .section-desc { font-size: 1rem; opacity: 0.75; max-width: 560px; line-height: 1.8; }
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--fire), var(--gold));
+      border-radius: 2px; margin: 20px 0;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--dark2);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .grill-ring {
+      width: 420px; height: 420px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #3a1a00, #1a0a00);
+      border: 3px solid rgba(212,160,23,0.3);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 60px rgba(232,62,43,0.3), inset 0 0 60px rgba(232,62,43,0.1);
+    }
+    .grill-ring::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 18px,
+        rgba(212,160,23,0.08) 18px, rgba(212,160,23,0.08) 20px
+      ),
+      repeating-linear-gradient(
+        90deg, transparent, transparent 18px,
+        rgba(212,160,23,0.08) 18px, rgba(212,160,23,0.08) 20px
+      );
+      border-radius: 50%;
+    }
+    .grill-emoji { font-size: 8rem; animation: grillPulse 3s ease-in-out infinite; z-index: 1; }
+    .about-badge {
+      position: absolute;
+      background: linear-gradient(135deg, var(--fire), var(--ember));
+      border-radius: 16px; padding: 16px 24px;
+      box-shadow: 0 8px 30px rgba(232,62,43,0.4);
+    }
+    .about-badge.b1 { bottom: 30px; right: -20px; }
+    .about-badge.b2 { top: 30px; right: -30px; }
+    .about-badge .big { font-size: 1.6rem; font-weight: 900; font-family: 'Playfair Display', serif; }
+    .about-badge .small { font-size: 0.7rem; letter-spacing: 1px; opacity: 0.9; }
+    .about-features { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+    .feature-row {
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(212,160,23,0.1);
+      border-radius: 12px; padding: 16px 20px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-row:hover { border-color: rgba(212,160,23,0.4); transform: translateX(6px); }
+    .feature-icon { font-size: 1.8rem; }
+    .feature-text .ft { font-weight: 600; font-size: 0.95rem; }
+    .feature-text .fd { font-size: 0.8rem; opacity: 0.65; }
+
+    /* ── MENU ── */
+    #menu { background: var(--dark); }
+    .menu-header { text-align: center; margin-bottom: 60px; }
+    .menu-header .section-desc { margin: 0 auto; }
+    .menu-header .divider { margin: 20px auto; }
+    .menu-tabs {
+      display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+    .tab-btn {
+      background: transparent; border: 1px solid rgba(212,160,23,0.3);
+      color: var(--cream); padding: 10px 28px; border-radius: 30px;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem; letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--gold); color: var(--dark);
+      border-color: var(--gold); font-weight: 600;
+    }
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px; max-width: 1200px; margin: 0 auto;
+    }
+    .menu-card {
+      background: linear-gradient(145deg, #1a0a00, #0d0501);
+      border: 1px solid rgba(212,160,23,0.12);
+      border-radius: 20px; overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
+      cursor: pointer; position: relative;
+    }
+    .menu-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 20px;
+      background: linear-gradient(135deg, rgba(232,62,43,0.08), transparent);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .menu-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 60px rgba(232,62,43,0.3); border-color: rgba(212,160,23,0.5); }
+    .menu-card:hover::before { opacity: 1; }
+    .card-emoji-wrap {
+      height: 200px; position: relative; overflow: hidden;
+      background: #1a0a00;
+    }
+    .card-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+    .menu-card:hover .card-img { transform: scale(1.08); }
+    .card-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(13,5,1,0.55) 100%);
+      transition: opacity 0.4s;
+    }
+    .menu-card:hover .card-img-overlay {
+      background: linear-gradient(to bottom, transparent 30%, rgba(232,62,43,0.25) 100%);
+    }
+    .card-body { padding: 20px 24px 24px; }
+    .card-tag {
+      font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--fire); margin-bottom: 6px;
+    }
+    .card-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .card-desc { font-size: 0.8rem; opacity: 0.65; line-height: 1.7; margin-bottom: 16px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .card-price { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--gold); }
+    .card-price small { font-size: 0.7rem; font-family: 'Poppins', sans-serif; opacity: 0.6; }
+    .card-hot {
+      background: linear-gradient(135deg, var(--fire), var(--ember));
+      font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 20px; font-weight: 600;
+    }
+    .menu-card.hidden { display: none; }
+
+    /* ── SIGNATURE ── */
+    #signature {
+      background: linear-gradient(180deg, var(--dark2) 0%, var(--dark) 100%);
+      text-align: center;
+    }
+    .sig-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      max-width: 1100px; margin: 60px auto 0;
+    }
+    .sig-card {
+      background: linear-gradient(145deg, #200e00, #150800);
+      border: 1px solid rgba(212,160,23,0.15);
+      border-radius: 24px; padding: 40px 30px; text-align: center;
+      position: relative; overflow: hidden;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .sig-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--fire), var(--gold), var(--fire));
+      transform: scaleX(0); transition: transform 0.4s;
+    }
+    .sig-card:hover { transform: translateY(-12px); box-shadow: 0 24px 60px rgba(212,160,23,0.2); }
+    .sig-card:hover::after { transform: scaleX(1); }
+    .sig-num {
+      position: absolute; top: 16px; right: 20px;
+      font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900;
+      color: rgba(212,160,23,0.05); line-height: 1;
+    }
+    .sig-emoji { font-size: 5rem; margin-bottom: 20px; display: block; animation: float 4s ease-in-out infinite; }
+    .sig-card:nth-child(2) .sig-emoji { animation-delay: 1s; }
+    .sig-card:nth-child(3) .sig-emoji { animation-delay: 2s; }
+    .sig-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+    .sig-desc { font-size: 0.82rem; opacity: 0.7; line-height: 1.8; }
+    .sig-badge {
+      display: inline-block; margin-top: 20px;
+      background: rgba(212,160,23,0.1); border: 1px solid rgba(212,160,23,0.3);
+      color: var(--gold); font-size: 0.7rem; letter-spacing: 2px;
+      text-transform: uppercase; padding: 6px 16px; border-radius: 20px;
+    }
+
+    /* ── ATMOSPHERE ── */
+    #atmosphere { background: var(--dark2); }
+    .atm-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 240px 240px; gap: 16px; margin-top: 50px;
+    }
+    .atm-card {
+      border-radius: 16px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 4rem; position: relative; overflow: hidden;
+      cursor: pointer; transition: transform 0.4s;
+    }
+    .atm-card:hover { transform: scale(1.04); }
+    .atm-card:nth-child(1) { grid-column: span 2; background: linear-gradient(135deg, #3a1200, #1a0800); }
+    .atm-card:nth-child(2) { background: linear-gradient(135deg, #2a0000, #0d0501); }
+    .atm-card:nth-child(3) { background: linear-gradient(135deg, #001a0a, #0d0501); }
+    .atm-card:nth-child(4) { grid-column: span 2; background: linear-gradient(135deg, #1a1200, #0d0501); }
+    .atm-card:nth-child(5) { background: linear-gradient(135deg, #1a000d, #0d0501); }
+    .atm-emoji { font-size: 5rem; filter: drop-shadow(0 0 30px rgba(255,107,53,0.5)); }
+    .atm-label {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      font-weight: 700; margin-top: 12px; text-align: center;
+    }
+    .atm-sub { font-size: 0.75rem; opacity: 0.6; margin-top: 4px; }
+    .atm-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(232,62,43,0.1), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .atm-card:hover .atm-overlay { opacity: 1; }
+
+    /* ── HOURS & LOCATION ── */
+    #visit {
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .hours-grid { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 20px; border-radius: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(212,160,23,0.08);
+      transition: border-color 0.3s;
+    }
+    .hours-row:hover { border-color: rgba(212,160,23,0.3); }
+    .hours-row.closed { opacity: 0.4; }
+    .hours-day { font-weight: 500; font-size: 0.9rem; }
+    .hours-time { color: var(--gold); font-size: 0.85rem; font-weight: 600; }
+    .hours-tag {
+      background: rgba(232,62,43,0.2); color: var(--fire);
+      font-size: 0.65rem; padding: 3px 10px; border-radius: 10px;
+    }
+    .location-card {
+      background: linear-gradient(145deg, #1a0a00, #0d0501);
+      border: 1px solid rgba(212,160,23,0.2); border-radius: 24px; padding: 40px;
+    }
+    .location-map-placeholder {
+      width: 100%; height: 200px; border-radius: 16px; overflow: hidden;
+      background: linear-gradient(135deg, #2a1200, #1a0a00);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; margin-bottom: 30px;
+      border: 1px dashed rgba(212,160,23,0.2);
+      position: relative;
+    }
+    .map-grid-lines {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(212,160,23,0.05) 30px, rgba(212,160,23,0.05) 31px),
+                  repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(212,160,23,0.05) 30px, rgba(212,160,23,0.05) 31px);
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .contact-icon { font-size: 1.4rem; margin-top: 2px; }
+    .contact-label { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; margin-bottom: 2px; }
+    .contact-val { font-size: 0.95rem; font-weight: 500; color: var(--cream); }
+    .contact-val a { color: var(--gold); text-decoration: none; }
+
+    /* ── REVIEWS ── */
+    #reviews { background: var(--dark2); text-align: center; }
+    .reviews-track-wrap { overflow: hidden; margin-top: 50px; position: relative; }
+    .reviews-track-wrap::before, .reviews-track-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+    }
+    .reviews-track-wrap::before { left: 0; background: linear-gradient(to right, var(--dark2), transparent); }
+    .reviews-track-wrap::after { right: 0; background: linear-gradient(to left, var(--dark2), transparent); }
+    .reviews-track {
+      display: flex; gap: 24px;
+      animation: scrollReviews 30s linear infinite;
+      width: max-content;
+    }
+    .reviews-track:hover { animation-play-state: paused; }
+    .review-card {
+      background: linear-gradient(145deg, #200e00, #150800);
+      border: 1px solid rgba(212,160,23,0.15); border-radius: 20px;
+      padding: 28px 32px; width: 340px; flex-shrink: 0; text-align: left;
+    }
+    .review-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 14px; }
+    .review-text { font-size: 0.85rem; opacity: 0.8; line-height: 1.8; margin-bottom: 18px; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--fire), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .author-name { font-weight: 600; font-size: 0.9rem; }
+    .author-date { font-size: 0.72rem; opacity: 0.5; }
+
+    /* ── CTA ── */
+    #cta {
+      background: linear-gradient(135deg, #1a0500, #2a0800, #1a0500);
+      text-align: center; padding: 100px 60px;
+      position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: '🔥'; position: absolute; font-size: 20rem; opacity: 0.04;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 4rem); font-weight: 900;
+      margin-bottom: 20px;
+    }
+    .cta-sub { font-size: 1.1rem; opacity: 0.75; margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080300; border-top: 1px solid rgba(212,160,23,0.15);
+      padding: 60px 60px 30px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 50px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .footer-desc { font-size: 0.85rem; opacity: 0.6; line-height: 1.8; max-width: 320px; }
+    .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+    .social-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(212,160,23,0.1); border: 1px solid rgba(212,160,23,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; cursor: pointer; transition: background 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+    .social-btn:hover { background: rgba(212,160,23,0.3); transform: translateY(-3px); }
+    .footer-col h4 {
+      font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px; font-weight: 600;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--cream); opacity: 0.6; text-decoration: none; font-size: 0.85rem; transition: opacity 0.3s, transform 0.3s; display: inline-block; }
+    .footer-links a:hover { opacity: 1; transform: translateX(4px); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; opacity: 0.45;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatFood {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(5deg); }
+      66% { transform: translateY(-10px) rotate(-3deg); }
+    }
+    @keyframes grillPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,107,53,0.3)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 30px rgba(255,107,53,0.8)); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+    @keyframes scrollReviews {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      #about, #visit { grid-template-columns: 1fr; gap: 50px; }
+      .grill-ring { width: 300px; height: 300px; }
+      .sig-grid { grid-template-columns: 1fr; }
+      .atm-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .atm-card:nth-child(1), .atm-card:nth-child(4) { grid-column: span 1; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .stats-band { gap: 40px; padding: 30px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">MENG KEE <span>🔥</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#signature">Signatures</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#visit">Visit Us</a></li>
+    <li><a href="tel:+60122133082" class="nav-cta">Reservations</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="canvas-bg"></canvas>
+  <div class="hero-bg"></div>
+
+  <!-- Floating food -->
+  <div class="float-food">🐟</div>
+  <div class="float-food">🦐</div>
+  <div class="float-food">🦑</div>
+  <div class="float-food">🦀</div>
+  <div class="float-food">🌶️</div>
+  <div class="float-food">🍤</div>
+
+  <div class="hero-content">
+    <div class="hero-badge">⭐ KL's Favourite Grill Fish Since 1990s</div>
+    <h1 class="hero-title">
+      <div class="fire-text">MENG KEE</div>
+      <div>Grill Fish</div>
+    </h1>
+    <p class="hero-subtitle">Jalan Alor's Most Iconic Seafood Experience</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">🍽️ View Menu</a>
+      <a href="#visit" class="btn-outline">📍 Find Us</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-item reveal">
+    <span class="stat-num" data-target="30">0</span>
+    <span class="stat-label">Years of Flame</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num" data-target="50">0</span>
+    <span class="stat-label">Expert Chefs</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num" data-target="40">0</span>
+    <span class="stat-label">Menu Items</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num" data-target="5">0</span>
+    <span class="stat-label">Minute Service</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal-left">
+    <div class="grill-ring">
+      <div class="grill-emoji">🔥</div>
+    </div>
+    <div class="about-badge b1">
+      <div class="big">4.5 ⭐</div>
+      <div class="small">Tripadvisor Rating</div>
+    </div>
+    <div class="about-badge b2">
+      <div class="big">#1</div>
+      <div class="small">Ikan Bakar Jalan Alor</div>
+    </div>
+  </div>
+  <div class="reveal-right">
+    <div class="section-tag">Our Story</div>
+    <h2 class="section-title">Where Fire Meets <em>Flavour</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      Nestled in the heart of Jalan Alor — Kuala Lumpur's legendary night food street —
+      Restoran Meng Kee Grill Fish has been delivering unforgettable seafood experiences
+      for decades. Our signature charcoal-grilled fish, fresh off the grill, draws food
+      lovers from every corner of the globe.
+    </p>
+    <div class="about-features">
+      <div class="feature-row">
+        <div class="feature-icon">🔥</div>
+        <div class="feature-text">
+          <div class="ft">Charcoal Grilled Perfection</div>
+          <div class="fd">Every dish is cooked over live charcoal for authentic smoky flavour</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🦞</div>
+        <div class="feature-text">
+          <div class="ft">Fresh Catch Daily</div>
+          <div class="fd">Seafood sourced fresh every day — no compromise on quality</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🌙</div>
+        <div class="feature-text">
+          <div class="ft">Open Till 3AM</div>
+          <div class="fd">The ultimate late-night seafood destination in Bukit Bintang</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header reveal">
+    <div class="section-tag">What We Serve</div>
+    <h2 class="section-title">Our <em>Menu</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">From charcoal-grilled stingray to butter-drenched prawns — every bite tells a story.</p>
+  </div>
+
+  <div class="menu-tabs reveal">
+    <button class="tab-btn active" data-filter="all">All</button>
+    <button class="tab-btn" data-filter="grill">🔥 Grill</button>
+    <button class="tab-btn" data-filter="seafood">🦐 Seafood</button>
+    <button class="tab-btn" data-filter="rice">🍚 Rice & Noodles</button>
+    <button class="tab-btn" data-filter="veg">🥬 Vegetables</button>
+  </div>
+
+  <div class="menu-grid" id="menuGrid">
+    <!-- GRILL -->
+    <div class="menu-card reveal" data-cat="grill">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0Zha5YtT6eGtKVqxEeZgX_LtGzcZiP4hSj0qOv6PHDw_tgbSt8ZKJ68M6LsdZs3yQrIMpz7aGFahBqEhuRo3xv4ufLD6YBSmptQVy8yp9N0XaQIoWlLG43SvCpczulTVUCyIwhnlY2vR7/s800/IMG_20170415_221614.jpg" alt="Grilled Stingray" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Grill · Signature</div>
+        <div class="card-name">Grilled Stingray</div>
+        <div class="card-desc">Tender stingray marinated in sambal, grilled over charcoal. Charred skin, moist and smoky centre.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 25 <small>from</small></div>
+          <div class="card-hot">🔥 Best Seller</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" data-cat="grill">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGBpHfB51VyJjlDQOxwQahAEFXbjN6P63XfRo0gI5xQQUgQmqiF7BP3voQf4n8YnxMGSF-iA-3ROkLOP17br56bjjmWNYd8vp8zDF_K_eMNUGySxDbxtHd-isNCjDNVuE1XU69tchMpeuL/s800/IMG_20170415_220315.jpg" alt="Grilled Chicken Fish" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Grill</div>
+        <div class="card-name">Grilled Chicken Fish</div>
+        <div class="card-desc">Crispy skin, succulent chicken-like flesh. Grilled to golden perfection with our secret blend.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 25 <small>from</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" data-cat="grill">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2AWPxA2rupmTOxcygQBvNFzFE6PO0dCaoVYnK5Mkh79aXVBncOZuHrsAEAa51MyICU8WLkHt9ythecCswYgpX7PYAT0R1iMUrU-3Ojc_51Ko7zZnTehJjWArvaNKI-V9w8SUm-FxFZTmRdgP9Zq0IJ9kcA5KlzzKrWwAvT8oEC__l64kdoSH6YyrSpig/s800/IMG_7475%202.jpeg" alt="Mutton & Chicken Satay" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Grill</div>
+        <div class="card-name">Mutton & Chicken Satay</div>
+        <div class="card-desc">Classic Malaysian satay — skewered and flame-grilled, served with rich peanut sauce.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 12 <small>per 5 sticks</small></div>
+          <div class="card-hot">⭐ Popular</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEAFOOD -->
+    <div class="menu-card reveal" data-cat="seafood">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIecunesAAM55olQxjCwHp4Kvde3ElqwQX-pEWLnM-EszfN3m1H2xSrktIefDjca5YvlbvkzxPQ2QWrf7oMJ8Yxpoo0B9KWeangVZwRS9Pthzpa_JndhG4r5IJ0jADixk1GNR8j_5_OaLG/s800/IMG_20170415_220240.jpg" alt="Butter Prawns" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Seafood · Signature</div>
+        <div class="card-name">Butter Prawns</div>
+        <div class="card-desc">Large, juicy tiger prawns wok-tossed in a rich creamy butter sauce with crispy egg floss.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 45 <small>from</small></div>
+          <div class="card-hot">🔥 Must Try</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" data-cat="seafood">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcwlAx-DAwpWNfn-6L56LrxLSAUzjuUl2-AGbhXH8VO-eOqfZMcYBXXOfMR0LQ0oABiO8bey6ey_jcFrH0noQesMrJWjV4VgkqPkMEGJnq9wCWiu6wZxIFL_cBT6mKEBSxx1XjZ958tYsN/s800/IMG_20170415_221852.jpg" alt="Salted Egg Squid" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Seafood · Signature</div>
+        <div class="card-name">Salted Egg Squid</div>
+        <div class="card-desc">Golden squid rings coated in a rich, creamy salted egg sauce. Irresistibly addictive.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 32 <small>from</small></div>
+          <div class="card-hot">⭐ Chef's Pick</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" data-cat="seafood">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjZpJ8XBOdFU8SwGEZ8jprjX-FOrdES66jYsy-DQz8JhfD9BU1ZR4jY4bhaQ__a5tASiv0vPbPTlKRQiKjxBwhrfSdVMdEcPWexlUDb4rjhC7Tfc6Dh9HN_e5sVp6Q09OJK9P7bug-jiav4/s800/IMG_20170415_220247.jpg" alt="Crab Black Pepper" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Seafood</div>
+        <div class="card-name">Crab Black Pepper</div>
+        <div class="card-desc">Fresh whole crab stir-fried with bold black pepper sauce. Cracked, messy, and magnificent.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 60 <small>market price</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" data-cat="seafood">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqrZZ5RXmum2gcQT1ohExFgVI1wF0S644MVnZEgu0ojrT8Ut_ahox1z_v3QoNyCHRvwlgsmkAKKbwISApcP18-kVbXg_qSirZg4fm1D8qfJ6JEdkTM4kEWmYlCHOViOS-lgxhwmjD2BtV3/s800/IMG_20170415_221833.jpg" alt="Wok Fried Lala Clams" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Seafood · Signature</div>
+        <div class="card-name">Wok Fried Salt & Pepper Lala</div>
+        <div class="card-desc">Fresh clams tossed in a fragrant mix of garlic, chilli, and salt & pepper. KL's best lala!</div>
+        <div class="card-footer">
+          <div class="card-price">RM 28 <small>from</small></div>
+          <div class="card-hot">🔥 Famous</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" data-cat="seafood">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibqfKpEexuw_rVo0tR7Wu_MQCiD_K8Gai6TFncCbJ94qvr8K_4AtUZahVYXpm1__Z0aQ5FygM4Tyi0UyqMikYJQnU2ama8pt5y-x3r5_maOhGCKK0MdL8sj_E_QDyEKu5bBuaa_rc11sj_/s800/IMG_20170415_222258.jpg" alt="Fried Oyster Omelette" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Seafood</div>
+        <div class="card-name">Fried Oyster Omelette</div>
+        <div class="card-desc">Crispy egg omelette packed with plump oysters. Rich, savoury, and deeply satisfying.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 18 <small>from</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RICE & NOODLES -->
+    <div class="menu-card reveal" data-cat="rice">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrL-VxiVGlluvuHiW8rDkrZPMlCECR2l5oqF-h7Mr6cL_BQT8E0q6yFTdlzlYCXOIjO4sogRwfT5LSFz8_1L3s3e-0LThtnyLTg9nvkgx5KJzLdVY3G7ZyscZRGL20d63eOg7gIC4ttSAw/s800/IMG_20170415_220323.jpg" alt="Beef Fried Hokkien Mee" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Rice & Noodles</div>
+        <div class="card-name">Beef Fried Hokkien Mee</div>
+        <div class="card-desc">Thick hokkien noodles wok-fried with tender beef slices in dark soy sauce. A wok hei classic.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 18 <small>from</small></div>
+          <div class="card-hot">⭐ Popular</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" data-cat="rice">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjMKbX36HXF_-wS248JhlhT0HBnDa02l42JU3vqzsFXHc8VOWy6OciGvXPh3HadAsg5mCETl0-ForYGw5dniOhTOiLQ7NUshJH9XILT9S3ogGReTu2SAOMtnq-sVXwKYg2SOWSJTtY97Lvx/s800/IMG_20170415_220207.jpg" alt="Chinese Fried Rice" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Rice & Noodles</div>
+        <div class="card-name">Chinese Fried Rice</div>
+        <div class="card-desc">Fragrant wok-fried rice with egg, spring onion, and choice of protein. Simple, satisfying.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 12 <small>from</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VEG -->
+    <div class="menu-card reveal" data-cat="veg">
+      <div class="card-emoji-wrap">
+        <img class="card-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEheEJGWRGvLDtD8ufQ-6dLXgKj2l_TmM4MrFvv0BiE1-7AyKKe628OQb_BRO8rKa05Ub0tw_tKm4LNkq5mUrCsUPE28Sm0fVIlqj9mHHBc6EfaXSuZvM1SF2uOUMHKVRCcRklRqJV_PGTp3CUCVdbHQnfkuEKJv_gqd3Rjoq3LNCyD4wwve8botDSug8qY/s800/IMG_7447.jpeg" alt="Garlic Sweet Potato Leaf" loading="lazy">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Vegetables</div>
+        <div class="card-name">Garlic Sweet Potato Leaf</div>
+        <div class="card-desc">Tender morning glory stir-fried with generous garlic and light seasoning. Fresh and fragrant.</div>
+        <div class="card-footer">
+          <div class="card-price">RM 12 <small>from</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE DISHES -->
+<section id="signature">
+  <div class="reveal">
+    <div class="section-tag">Chef's Recommendations</div>
+    <h2 class="section-title">Our <em>Signature</em> Dishes</h2>
+    <div class="divider" style="margin: 20px auto;"></div>
+  </div>
+  <div class="sig-grid">
+    <div class="sig-card reveal">
+      <div class="sig-num">01</div>
+      <span class="sig-emoji">🐟🔥</span>
+      <div class="sig-title">Sambal Grilled Stingray</div>
+      <div class="sig-desc">Our most iconic dish. Stingray wrapped in banana leaf with house-made sambal, slow-grilled over charcoal until perfectly caramelised. Every bite tells the story of Jalan Alor.</div>
+      <span class="sig-badge">Since Day One</span>
+    </div>
+    <div class="sig-card reveal">
+      <div class="sig-num">02</div>
+      <span class="sig-emoji">🦐✨</span>
+      <div class="sig-title">Golden Butter Prawns</div>
+      <div class="sig-desc">Jumbo tiger prawns tossed in fragrant butter with crispy golden egg floss. A dish so good people travel across KL just to taste it.</div>
+      <span class="sig-badge">Customer Favourite</span>
+    </div>
+    <div class="sig-card reveal">
+      <div class="sig-num">03</div>
+      <span class="sig-emoji">🐚🌶️</span>
+      <div class="sig-title">Famous Lala Clams</div>
+      <div class="sig-desc">Reputed to be among the best in KL. Fresh clams wok-kissed with fiery chilli, garlic and fragrant spices. Impossible to stop at one plate.</div>
+      <span class="sig-badge">KL's Best</span>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHERE -->
+<section id="atmosphere">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-tag">Experience</div>
+    <h2 class="section-title">The <em>Atmosphere</em></h2>
+    <div class="divider" style="margin: 20px auto;"></div>
+    <p class="section-desc" style="margin: 0 auto;">Jalan Alor's vibrant energy, warm amber lights, and the irresistible smell of charcoal smoke — dining here is an experience, not just a meal.</p>
+  </div>
+
+  <div class="atm-grid">
+    <div class="atm-card reveal">
+      <div class="atm-overlay"></div>
+      <span class="atm-emoji">🌃</span>
+      <div class="atm-label">Night Street Vibes</div>
+      <div class="atm-sub">Jalan Alor after dark</div>
+    </div>
+    <div class="atm-card reveal">
+      <div class="atm-overlay"></div>
+      <span class="atm-emoji">🔥</span>
+      <div class="atm-label">Live Grill</div>
+      <div class="atm-sub">Watch the magic happen</div>
+    </div>
+    <div class="atm-card reveal">
+      <div class="atm-overlay"></div>
+      <span class="atm-emoji">🍺</span>
+      <div class="atm-label">Cold Drinks</div>
+      <div class="atm-sub">Thai coconut & more</div>
+    </div>
+    <div class="atm-card reveal">
+      <div class="atm-overlay"></div>
+      <span class="atm-emoji">🌏</span>
+      <div class="atm-label">Global Crowd</div>
+      <div class="atm-sub">Tourists & locals united</div>
+    </div>
+    <div class="atm-card reveal">
+      <div class="atm-overlay"></div>
+      <span class="atm-emoji">⚡</span>
+      <div class="atm-label">5-Min Service</div>
+      <div class="atm-sub">Fast, fresh, fantastic</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS & LOCATION -->
+<section id="visit">
+  <div class="reveal-left">
+    <div class="section-tag">Opening Hours</div>
+    <h2 class="section-title">When to <em>Visit</em></h2>
+    <div class="divider"></div>
+    <div class="hours-grid">
+      <div class="hours-row">
+        <span class="hours-day">Monday</span>
+        <span class="hours-time">4:30 PM – 3:00 AM</span>
+      </div>
+      <div class="hours-row closed">
+        <span class="hours-day">Tuesday</span>
+        <span class="hours-tag">Closed</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Wednesday</span>
+        <span class="hours-time">4:30 PM – 3:00 AM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Thursday</span>
+        <span class="hours-time">4:30 PM – 3:00 AM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Friday</span>
+        <span class="hours-time">4:30 PM – 3:00 AM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Saturday</span>
+        <span class="hours-time">4:30 PM – 3:00 AM</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Sunday</span>
+        <span class="hours-time">4:30 PM – 3:00 AM</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="location-card reveal-right">
+    <div class="location-map-placeholder">
+      <div class="map-grid-lines"></div>
+      <div style="position:relative; text-align:center;">
+        <div style="font-size:4rem;">📍</div>
+        <div style="font-size:0.85rem; margin-top:8px; color:var(--gold);">Jalan Alor, Bukit Bintang</div>
+      </div>
+    </div>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Address</div>
+          <div class="contact-val">39, Jalan Alor, Bukit Bintang<br>50200 Kuala Lumpur, Malaysia</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val"><a href="tel:+60122133082">+60 12-213 3082</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🚗</div>
+        <div>
+          <div class="contact-label">Parking</div>
+          <div class="contact-val">Paid parking available nearby<br>Accessible by MRT / Grab</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🍱</div>
+        <div>
+          <div class="contact-label">Services</div>
+          <div class="contact-val">Dine-in · Takeaway · Delivery (FoodPanda)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reveal">
+    <div class="section-tag">What People Say</div>
+    <h2 class="section-title">Guest <em>Reviews</em></h2>
+    <div class="divider" style="margin: 20px auto;"></div>
+  </div>
+  <div class="reviews-track-wrap">
+    <div class="reviews-track" id="reviewsTrack">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The grilled stingray here is absolutely legendary. The sambal was perfectly spiced and the fish was so moist. We came back three nights in a row!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇸🇬</div>
+          <div>
+            <div class="author-name">Sarah T.</div>
+            <div class="author-date">Tripadvisor · Singapore</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Best butter prawns I've ever had in KL. The egg floss was so crispy and the prawns were huge and fresh. Food arrived in under 5 minutes — amazing!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇯🇵</div>
+          <div>
+            <div class="author-name">Yuki M.</div>
+            <div class="author-date">Google · Japan</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★⭐</div>
+        <p class="review-text">"The lala clams are to die for. My friends and I ordered three plates — could not stop eating. Highly recommend coming here for a late-night supper!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇲🇾</div>
+          <div>
+            <div class="author-name">Amin R.</div>
+            <div class="author-date">Burpple · Kuala Lumpur</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"We visited Jalan Alor on our KL trip and Meng Kee was the highlight. The atmosphere is electric, the smoke from the grill smells incredible, and the food is superb."</p>
+        <div class="review-author">
+          <div class="author-avatar">🇬🇧</div>
+          <div>
+            <div class="author-name">James W.</div>
+            <div class="author-date">Tripadvisor · London</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The salted egg squid was mind-blowing. Perfectly crispy outside, tender inside. The service was super fast and the staff were so friendly. Will be back!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇦🇺</div>
+          <div>
+            <div class="author-name">Priya K.</div>
+            <div class="author-date">Google · Melbourne</div>
+          </div>
+        </div>
+      </div>
+      <!-- Duplicate for infinite loop -->
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The grilled stingray here is absolutely legendary. The sambal was perfectly spiced and the fish was so moist. We came back three nights in a row!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇸🇬</div>
+          <div>
+            <div class="author-name">Sarah T.</div>
+            <div class="author-date">Tripadvisor · Singapore</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Best butter prawns I've ever had in KL. The egg floss was so crispy and the prawns were huge and fresh. Food arrived in under 5 minutes — amazing!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇯🇵</div>
+          <div>
+            <div class="author-name">Yuki M.</div>
+            <div class="author-date">Google · Japan</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★⭐</div>
+        <p class="review-text">"The lala clams are to die for. My friends and I ordered three plates — could not stop eating. Highly recommend coming here for a late-night supper!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇲🇾</div>
+          <div>
+            <div class="author-name">Amin R.</div>
+            <div class="author-date">Burpple · Kuala Lumpur</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"We visited Jalan Alor on our KL trip and Meng Kee was the highlight. The atmosphere is electric, the smoke from the grill smells incredible, and the food is superb."</p>
+        <div class="review-author">
+          <div class="author-avatar">🇬🇧</div>
+          <div>
+            <div class="author-name">James W.</div>
+            <div class="author-date">Tripadvisor · London</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The salted egg squid was mind-blowing. Perfectly crispy outside, tender inside. The service was super fast and the staff were so friendly. Will be back!"</p>
+        <div class="review-author">
+          <div class="author-avatar">🇦🇺</div>
+          <div>
+            <div class="author-name">Priya K.</div>
+            <div class="author-date">Google · Melbourne</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="reveal">
+    <h2 class="cta-title">Ready to Experience <span style="color:var(--gold)">the Grill?</span></h2>
+    <p class="cta-sub">Walk in, or call us to secure your table. Open till 3AM — we'll be here.</p>
+    <div class="cta-btns">
+      <a href="tel:+60122133082" class="btn-primary">📞 Call Now: +60 12-213 3082</a>
+      <a href="https://maps.app.goo.gl/kYApTv1JAPbn93ua7" target="_blank" class="btn-outline">📍 Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">MENG KEE 🔥</div>
+      <p class="footer-desc">Jalan Alor's most beloved grill fish restaurant. Serving fresh, flame-kissed seafood to locals and travellers since the 1990s. Come for the food, stay for the experience.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#" title="Facebook">📘</a>
+        <a class="social-btn" href="#" title="Instagram">📸</a>
+        <a class="social-btn" href="#" title="TripAdvisor">⭐</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#menu">Full Menu</a></li>
+        <li><a href="#signature">Signatures</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#visit">Visit Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul class="footer-links">
+        <li><a href="tel:+60122133082">+60 12-213 3082</a></li>
+        <li><a href="#">39 Jalan Alor, KL</a></li>
+        <li><a href="#">Mon, Wed–Sun</a></li>
+        <li><a href="#">4:30 PM – 3:00 AM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Restoran Meng Kee Grill Fish. All rights reserved.</span>
+    <span>Jalan Alor, Bukit Bintang, Kuala Lumpur 🇲🇾</span>
+  </div>
+</footer>
+
+<script>
+  /* ── NAV SCROLL ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  /* ── CANVAS PARTICLE EMBERS ── */
+  const canvas = document.getElementById('canvas-bg');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + 10;
+      this.size = Math.random() * 4 + 1;
+      this.speedY = Math.random() * 2 + 1;
+      this.speedX = (Math.random() - 0.5) * 1.5;
+      this.opacity = Math.random() * 0.7 + 0.2;
+      this.color = Math.random() > 0.5 ? '#ff6b35' : '#d4a017';
+      this.life = 0;
+      this.maxLife = Math.random() * 150 + 80;
+    }
+    update() {
+      this.y -= this.speedY;
+      this.x += this.speedX + Math.sin(this.life * 0.05) * 0.5;
+      this.life++;
+      this.opacity = (1 - this.life / this.maxLife) * 0.7;
+      this.size *= 0.995;
+      if (this.life > this.maxLife || this.y < -10) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) {
+    const p = new Particle();
+    p.life = Math.random() * p.maxLife;
+    particles.push(p);
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  /* ── SCROLL REVEAL ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+  /* ── COUNTER ANIMATION ── */
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        let current = 0;
+        const step = target / 60;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = Math.floor(current) + (target === 5 ? '' : '+');
+        }, 20);
+        counterObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObs.observe(el));
+
+  /* ── MENU TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const cards = document.querySelectorAll('.menu-card');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+        if (show) {
+          card.style.animation = 'none';
+          card.offsetHeight;
+          card.style.animation = 'fadeInUp 0.4s ease both';
+        }
+      });
+    });
+  });
+
+  /* ── CARD 3D TILT ── */
+  document.querySelectorAll('.menu-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `translateY(-10px) scale(1.02) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  /* ── SMOOTH SCROLL ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>

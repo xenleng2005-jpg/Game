@@ -21,7 +21,6 @@ body {
   padding: 12px 0 20px;
 }
 
-/* Animated background grid */
 body::before {
   content: '';
   position: fixed;
@@ -39,7 +38,6 @@ body::before {
   100% { transform: translateY(40px); }
 }
 
-/* Glow orbs */
 body::after {
   content: '';
   position: fixed;
@@ -64,7 +62,6 @@ body::after {
   width: 100%;
 }
 
-/* Title */
 #title {
   font-size: clamp(24px, 8vw, 40px);
   font-weight: 900;
@@ -82,7 +79,6 @@ body::after {
   50%      { text-shadow: 0 0 20px #0ff, 0 0 60px #0ff, 0 0 100px #0ff, 0 0 5px #fff; }
 }
 
-/* Stats bar */
 #stats {
   display: flex;
   gap: 20px;
@@ -121,14 +117,12 @@ body::after {
   100% { transform: scale(1); }
 }
 
-/* Game area */
 #game-wrap {
   display: flex;
   gap: 12px;
   align-items: flex-start;
 }
 
-/* Board canvas */
 #board-wrap {
   position: relative;
 }
@@ -141,7 +135,6 @@ body::after {
     0 0 60px rgba(0,255,255,0.1);
 }
 
-/* Line clear flash */
 #flash {
   position: absolute;
   inset: 0;
@@ -153,7 +146,6 @@ body::after {
 #flash.go { animation: flash 0.25s ease; }
 @keyframes flash { 0%,100%{opacity:0} 50%{opacity:1} }
 
-/* Sidebar */
 #sidebar {
   display: flex;
   flex-direction: column;
@@ -177,7 +169,6 @@ body::after {
 }
 #next-canvas { display: block; margin: 0 auto; }
 
-/* Controls */
 #controls {
   display: grid;
   grid-template-columns: repeat(3, 64px);
@@ -236,7 +227,6 @@ body::after {
   letter-spacing: 1px;
 }
 
-/* Level badge */
 #level-badge {
   position: absolute;
   top: -12px;
@@ -257,7 +247,6 @@ body::after {
 }
 @keyframes badgePulse { 0%,100%{box-shadow:0 0 10px #0ff} 50%{box-shadow:0 0 25px #0ff, 0 0 50px #0ff} }
 
-/* Overlay */
 #overlay {
   position: fixed;
   inset: 0;
@@ -309,7 +298,6 @@ body::after {
   box-shadow: 0 0 40px rgba(0,255,255,0.6);
 }
 
-/* Particles */
 .particle {
   position: fixed;
   width: 6px;
@@ -434,17 +422,14 @@ function spawnParticles(x, y, color) {
 function lock(){
   cells(current).forEach(([r,c])=>{if(r>=0)grid[r][c]=current.color;});
   let cleared=0;
-  const clearedRows=[];
-  for(let r=ROWS-1;r>=0;r--){if(grid[r].every(v=>v)){clearedRows.push(r);grid.splice(r,1);grid.unshift(new Array(COLS).fill(0));cleared++;r++;}}
+  for(let r=ROWS-1;r>=0;r--){if(grid[r].every(v=>v)){grid.splice(r,1);grid.unshift(new Array(COLS).fill(0));cleared++;r++;}}
   if(cleared){
     score+=SCORE_TABLE[cleared]*level; lines+=cleared;
     const newLevel=Math.floor(lines/10)+1;
     if(newLevel>level){level=newLevel;levelBadge.textContent=level;levelBadge.style.animation='none';setTimeout(()=>levelBadge.style.animation='',10);}
-    // Flash effect
     flashEl.classList.remove('go');
     void flashEl.offsetWidth;
     flashEl.classList.add('go');
-    // Particles at center
     const bRect=boardCanvas.getBoundingClientRect();
     spawnParticles(bRect.left+bRect.width/2, bRect.top+bRect.height/2, NEON[current.color]);
   }
@@ -474,7 +459,6 @@ function drawCell(ctx, c, r, colorIdx, ghost=false, small=false){
     ctx.shadowBlur=0;
     return;
   }
-  // Gradient fill
   const grad=ctx.createLinearGradient(x,y,x+w,y+h);
   grad.addColorStop(0,'rgba(255,255,255,0.18)');
   grad.addColorStop(1,'rgba(0,0,0,0.1)');
@@ -484,11 +468,9 @@ function drawCell(ctx, c, r, colorIdx, ghost=false, small=false){
   ctx.fillStyle=grad;
   ctx.fillRect(x,y,w,h);
   ctx.shadowBlur=0;
-  // Top/left highlight
   ctx.fillStyle='rgba(255,255,255,0.25)';
   ctx.fillRect(x,y,w,3);
   ctx.fillRect(x,y,3,h);
-  // Border glow
   ctx.strokeStyle=glow; ctx.lineWidth=1;
   ctx.shadowBlur=8; ctx.shadowColor=glow;
   ctx.strokeRect(x+0.5,y+0.5,w-1,h-1);
@@ -496,20 +478,15 @@ function drawCell(ctx, c, r, colorIdx, ghost=false, small=false){
 }
 
 function drawBoard(){
-  // Background
   ctx.fillStyle='#070714';
   ctx.fillRect(0,0,boardCanvas.width,boardCanvas.height);
-  // Grid
   ctx.strokeStyle='rgba(0,255,255,0.04)';
   ctx.lineWidth=1;
   for(let c=0;c<=COLS;c++){ctx.beginPath();ctx.moveTo(c*CELL,0);ctx.lineTo(c*CELL,ROWS*CELL);ctx.stroke();}
   for(let r=0;r<=ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(COLS*CELL,r*CELL);ctx.stroke();}
-  // Locked
   for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(grid[r][c])drawCell(ctx,c,r,grid[r][c]);
-  // Ghost
   const gr=ghostRow();
-  if(gr!==current.row){cells(current,gr).forEach(([r,c])=>{if(r>=0)drawCell(ctx,c,r,current.color,true);});}
-  // Current
+  if(gr!==current.row){cells(current,gr).forEach(([r,c])=>{if(r>=0)drawCell(ctx,c,r,current.color,true);}); }
   cells(current).forEach(([r,c])=>{if(r>=0)drawCell(ctx,c,r,current.color);});
 }
 
@@ -564,7 +541,6 @@ function showOverlay(){
 }
 function hideOverlay(){document.getElementById('overlay').style.display='none';}
 
-// Touch buttons
 document.getElementById('btn-left').addEventListener('touchstart',e=>{e.preventDefault();tryMove(0,-1);},{passive:false});
 document.getElementById('btn-right').addEventListener('touchstart',e=>{e.preventDefault();tryMove(0,1);},{passive:false});
 document.getElementById('btn-rotate').addEventListener('touchstart',e=>{e.preventDefault();tryMove(0,0,1);},{passive:false});
@@ -575,12 +551,10 @@ document.getElementById('btn-pause').addEventListener('touchstart',e=>{
   document.getElementById('btn-pause').innerHTML=paused?'▶ RESUME':'⏸ PAUSE';
 },{passive:false});
 
-// Mouse fallback
 ['btn-left','btn-right','btn-rotate','btn-down','btn-drop','btn-pause'].forEach(id=>{
   document.getElementById(id).addEventListener('click',function(){this.dispatchEvent(new TouchEvent('touchstart'));});
 });
 
-// Keyboard
 document.addEventListener('keydown',e=>{
   if(over||paused)return;
   if(e.key==='ArrowLeft')tryMove(0,-1);
@@ -591,7 +565,6 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='p'||e.key==='P')paused=!paused;
 });
 
-// Swipe
 let tx=0,ty=0;
 boardCanvas.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
 boardCanvas.addEventListener('touchend',e=>{
