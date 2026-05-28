@@ -582,13 +582,13 @@ document.getElementById('btn-pause').addEventListener('touchstart',e=>{
 
 // Keyboard
 document.addEventListener('keydown',e=>{
+  if(e.key==='p'||e.key==='P'){paused=!paused;return;}
   if(over||paused)return;
   if(e.key==='ArrowLeft')tryMove(0,-1);
   else if(e.key==='ArrowRight')tryMove(0,1);
   else if(e.key==='ArrowDown'){if(!tryMove(1))lock();}
   else if(e.key==='ArrowUp')tryMove(0,0,1);
   else if(e.key===' '){e.preventDefault();hardDrop();}
-  else if(e.key==='p'||e.key==='P')paused=!paused;
 });
 
 // Swipe
