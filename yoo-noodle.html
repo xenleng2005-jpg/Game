@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoo Noodle 优一麵館 | Kota Damansara</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#0A0602;--dark2:#130C05;--dark3:#1C1008;--gold:#C8A84B;--gold2:#E8C870;--red:#C41C1C;--white:#F8F2E8;--gray:#8A8070}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:22px 60px;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease}
+nav.scrolled{background:rgba(10,6,2,.97);backdrop-filter:blur(12px);padding:14px 60px;border-bottom:1px solid rgba(200,168,75,.15)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--gold);text-decoration:none;font-weight:700;line-height:1.1}
+.nav-logo span{display:block;font-size:.62rem;color:rgba(248,242,232,.55);letter-spacing:3px;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:300}
+.nav-links{display:flex;list-style:none;gap:36px}
+.nav-links a{color:rgba(248,242,232,.75);text-decoration:none;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold)!important;color:var(--dark)!important;padding:10px 22px;font-weight:700!important}
+
+/* HERO */
+.hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(196,28,28,.12) 0%,transparent 55%),radial-gradient(ellipse at 80% 40%,rgba(200,168,75,.08) 0%,transparent 50%),linear-gradient(180deg,#0A0602 0%,#170A04 50%,#0A0602 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.025;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 1px,transparent 22px);animation:patShift 25s linear infinite}
+@keyframes patShift{0%{transform:translate(0,0)}100%{transform:translate(22px,22px)}}
+.noodle-strands{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.strand{position:absolute;width:1.5px;border-radius:2px;background:linear-gradient(to bottom,transparent,rgba(200,168,75,.25),transparent);animation:strandFall linear infinite}
+@keyframes strandFall{0%{transform:translateY(-120px);opacity:0}15%{opacity:1}85%{opacity:.6}100%{transform:translateY(105vh);opacity:0}}
+.hero-content{position:relative;z-index:10;text-align:center;padding:0 24px}
+.hero-badge{display:inline-block;border:1px solid rgba(200,168,75,.45);color:var(--gold);font-size:.68rem;letter-spacing:4px;text-transform:uppercase;padding:8px 22px;margin-bottom:32px;animation:fadeInDown .9s ease both}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,9vw,7.5rem);font-weight:900;line-height:1.02;margin-bottom:6px;animation:fadeInUp .9s ease .2s both}
+.hero-title .gold{color:var(--gold)}
+.hero-sub{font-size:clamp(.85rem,2vw,1.15rem);color:rgba(248,242,232,.5);letter-spacing:6px;text-transform:uppercase;margin-bottom:14px;animation:fadeInUp .9s ease .3s both}
+.hero-cn{font-size:clamp(1.3rem,2.5vw,2rem);color:var(--gold);margin-bottom:38px;animation:fadeInUp .9s ease .4s both;font-weight:600}
+.hero-desc{font-size:.94rem;color:rgba(248,242,232,.6);max-width:480px;margin:0 auto 48px;line-height:1.9;animation:fadeInUp .9s ease .5s both}
+.hero-btns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .9s ease .6s both}
+.btn-primary{background:var(--gold);color:var(--dark);padding:15px 38px;font-size:.82rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:700;border-radius:2px;transition:all .3s}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 10px 32px rgba(200,168,75,.35)}
+.btn-secondary{border:1px solid rgba(248,242,232,.35);color:var(--white);padding:15px 38px;font-size:.82rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .3s}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.scroll-ind{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeIn 2s ease 1.5s both}
+.scroll-txt{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,242,232,.35)}
+.scroll-line{width:1px;height:55px;background:linear-gradient(to bottom,rgba(200,168,75,.7),transparent);animation:scPulse 2.2s ease-in-out infinite}
+@keyframes scPulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* RATING BAR */
+.rating-bar{background:var(--dark2);padding:28px 0;border-top:1px solid rgba(200,168,75,.1);border-bottom:1px solid rgba(200,168,75,.1)}
+.rating-inner{max-width:900px;margin:0 auto;display:flex;justify-content:center;gap:60px;flex-wrap:wrap;padding:0 30px}
+.rating-item{text-align:center}
+.rating-num{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-weight:700}
+.rating-label{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,242,232,.45);margin-top:4px}
+
+/* SECTIONS BASE */
+.section-label{text-align:center;font-size:.68rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3.2rem);text-align:center;margin-bottom:60px;font-weight:700;line-height:1.2}
+.container{max-width:1180px;margin:0 auto;padding:0 40px}
+
+/* BOWL SHOWCASE */
+.bowls-section{padding:100px 0;background:var(--dark);position:relative;overflow:hidden}
+.bowls-section::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,168,75,.3),transparent)}
+.bowls-grid{display:flex;justify-content:center;gap:70px;flex-wrap:wrap;padding:0 40px}
+.bowl-item{text-align:center;max-width:210px}
+.bowl-anim{width:150px;height:150px;margin:0 auto 22px;position:relative}
+.bowl-svg{width:100%;height:100%}
+
+/* Steam animation classes */
+.sp1{animation:steamUp 3s ease-in-out infinite}
+.sp2{animation:steamUp 3s ease-in-out .8s infinite}
+.sp3{animation:steamUp 3s ease-in-out 1.6s infinite}
+@keyframes steamUp{0%{transform:translateY(0) scaleX(1);opacity:0}25%{opacity:.65}100%{transform:translateY(-38px) scaleX(1.8);opacity:0}}
+
+.bowl-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin-bottom:7px;font-weight:700}
+.bowl-cn{font-size:.78rem;color:rgba(248,242,232,.4);margin-bottom:10px;letter-spacing:1px}
+.bowl-desc{font-size:.8rem;color:rgba(248,242,232,.5);line-height:1.7}
+
+/* NOODLE TYPES */
+.types-section{padding:80px 0;background:var(--dark2);text-align:center}
+.types-grid{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;margin-top:50px;padding:0 40px}
+.type-card{background:rgba(255,255,255,.02);border:1px solid rgba(200,168,75,.13);padding:40px 28px;text-align:center;min-width:170px;transition:all .35s;cursor:default}
+.type-card:hover{border-color:var(--gold);transform:translateY(-6px);background:rgba(200,168,75,.04)}
+.type-icon{font-size:2.8rem;display:block;margin-bottom:16px;animation:floatY 4s ease-in-out infinite}
+.type-card:nth-child(2) .type-icon{animation-delay:1.3s}
+.type-card:nth-child(3) .type-icon{animation-delay:2.6s}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.type-cn{font-size:1.25rem;color:var(--gold);font-weight:700;margin-bottom:6px}
+.type-en{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:rgba(248,242,232,.45)}
+
+/* MENU */
+.menu-section{padding:100px 0;background:var(--dark3);position:relative}
+.menu-section::before,.menu-section::after{content:'';position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,168,75,.25),transparent)}
+.menu-section::before{top:0}.menu-section::after{bottom:0}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:2px}
+.menu-card{background:rgba(255,255,255,.02);border:1px solid rgba(200,168,75,.08);padding:32px;transition:all .4s;position:relative;overflow:hidden}
+.menu-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(200,168,75,.05),transparent 60%);opacity:0;transition:opacity .4s}
+.menu-card:hover{border-color:rgba(200,168,75,.35);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.menu-card:hover::before{opacity:1}
+.mc-icon{font-size:2.4rem;margin-bottom:16px;display:block}
+.mc-code{font-size:.65rem;color:var(--gold);letter-spacing:2.5px;margin-bottom:8px}
+.mc-name{font-family:'Playfair Display',serif;font-size:1.08rem;margin-bottom:5px;color:var(--white)}
+.mc-cn{font-size:.8rem;color:rgba(248,242,232,.38);margin-bottom:13px;letter-spacing:.5px}
+.mc-desc{font-size:.8rem;color:rgba(248,242,232,.52);line-height:1.75;margin-bottom:22px}
+.mc-footer{display:flex;justify-content:space-between;align-items:center}
+.mc-price{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold);font-weight:700}
+.mc-tag{font-size:.62rem;letter-spacing:1.5px;padding:4px 10px;text-transform:uppercase;border-radius:1px}
+.tag-sig{background:rgba(196,28,28,.18);color:#E08080;border:1px solid rgba(196,28,28,.25)}
+.tag-new{background:rgba(200,168,75,.12);color:var(--gold);border:1px solid rgba(200,168,75,.25)}
+.tag-pop{background:rgba(255,255,255,.04);color:rgba(248,242,232,.55);border:1px solid rgba(255,255,255,.1)}
+
+/* SIGNATURE */
+.sig-section{padding:110px 0;background:var(--dark);position:relative;overflow:hidden}
+.sig-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(200,168,75,.05),transparent 60%)}
+.sig-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto;padding:0 40px}
+.sig-visual{position:relative;height:400px;display:flex;align-items:center;justify-content:center}
+.pot-wrap{position:relative;width:250px;height:250px}
+.pot-glow{position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle,rgba(200,168,75,.14),transparent 70%);animation:glowP 3s ease-in-out infinite}
+@keyframes glowP{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.12);opacity:1}}
+.pot-steam{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);display:flex;gap:14px;padding-bottom:4px}
+.ps{width:3px;border-radius:3px;background:linear-gradient(to top,rgba(255,255,255,.5),transparent);animation:bigSt 2.5s ease-in-out infinite}
+.ps:nth-child(1){height:55px;animation-delay:0s}
+.ps:nth-child(2){height:75px;animation-delay:.5s}
+.ps:nth-child(3){height:60px;animation-delay:1s}
+.ps:nth-child(4){height:70px;animation-delay:1.5s}
+.ps:nth-child(5){height:50px;animation-delay:.8s}
+@keyframes bigSt{0%{transform:translateY(0) scaleX(1);opacity:0}30%{opacity:.85}100%{transform:translateY(-70px) scaleX(2.2);opacity:0}}
+.sig-info .section-label,.sig-info .section-title{text-align:left}
+.sig-desc{color:rgba(248,242,232,.6);line-height:1.95;margin-bottom:30px;font-size:.93rem}
+.sig-feats{display:flex;flex-direction:column;gap:13px;margin-bottom:38px}
+.sf{display:flex;align-items:center;gap:13px;color:rgba(248,242,232,.72);font-size:.87rem}
+.sf-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* INFO */
+.info-section{padding:100px 0;background:var(--dark2)}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(200,168,75,.1);border:1px solid rgba(200,168,75,.1)}
+.info-card{background:var(--dark2);padding:60px 38px;text-align:center;transition:background .3s}
+.info-card:hover{background:var(--dark3)}
+.ic-icon{font-size:2.4rem;margin-bottom:22px;display:block}
+.ic-title{font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.ic-text{font-size:.88rem;color:rgba(248,242,232,.65);line-height:2}
+.ic-text strong{color:var(--white);display:block;font-size:.96rem;margin-bottom:6px}
+.non-halal{display:inline-flex;align-items:center;gap:8px;background:rgba(196,28,28,.12);border:1px solid rgba(196,28,28,.25);color:#E08080;padding:6px 14px;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px;margin-top:16px}
+.ic-link{color:var(--gold);font-size:.78rem;text-decoration:none;letter-spacing:1.5px;border-bottom:1px solid rgba(200,168,75,.3);margin-top:16px;display:inline-block;transition:border-color .3s}
+.ic-link:hover{border-color:var(--gold)}
+
+/* MAP */
+.map-section{padding:0}
+.map-section iframe{display:block;filter:grayscale(80%) brightness(.85) sepia(.3)}
+
+/* DELIVERY */
+.delivery-section{padding:90px 0;background:linear-gradient(135deg,#170A03,#0D0601);text-align:center;position:relative}
+.delivery-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(200,168,75,.05),transparent 70%)}
+.del-btns{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:44px;position:relative}
+.del-btn{display:flex;align-items:center;gap:14px;padding:18px 34px;background:rgba(255,255,255,.03);border:1px solid rgba(200,168,75,.18);color:var(--white);text-decoration:none;font-size:.9rem;font-weight:500;transition:all .3s;border-radius:2px}
+.del-btn:hover{background:rgba(200,168,75,.08);border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,.4)}
+.del-icon{font-size:1.5rem}
+.del-sub{font-size:.65rem;opacity:.45;letter-spacing:1.5px;margin-bottom:3px}
+
+/* REVIEWS */
+.reviews-section{padding:100px 0;background:var(--dark3);text-align:center}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;padding:0 40px;max-width:1100px;margin-left:auto;margin-right:auto}
+.rev-card{background:rgba(255,255,255,.02);border:1px solid rgba(200,168,75,.09);padding:36px;text-align:left;transition:border-color .3s}
+.rev-card:hover{border-color:rgba(200,168,75,.3)}
+.rev-stars{color:var(--gold);font-size:.85rem;letter-spacing:2px;margin-bottom:14px}
+.rev-quote{font-size:3rem;color:rgba(200,168,75,.18);line-height:.9;margin-bottom:12px;font-family:'Playfair Display',serif}
+.rev-text{font-size:.85rem;color:rgba(248,242,232,.6);line-height:1.85;margin-bottom:22px}
+.rev-footer{display:flex;justify-content:space-between;align-items:flex-end}
+.rev-author{font-weight:600;font-size:.85rem;color:var(--white)}
+.rev-src{font-size:.72rem;color:rgba(248,242,232,.35);margin-top:3px}
+.rev-score{color:var(--gold);font-size:.82rem}
+
+/* FOOTER */
+footer{background:#040200;padding:65px 0 30px;border-top:1px solid rgba(200,168,75,.08)}
+.footer-grid{max-width:1180px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:65px;margin-bottom:50px}
+.f-logo{font-family:'Playfair Display',serif;font-size:1.85rem;color:var(--gold);font-weight:700;margin-bottom:6px}
+.f-logo-cn{font-size:.95rem;color:rgba(200,168,75,.55);margin-bottom:20px}
+.f-brand p{font-size:.83rem;color:rgba(248,242,232,.4);line-height:1.9;max-width:270px}
+.f-nh{margin-top:18px;color:rgba(248,242,232,.25);font-size:.7rem;letter-spacing:1.5px}
+.f-col h4{font-size:.67rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.f-col ul{list-style:none}
+.f-col ul li{margin-bottom:10px}
+.f-col ul li a{color:rgba(248,242,232,.4);text-decoration:none;font-size:.83rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--gold)}
+.f-col p{font-size:.83rem;color:rgba(248,242,232,.4);line-height:2}
+.f-div{height:1px;background:rgba(200,168,75,.08);max-width:1180px;margin:0 auto 28px}
+.f-bottom{max-width:1180px;margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;align-items:center}
+.f-bottom p{font-size:.75rem;color:rgba(248,242,232,.27)}
+.soc{display:flex;gap:14px}
+.soc-a{width:36px;height:36px;border:1px solid rgba(200,168,75,.18);display:flex;align-items:center;justify-content:center;color:rgba(248,242,232,.45);text-decoration:none;font-size:.8rem;font-weight:600;border-radius:50%;transition:all .3s}
+.soc-a:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,168,75,.06)}
+
+/* UTILS */
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .sig-inner{grid-template-columns:1fr;gap:50px}
+  .sig-visual{height:220px}
+  .info-grid{grid-template-columns:1fr}
+  .rev-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:38px}
+  .f-bottom{flex-direction:column;gap:18px;text-align:center}
+  .container,.bowls-grid,.types-grid,.del-btns,.rev-grid{padding:0 20px}
+  .bowls-grid{gap:30px}
+}
+@media(max-width:600px){
+  .menu-grid{grid-template-columns:1fr}
+  .hero-title{font-size:3rem}
+  .types-grid{gap:16px}
+  .rating-inner{gap:30px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Yoo Noodle<span>优一麵館 · Kota Damansara</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#signature">Signature</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#order">Order Now</a></li>
+    <li><a href="#order" class="nav-cta">Delivery</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="noodle-strands" id="strands"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Authentic · Handcrafted · Non-Halal · Kota Damansara</div>
+    <h1 class="hero-title"><span class="gold">Yoo</span> Noodle</h1>
+    <div class="hero-sub">Kota Damansara · Petaling Jaya</div>
+    <div class="hero-cn">优一麵館</div>
+    <p class="hero-desc">Handcrafted Pan Mee & Pork Noodles, lovingly made fresh every day. Experience the rich, comforting flavors of authentic Malaysian noodle culture.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">View Our Menu</a>
+      <a href="#order" class="btn-secondary">Order Delivery</a>
+    </div>
+  </div>
+  <div class="scroll-ind">
+    <span class="scroll-txt">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- RATING BAR -->
+<div class="rating-bar">
+  <div class="rating-inner">
+    <div class="rating-item"><div class="rating-num">4.4 ⭐</div><div class="rating-label">GrabFood Rating</div></div>
+    <div class="rating-item"><div class="rating-num">3</div><div class="rating-label">Noodle Types</div></div>
+    <div class="rating-item"><div class="rating-num">9–9</div><div class="rating-label">Open Daily</div></div>
+    <div class="rating-item"><div class="rating-num">100%</div><div class="rating-label">Handcrafted</div></div>
+  </div>
+</div>
+
+<!-- BOWL SHOWCASE -->
+<section class="bowls-section" id="about">
+  <div class="section-label">Our Specialties</div>
+  <h2 class="section-title">Crafted With <span style="color:var(--gold)">Passion</span></h2>
+  <div class="bowls-grid">
+
+    <!-- Bowl 1: Pan Mee Soup -->
+    <div class="bowl-item reveal">
+      <div class="bowl-anim">
+        <svg class="bowl-svg" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+          <g class="sp1"><path d="M48,38 Q55,22 48,10" stroke="rgba(255,255,255,.4)" stroke-width="2.2" fill="none" stroke-linecap="round"/></g>
+          <g class="sp2"><path d="M75,32 Q68,18 75,6" stroke="rgba(255,255,255,.3)" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+          <g class="sp3"><path d="M102,36 Q109,22 102,10" stroke="rgba(255,255,255,.35)" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+          <ellipse cx="75" cy="98" rx="62" ry="11" fill="rgba(200,168,75,.12)" stroke="rgba(200,168,75,.38)" stroke-width="1.5"/>
+          <path d="M13,84 Q22,128 75,133 Q128,128 137,84 Z" fill="#180E06" stroke="rgba(200,168,75,.45)" stroke-width="1.5"/>
+          <ellipse cx="75" cy="84" rx="57" ry="9" fill="#7A3B1A" opacity=".38"/>
+          <path d="M28,76 Q40,70 52,77 Q64,84 76,75 Q88,66 100,76 Q110,84 122,76" stroke="#F5E2BE" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <path d="M30,84 Q44,77 56,84 Q68,91 80,82 Q94,73 106,82" stroke="#EDD8A8" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <circle cx="58" cy="73" r="3.5" fill="#2A6E2A" opacity=".9"/>
+          <circle cx="90" cy="78" r="3.5" fill="#2A6E2A" opacity=".9"/>
+          <ellipse cx="72" cy="70" rx="7" ry="4.5" fill="#7A3B1A" opacity=".9"/>
+          <ellipse cx="75" cy="68" rx="57" ry="10" fill="none" stroke="rgba(200,168,75,.55)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="bowl-name">Pan Mee Soup</div>
+      <div class="bowl-cn">板面汤</div>
+      <div class="bowl-desc">Silky handcrafted noodles in rich pork bone broth with mushrooms & minced pork</div>
+    </div>
+
+    <!-- Bowl 2: Chili Dry -->
+    <div class="bowl-item reveal" style="transition-delay:.15s">
+      <div class="bowl-anim">
+        <svg class="bowl-svg" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+          <g class="sp1" style="transform-origin:58px 40px"><path d="M58,40 Q65,26 58,14" stroke="rgba(255,255,255,.35)" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+          <g class="sp3" style="transform-origin:95px 36px"><path d="M95,36 Q88,22 95,10" stroke="rgba(255,255,255,.28)" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>
+          <ellipse cx="75" cy="98" rx="62" ry="11" fill="rgba(200,168,75,.12)" stroke="rgba(200,168,75,.38)" stroke-width="1.5"/>
+          <path d="M13,84 Q22,128 75,133 Q128,128 137,84 Z" fill="#180E06" stroke="rgba(200,168,75,.45)" stroke-width="1.5"/>
+          <ellipse cx="75" cy="84" rx="57" ry="9" fill="#B83800" opacity=".22"/>
+          <path d="M24,76 Q38,68 52,76 Q66,84 78,74 Q92,64 104,74 Q116,82 130,74" stroke="#F5E2BE" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M26,84 Q42,75 56,83 Q70,91 84,81 Q98,71 112,80" stroke="#EDD8A8" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="70" cy="70" r="6.5" fill="#CC2200" opacity=".85"/>
+          <circle cx="88" cy="75" r="4.5" fill="#CC2200" opacity=".7"/>
+          <ellipse cx="56" cy="79" rx="9" ry="5.5" fill="#7A3B1A" opacity=".95"/>
+          <rect x="46" y="68" width="9" height="3.5" rx="1.8" fill="#C8A84B" opacity=".85"/>
+          <rect x="100" y="71" width="8" height="3" rx="1.5" fill="#C8A84B" opacity=".8"/>
+          <ellipse cx="75" cy="68" rx="57" ry="10" fill="none" stroke="rgba(200,168,75,.55)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="bowl-name">Chili Pan Mee</div>
+      <div class="bowl-cn">辣椒板面干</div>
+      <div class="bowl-desc">Dry noodles tossed in house chili sauce with crispy anchovies & runny egg</div>
+    </div>
+
+    <!-- Bowl 3: Claypot -->
+    <div class="bowl-item reveal" style="transition-delay:.3s">
+      <div class="bowl-anim">
+        <svg class="bowl-svg" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+          <g class="sp1" style="transform-origin:55px 44px"><path d="M55,44 Q62,28 55,16" stroke="rgba(255,255,255,.42)" stroke-width="2.3" fill="none" stroke-linecap="round"/></g>
+          <g class="sp2" style="transform-origin:95px 38px"><path d="M95,38 Q88,24 95,12" stroke="rgba(255,255,255,.32)" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+          <g class="sp3" style="transform-origin:75px 42px"><path d="M75,42 Q82,28 75,16" stroke="rgba(255,255,255,.28)" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>
+          <rect x="14" y="72" width="122" height="66" rx="12" fill="#3C1C0A" stroke="rgba(200,168,75,.5)" stroke-width="2"/>
+          <ellipse cx="75" cy="74" rx="58" ry="9" fill="#562808" stroke="rgba(200,168,75,.5)" stroke-width="2"/>
+          <ellipse cx="75" cy="70" rx="54" ry="7" fill="#6A3210" opacity=".8"/>
+          <rect x="58" y="60" width="34" height="14" rx="7" fill="#4A2010" stroke="rgba(200,168,75,.4)" stroke-width="1.5"/>
+          <ellipse cx="75" cy="105" rx="34" ry="13" fill="#B8860B" opacity=".38"/>
+          <ellipse cx="75" cy="105" rx="22" ry="8" fill="#DAA520" opacity=".32"/>
+          <path d="M28,90 Q46,83 64,90 Q78,96 92,86 Q106,76 122,86" stroke="#F5E2BE" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55"/>
+          <rect x="22" y="130" width="14" height="10" rx="4" fill="#2E1206"/>
+          <rect x="114" y="130" width="14" height="10" rx="4" fill="#2E1206"/>
+          <path d="M14,90 Q2,90 2,106 Q2,120 14,120" stroke="rgba(200,168,75,.4)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M136,90 Q148,90 148,106 Q148,120 136,120" stroke="rgba(200,168,75,.4)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="bowl-name">Claypot Abalone</div>
+      <div class="bowl-cn">瓦煲鲍鱼板面</div>
+      <div class="bowl-desc">Premium abalone, fish maw & pork simmered in a sizzling hot claypot</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOODLE TYPES -->
+<section class="types-section">
+  <div class="section-label">Choose Your Style</div>
+  <h2 class="section-title">3 Types of <span style="color:var(--gold)">Noodles</span></h2>
+  <p style="color:rgba(248,242,232,.45);font-size:.9rem;margin-top:-40px;margin-bottom:0">Every bowl, crafted exactly how you like it</p>
+  <div class="types-grid">
+    <div class="type-card reveal">
+      <span class="type-icon">🍜</span>
+      <div class="type-cn">幼面</div>
+      <div class="type-en">Thin Noodle</div>
+    </div>
+    <div class="type-card reveal" style="transition-delay:.15s">
+      <span class="type-icon">🍝</span>
+      <div class="type-cn">粗面</div>
+      <div class="type-en">Rough Noodle</div>
+    </div>
+    <div class="type-card reveal" style="transition-delay:.3s">
+      <span class="type-icon">🟫</span>
+      <div class="type-cn">块状</div>
+      <div class="type-en">Piece-Cut Noodle</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="section-label">What We Serve</div>
+    <h2 class="section-title reveal">Our <span style="color:var(--gold)">Menu</span></h2>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal">
+        <span class="mc-icon">🍲</span>
+        <div class="mc-code">P01</div>
+        <div class="mc-name">Mushroom Pan Mee Soup</div>
+        <div class="mc-cn">香菇板面汤</div>
+        <div class="mc-desc">Silky smooth pan mee in a clear, flavourful pork bone broth topped with earthy mushrooms, minced pork, and crispy fried anchovies. A timeless classic.</div>
+        <div class="mc-footer"><span class="mc-price">RM 18.50</span><span class="mc-tag tag-pop">Popular</span></div>
+      </div>
+
+      <div class="menu-card reveal" style="transition-delay:.1s">
+        <span class="mc-icon">🌶️</span>
+        <div class="mc-code">P02</div>
+        <div class="mc-name">Signature Mushroom Pan Mee Dry</div>
+        <div class="mc-cn">招牌香菇板面干</div>
+        <div class="mc-desc">Our signature dry pan mee tossed in fragrant sauce with mushrooms, minced pork, and our house-made chili paste. Bold, satisfying flavours in every bite.</div>
+        <div class="mc-footer"><span class="mc-price">RM 18.50</span><span class="mc-tag tag-sig">Signature</span></div>
+      </div>
+
+      <div class="menu-card reveal" style="transition-delay:.2s">
+        <span class="mc-icon">🍅</span>
+        <div class="mc-code">P05</div>
+        <div class="mc-name">Rich Tomato Soup Pan Mee</div>
+        <div class="mc-cn">浓郁番茄汤板面</div>
+        <div class="mc-desc">A tangy, robust tomato broth with tender pan mee, fresh pork, and vegetables. A unique comforting twist that's become a customer favourite.</div>
+        <div class="mc-footer"><span class="mc-price">RM 23.50</span><span class="mc-tag tag-new">Chef's Pick</span></div>
+      </div>
+
+      <div class="menu-card reveal" style="transition-delay:.3s">
+        <span class="mc-icon">🔥</span>
+        <div class="mc-code">P06</div>
+        <div class="mc-name">Chili Pan Mee</div>
+        <div class="mc-cn">辣椒板面</div>
+        <div class="mc-desc">Handcrafted noodles tossed with our signature house chili, crispy dried anchovies, soft runny egg, and minced pork. Spicy, addictive, unforgettable.</div>
+        <div class="mc-footer"><span class="mc-price">RM 21.00</span><span class="mc-tag tag-sig">Signature</span></div>
+      </div>
+
+      <div class="menu-card reveal" style="transition-delay:.4s">
+        <span class="mc-icon">🥢</span>
+        <div class="mc-code">P07</div>
+        <div class="mc-name">Sang Nguk Mian</div>
+        <div class="mc-cn">生肉面 · 猪肉碎香菇</div>
+        <div class="mc-desc">Fresh pork noodle soup with aromatic minced pork and mushrooms. A soul-warming bowl that delivers the pure, authentic taste of home-cooked noodles.</div>
+        <div class="mc-footer"><span class="mc-price">From RM 18.50</span><span class="mc-tag tag-new">New</span></div>
+      </div>
+
+      <div class="menu-card reveal" style="transition-delay:.5s">
+        <span class="mc-icon">🏺</span>
+        <div class="mc-code">SPECIAL</div>
+        <div class="mc-name">Claypot Abalone Pan Mee</div>
+        <div class="mc-cn">瓦煲鲍鱼板面</div>
+        <div class="mc-desc">Premium abalone, fish maw, pork slices & ham served piping hot in a traditional claypot. Rich collagen broth, generous portions — a true sharing indulgence.</div>
+        <div class="mc-footer"><span class="mc-price">For 2 Pax</span><span class="mc-tag tag-sig">Must Try</span></div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:50px;color:rgba(248,242,232,.3);font-size:.76rem;letter-spacing:.8px">
+      * Prices subject to change. Enquire in-store for daily specials and seasonal additions.
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE CLAYPOT -->
+<section class="sig-section" id="signature">
+  <div class="sig-inner">
+    <div class="sig-visual">
+      <div class="pot-wrap">
+        <div class="pot-glow"></div>
+        <svg viewBox="0 0 250 250" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg">
+          <rect x="18" y="95" width="214" height="140" rx="22" fill="#4A2010" stroke="rgba(200,168,75,.6)" stroke-width="2.5"/>
+          <rect x="22" y="99" width="206" height="132" rx="20" fill="rgba(196,28,28,.07)"/>
+          <ellipse cx="125" cy="97" rx="100" ry="15" fill="#6B3015" stroke="rgba(200,168,75,.6)" stroke-width="2.5"/>
+          <ellipse cx="125" cy="93" rx="96" ry="9" fill="#7B3818" opacity=".75"/>
+          <rect x="96" y="72" width="58" height="24" rx="12" fill="#5A2810" stroke="rgba(200,168,75,.45)" stroke-width="2"/>
+          <ellipse cx="125" cy="72" rx="22" ry="7" fill="#6B3015"/>
+          <ellipse cx="125" cy="160" rx="58" ry="22" fill="#B8860B" opacity=".38"/>
+          <ellipse cx="125" cy="160" rx="38" ry="14" fill="#DAA520" opacity=".3"/>
+          <path d="M50,120 Q75,112 100,120 Q118,128 138,116 Q162,104 196,116" stroke="#F5E2BE" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".48"/>
+          <ellipse cx="125" cy="110" rx="90" ry="12" fill="#8B4513" opacity=".25"/>
+          <rect x="36" y="224" width="22" height="17" rx="6" fill="#3A1A08"/>
+          <rect x="192" y="224" width="22" height="17" rx="6" fill="#3A1A08"/>
+          <path d="M18,112 Q2,112 2,130 Q2,148 18,148" stroke="rgba(200,168,75,.42)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M232,112 Q248,112 248,130 Q248,148 232,148" stroke="rgba(200,168,75,.42)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="pot-steam">
+          <div class="ps"></div><div class="ps"></div><div class="ps"></div><div class="ps"></div><div class="ps"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sig-info">
+      <div class="section-label">House Signature</div>
+      <h2 class="section-title" style="margin-bottom:24px">Claypot Abalone<br><span style="color:var(--gold)">Pan Mee</span></h2>
+      <p class="sig-desc">Our crown jewel — a premium claypot experience featuring tender abalone slices, fish maw, pork belly, and ham simmered in a deeply aromatic clear broth. Served piping hot at your table, this generous sharing bowl is what Yoo Noodle is renowned for throughout Kota Damansara.</p>
+      <div class="sig-feats">
+        <div class="sf"><div class="sf-dot"></div>Premium abalone &amp; fish maw (鲍鱼 &amp; 鱼鳔)</div>
+        <div class="sf"><div class="sf-dot"></div>Tender pork slices &amp; ham (猪肉片 &amp; 火腿)</div>
+        <div class="sf"><div class="sf-dot"></div>Hand-kneaded fresh pan mee noodles</div>
+        <div class="sf"><div class="sf-dot"></div>Rich collagen-rich clear broth</div>
+        <div class="sf"><div class="sf-dot"></div>Generous sharing portion for 2 pax</div>
+        <div class="sf"><div class="sf-dot"></div>Soup refill available upon request</div>
+      </div>
+      <a href="#order" class="btn-primary">Order Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION & HOURS -->
+<section class="info-section" id="location">
+  <div class="container">
+    <div class="section-label">Find Us</div>
+    <h2 class="section-title reveal">Visit <span style="color:var(--gold)">Us</span></h2>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px">
+    <div class="info-grid reveal">
+      <div class="info-card">
+        <span class="ic-icon">📍</span>
+        <div class="ic-title">Location</div>
+        <div class="ic-text">
+          <strong>Yoo Noodle Kota Damansara</strong>
+          28-01, Jalan PJU 5/10,<br>Dataran Sunway,<br>47810 Petaling Jaya,<br>Selangor, Malaysia
+        </div>
+        <br>
+        <a href="https://maps.google.com/?q=28-01+Jalan+PJU+5/10+Dataran+Sunway+Petaling+Jaya+Selangor" target="_blank" class="ic-link">Get Directions →</a>
+      </div>
+      <div class="info-card">
+        <span class="ic-icon">🕘</span>
+        <div class="ic-title">Opening Hours</div>
+        <div class="ic-text">
+          <strong>Monday – Sunday</strong>
+          9:00 AM – 9:00 PM<br><br>
+          <span style="color:rgba(248,242,232,.38);font-size:.82rem">Open daily including public holidays</span>
+        </div>
+        <div class="non-halal">🐷 Non-Halal Establishment</div>
+      </div>
+      <div class="info-card">
+        <span class="ic-icon">📞</span>
+        <div class="ic-title">Contact &amp; Social</div>
+        <div class="ic-text">
+          <strong>011-1301 2428</strong>
+          <a href="https://www.instagram.com/yoonoodle/" target="_blank" style="color:rgba(248,242,232,.58);text-decoration:none;display:block;margin-top:14px;transition:color .3s" onmouseover="this.style.color='#C8A84B'" onmouseout="this.style.color='rgba(248,242,232,.58)'">📸 @yoonoodle on Instagram</a>
+          <a href="https://www.facebook.com/p/%E4%BC%98%E4%B8%80%E9%9D%A2%E9%A6%86-Yoo-Noodle-61562513905685/" target="_blank" style="color:rgba(248,242,232,.58);text-decoration:none;display:block;margin-top:10px;transition:color .3s" onmouseover="this.style.color='#C8A84B'" onmouseout="this.style.color='rgba(248,242,232,.58)'">📘 优一面馆 Yoo Noodle on Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="map-section" style="margin-top:50px;max-width:1100px;margin-left:auto;margin-right:auto;padding:0 40px">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.866988406!2d101.5919017!3d3.1492786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4e0a04b2fb3d%3A0x749c84f4c7bd898c!2sYoo%20Noodle%20Kota%20Damansara!5e0!3m2!1sen!2smy!4v1716000000000!5m2!1sen!2smy" width="100%" height="340" style="border:0;display:block" allowfullscreen loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- ORDER ONLINE -->
+<section class="delivery-section" id="order">
+  <div class="section-label">Delivery Available</div>
+  <h2 class="section-title reveal" style="position:relative">Order <span style="color:var(--gold)">Online</span></h2>
+  <p style="color:rgba(248,242,232,.45);font-size:.9rem;position:relative;margin-top:-40px">We deliver right to your doorstep via your favourite platforms</p>
+  <div class="del-btns reveal">
+    <a href="https://www.foodpanda.my/restaurant/xzx6/yoo-noodle-kota-damansara" target="_blank" class="del-btn">
+      <span class="del-icon">🐼</span>
+      <div><div class="del-sub">ORDER ON</div>Foodpanda</div>
+    </a>
+    <a href="https://food.grab.com/my/en/restaurant/yoo-noodles-kota-damansara-non-halal--delivery/1-C633R7LXLJ6GRE" target="_blank" class="del-btn">
+      <span class="del-icon">🟢</span>
+      <div><div class="del-sub">ORDER ON</div>GrabFood</div>
+    </a>
+    <a href="tel:01113012428" class="del-btn">
+      <span class="del-icon">📞</span>
+      <div><div class="del-sub">CALL TO ORDER</div>011-1301 2428</div>
+    </a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-label">What People Say</div>
+  <h2 class="section-title reveal">Guest <span style="color:var(--gold)">Reviews</span></h2>
+  <div class="rev-grid">
+    <div class="rev-card reveal">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-quote">"</div>
+      <div class="rev-text">The Claypot Abalone Pan Mee is absolutely incredible. The broth is so rich and the abalone is perfectly tender. Worth every ringgit — I will definitely keep coming back!</div>
+      <div class="rev-footer">
+        <div><div class="rev-author">Sarah L.</div><div class="rev-src">GrabFood Review</div></div>
+        <div class="rev-score">⭐ 4.4</div>
+      </div>
+    </div>
+    <div class="rev-card reveal" style="transition-delay:.15s">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-quote">"</div>
+      <div class="rev-text">Best pan mee in Kota Damansara! The handmade noodles have such a perfect chewy texture and the chili sauce is just the right heat. Every bowl feels special.</div>
+      <div class="rev-footer">
+        <div><div class="rev-author">Weng K.</div><div class="rev-src">Foodpanda Review</div></div>
+        <div class="rev-score">⭐ 4.4</div>
+      </div>
+    </div>
+    <div class="rev-card reveal" style="transition-delay:.3s">
+      <div class="rev-stars">★★★★☆</div>
+      <div class="rev-quote">"</div>
+      <div class="rev-text">Tried the Tomato Soup Pan Mee — unique and surprisingly comforting! Generous portions and the noodles are genuinely handmade. Great value for the quality you get.</div>
+      <div class="rev-footer">
+        <div><div class="rev-author">Michelle T.</div><div class="rev-src">Instagram Review</div></div>
+        <div class="rev-score">⭐ 4.4</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="f-brand">
+      <div class="f-logo">Yoo Noodle</div>
+      <div class="f-logo-cn">优一麵館</div>
+      <p>Authentic handcrafted Pan Mee &amp; Pork Noodles, made fresh daily in Kota Damansara. A comforting bowl for every occasion, every day.</p>
+      <div class="f-nh">NON-HALAL ESTABLISHMENT · 非清真</div>
+    </div>
+    <div class="f-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#menu">Our Menu</a></li>
+        <li><a href="#signature">Signature Dish</a></li>
+        <li><a href="#location">Location &amp; Hours</a></li>
+        <li><a href="#order">Order Online</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Visit Us</h4>
+      <p>28-01, Jalan PJU 5/10<br>Dataran Sunway, 47810<br>Petaling Jaya, Selangor<br><br>Tel: 011-1301 2428<br>Mon–Sun: 9am – 9pm</p>
+    </div>
+  </div>
+  <div style="max-width:1180px;margin:0 auto;padding:0 40px"><div class="f-div"></div></div>
+  <div class="f-bottom">
+    <p>© 2025 Yoo Noodle 优一麵館 · Kota Damansara. All rights reserved.</p>
+    <div class="soc">
+      <a href="https://www.instagram.com/yoonoodle/" target="_blank" class="soc-a" title="Instagram">IG</a>
+      <a href="https://www.facebook.com/p/%E4%BC%98%E4%B8%80%E9%9D%A2%E9%A6%86-Yoo-Noodle-61562513905685/" target="_blank" class="soc-a" title="Facebook">FB</a>
+      <a href="tel:01113012428" class="soc-a" title="Call">☎</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Falling noodle strands
+const sc = document.getElementById('strands');
+for (let i = 0; i < 20; i++) {
+  const s = document.createElement('div');
+  s.classList.add('strand');
+  s.style.cssText = `left:${Math.random()*100}%;height:${60+Math.random()*130}px;animation-duration:${6+Math.random()*9}s;animation-delay:${Math.random()*9}s;opacity:${.08+Math.random()*.18}`;
+  sc.appendChild(s);
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
